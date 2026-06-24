@@ -16,18 +16,20 @@ $stats = array(
 );
 ?>
 <section class="bs-hero" id="top">
-	<div class="bs-hero__inner">
-		<div data-reveal>
+	<div class="bs-hero__aurora" aria-hidden="true"></div>
+
+	<div class="bs-hero__inner bs-hero__anim">
+		<div>
 			<?php bright_stars_eyebrow( bs_field( 'hero_tag', 'hero.tag' ) ); ?>
 		</div>
-		<h1 class="bs-hero__h1" data-reveal data-rev-delay="0.06">
+		<h1 class="bs-hero__h1">
 			<?php echo esc_html( bs_field( 'hero_h1a', 'hero.h1a' ) ); ?><br>
 			<?php echo esc_html( bs_field( 'hero_h1b', 'hero.h1b' ) ); ?>
 			<span class="bs-accent-word"><?php echo esc_html( bs_field( 'hero_brand', 'hero.brand' ) ); ?></span>
 		</h1>
-		<p class="bs-hero__sub" data-reveal data-rev-delay="0.12"><?php echo esc_html( bs_field( 'hero_sub', 'hero.sub' ) ); ?></p>
+		<p class="bs-hero__sub"><?php echo esc_html( bs_field( 'hero_sub', 'hero.sub' ) ); ?></p>
 
-		<div class="bs-hero__cta" data-reveal data-rev-delay="0.18">
+		<div class="bs-hero__cta">
 			<a class="bs-btn bs-btn--primary bs-btn--lg" href="<?php echo esc_url( bs_route_url( 'contact' ) ); ?>">
 				<span><?php echo esc_html( bs_t( 'nav.start' ) ); ?></span>
 				<?php echo bs_icon( 'arrow-right', array( 'size' => 18 ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
@@ -37,18 +39,18 @@ $stats = array(
 			</a>
 		</div>
 
-		<div class="bs-hero__stats" data-reveal data-rev-delay="0.24">
+		<div class="bs-hero__stats">
 			<?php foreach ( $stats as $i => $s ) : ?>
 				<?php if ( $i > 0 ) : ?><div class="bs-stat__sep"></div><?php endif; ?>
 				<div>
-					<div class="bs-stat__num <?php echo $s['accent'] ? 'accent' : ''; ?>"><?php echo esc_html( $s['num'] ); ?></div>
+					<div class="bs-stat__num <?php echo $s['accent'] ? 'accent' : ''; ?>" data-count><?php echo esc_html( $s['num'] ); ?></div>
 					<div class="bs-stat__label"><?php echo esc_html( $s['label'] ); ?></div>
 				</div>
 			<?php endforeach; ?>
 		</div>
 	</div>
 
-	<div class="bs-hero__decor" aria-hidden="true">
+	<div class="bs-hero__decor" aria-hidden="true" data-parallax>
 		<div class="bs-decor-ring"></div>
 		<div class="bs-decor-diamond"></div>
 		<div class="bs-decor-card">
@@ -65,12 +67,15 @@ $stats = array(
 			<div class="lbl">&lt; ENGAGEMENT &gt;</div>
 			<div class="val">+312%</div>
 			<div class="bars">
-				<span style="height:38%"></span>
-				<span style="height:58%"></span>
-				<span style="height:46%"></span>
-				<span class="on" style="height:78%"></span>
-				<span class="on" style="height:100%"></span>
+				<span style="--h:38%"></span>
+				<span style="--h:58%"></span>
+				<span style="--h:46%"></span>
+				<span class="on" style="--h:78%"></span>
+				<span class="on" style="--h:100%"></span>
 			</div>
 		</div>
 	</div>
+
+	<div class="bs-hero__cue" aria-hidden="true"><span></span></div>
 </section>
+<?php

@@ -164,7 +164,7 @@ function bright_stars_cpt_fields() {
 			array( 'key' => 'tagline', 'label' => 'Tagline', 'type' => 'i18n_text' ),
 			array( 'key' => 'brief', 'label' => 'Brief / the challenge', 'type' => 'i18n_textarea' ),
 			array( 'key' => 'services', 'label' => 'What we did (one per line)', 'type' => 'i18n_lines' ),
-			array( 'key' => 'results', 'label' => 'Results (one per line: value | label)', 'type' => 'i18n_lines' ),
+			array( 'key' => 'results', 'label' => 'Results — one per line: "value | label", or "before → after | label" for a before/after', 'type' => 'i18n_lines' ),
 			array( 'key' => 'instagram', 'label' => 'Instagram URL', 'type' => 'url' ),
 			array( 'key' => 'handle', 'label' => 'Instagram handle (without @)', 'type' => 'text' ),
 			array( 'key' => 'website', 'label' => 'Website URL', 'type' => 'url' ),

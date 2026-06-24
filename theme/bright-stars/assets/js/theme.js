@@ -220,11 +220,66 @@
     });
   }
 
+  /* ---------- hero: count-up stats ---------- */
+  function initCounters() {
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('[data-count]');
+    if (!els.length || reduce) return;
+    function run(el) {
+      var raw = el.textContent.trim();
+      var m = raw.match(/^(\D*)([\d.,]+)(.*)$/);
+      if (!m) return;
+      var prefix = m[1], numStr = m[2].replace(/,/g, ''), suffix = m[3];
+      var target = parseFloat(numStr);
+      if (isNaN(target)) return;
+      var decimals = (numStr.split('.')[1] || '').length;
+      var t0 = null, dur = 1200;
+      function step(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        var v = (target * eased).toFixed(decimals);
+        el.textContent = prefix + Number(v).toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+        if (p < 1) requestAnimationFrame(step); else el.textContent = raw;
+      }
+      requestAnimationFrame(step);
+    }
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { run(e.target); obs.unobserve(e.target); } });
+      }, { threshold: 0.4 });
+      els.forEach(function (el) { obs.observe(el); });
+    } else {
+      els.forEach(run);
+    }
+  }
+
+  /* ---------- hero: pointer parallax on the floating decor ---------- */
+  function initParallax() {
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    if (window.matchMedia && matchMedia('(pointer: coarse)').matches) return;
+    var hero = document.querySelector('.bs-hero');
+    var decor = hero && hero.querySelector('[data-parallax]');
+    if (!hero || !decor || window.innerWidth < 1100) return;
+    var raf = 0, tx = 0, ty = 0;
+    function apply() { raf = 0; decor.style.transform = 'translate3d(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px,0)'; }
+    hero.addEventListener('mousemove', function (e) {
+      var r = hero.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width - 0.5) * 22;
+      ty = ((e.clientY - r.top) / r.height - 0.5) * 18;
+      if (!raf) raf = requestAnimationFrame(apply);
+    });
+    hero.addEventListener('mouseleave', function () { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(apply); });
+  }
+
   ready(function () {
     initLang();
     initMobile();
     initReveals();
     initScroll();
     initForm();
+    initCounters();
+    initParallax();
   });
 })();

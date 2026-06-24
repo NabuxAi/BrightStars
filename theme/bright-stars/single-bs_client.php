@@ -27,8 +27,14 @@ while ( have_posts() ) :
 	$services = array_filter( array_map( 'trim', preg_split( '/\r\n|\r|\n/', (string) bs_meta( $id, 'services' ) ) ) );
 	$results  = array();
 	foreach ( array_filter( array_map( 'trim', preg_split( '/\r\n|\r|\n/', (string) bs_meta( $id, 'results' ) ) ) ) as $line ) {
-		$parts     = array_map( 'trim', explode( '|', $line, 2 ) );
-		$results[] = array( 'n' => $parts[0], 'l' => isset( $parts[1] ) ? $parts[1] : '' );
+		$parts = array_map( 'trim', explode( '|', $line, 2 ) );
+		$label = isset( $parts[1] ) ? $parts[1] : '';
+		$ba    = preg_split( '/\s*(?:→|->)\s*/u', $parts[0], 2 );
+		if ( count( $ba ) === 2 ) {
+			$results[] = array( 'type' => 'ba', 'before' => $ba[0], 'after' => $ba[1], 'l' => $label );
+		} else {
+			$results[] = array( 'type' => 'delta', 'n' => $parts[0], 'l' => $label );
+		}
 	}
 	?>
 	<article <?php post_class( 'bs-cs' ); ?>>
@@ -88,10 +94,18 @@ while ( have_posts() ) :
 				<?php bright_stars_eyebrow( bs_t( 'cs.res_e' ) ); ?>
 				<h2 class="bs-h2" style="font-size:38px"><?php echo esc_html( bs_t( 'cs.res_h' ) ); ?></h2>
 			</div>
-			<div class="bs-metrics" data-reveal data-rev-delay="0.06" style="grid-template-columns:repeat(<?php echo (int) min( 3, count( $results ) ); ?>,1fr)">
+			<div class="bs-metrics bs-results" data-reveal data-rev-delay="0.06" style="grid-template-columns:repeat(<?php echo (int) min( 3, count( $results ) ); ?>,1fr)">
 				<?php foreach ( $results as $r ) : ?>
-					<div class="bs-metric">
-						<div class="bs-metric__num accent" style="font-size:56px"><?php echo esc_html( $r['n'] ); ?></div>
+					<div class="bs-metric bs-result">
+						<?php if ( 'ba' === $r['type'] ) : ?>
+							<div class="bs-result__ba">
+								<span class="bs-result__before"><?php echo esc_html( $r['before'] ); ?></span>
+								<?php echo bs_icon( bs_is_rtl_lang() ? 'arrow-left' : 'arrow-right', array( 'size' => 22, 'stroke' => 2.4 ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+								<span class="bs-result__after" data-count><?php echo esc_html( $r['after'] ); ?></span>
+							</div>
+						<?php else : ?>
+							<div class="bs-metric__num accent" style="font-size:56px" data-count><?php echo esc_html( $r['n'] ); ?></div>
+						<?php endif; ?>
 						<div class="bs-metric__lbl"><?php echo esc_html( $r['l'] ); ?></div>
 					</div>
 				<?php endforeach; ?>
