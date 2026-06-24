@@ -599,3 +599,62 @@ button { font-family: inherit; }
   .bs-phone { width: 250px; }
   .bs-cwx__logocard { width: 250px; }
 }
+
+/* ---------- comments ---------- */
+.bs-comments { margin-top: 8px; }
+.bs-comments__title { font-family: var(--font-display); font-weight: 700; letter-spacing: -.01em; font-size: 26px; margin: 0 0 24px; color: var(--bs-fg); }
+.bs-comments__title .bs-comments__n { color: var(--bs-accent); }
+
+.bs-commentlist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+.bs-commentlist .children { list-style: none; margin: 18px 0 0; padding: 0 0 0 28px; display: flex; flex-direction: column; gap: 18px; border-left: 1px solid var(--bs-line); }
+[dir="rtl"] .bs-commentlist .children { padding: 0 28px 0 0; border-left: 0; border-right: 1px solid var(--bs-line); }
+
+.bs-comments .comment-body { position: relative; background: var(--bs-panel-2); border: 1px solid var(--bs-line); border-radius: var(--radius-lg); padding: 22px 26px 20px 86px; }
+[dir="rtl"] .bs-comments .comment-body { padding: 22px 86px 20px 26px; }
+.bs-comments .comment-author { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.bs-comments .comment-author img.avatar { position: absolute; top: 22px; left: 26px; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--bs-line); }
+[dir="rtl"] .bs-comments .comment-author img.avatar { left: auto; right: 26px; }
+.bs-comments .comment-author .fn { font-style: normal; font-family: var(--font-display); font-weight: 600; font-size: 16px; letter-spacing: -.01em; color: var(--bs-fg); }
+.bs-comments .comment-author .says { display: none; }
+.bs-comments .comment-metadata { margin-top: 3px; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .04em; color: var(--bs-fg-subtle); }
+.bs-comments .comment-content { margin-top: 12px; font-family: var(--font-body); font-size: 15px; line-height: 1.7; color: var(--bs-fg-muted); }
+.bs-comments .comment-content p { margin: 0 0 12px; }
+.bs-comments .comment-content p:last-child { margin-bottom: 0; }
+.bs-comments .comment-awaiting-moderation { display: inline-block; margin-top: 8px; font-family: var(--font-mono); font-size: 12px; color: var(--bs-accent); }
+.bs-comments .reply { margin-top: 14px; }
+.bs-comments .comment-reply-link { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--bs-accent); border: 1px solid var(--bs-line); border-radius: var(--radius-pill); padding: 7px 15px; transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease); }
+.bs-comments .comment-reply-link:hover { border-color: var(--bs-accent); background: color-mix(in srgb, var(--bs-accent) 10%, transparent); }
+.bs-comments .comment-author .fn a, .bs-comments .comment-metadata a, .bs-comments .comment-reply-link, .bs-comments__formtitle small a, .bs-comments .logged-in-as a { text-decoration: none; }
+.bs-comments .comment-author .fn a, .bs-comments .comment-metadata a { color: inherit; }
+.bs-comments .comment-author .fn a:hover, .bs-comments .comment-metadata a:hover { color: var(--bs-accent); }
+
+/* comment form */
+.bs-comments .comment-respond { margin-top: 40px; background: var(--bs-panel-2); border: 1px solid var(--bs-line); border-radius: var(--radius-lg); padding: 32px; }
+.bs-comments__formtitle { font-family: var(--font-display); font-weight: 700; font-size: 23px; letter-spacing: -.01em; margin: 0 0 6px; color: var(--bs-fg); }
+.bs-comments__formtitle small { margin-left: 12px; font-family: var(--font-mono); font-size: 12px; font-weight: 400; }
+[dir="rtl"] .bs-comments__formtitle small { margin-left: 0; margin-right: 12px; }
+.bs-comments__formtitle small a { color: var(--bs-accent); }
+.bs-comments__notes, .bs-comments .comment-notes { font-family: var(--font-body); font-size: 13.5px; line-height: 1.6; color: var(--bs-fg-subtle); margin: 0 0 22px; }
+.bs-comments .logged-in-as { font-family: var(--font-body); font-size: 13.5px; color: var(--bs-fg-subtle); margin: 0 0 22px; }
+.bs-comments .logged-in-as a { color: var(--bs-accent); }
+.bs-comment-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.bs-comment-form .bs-field { margin: 0; display: flex; flex-direction: column; gap: 7px; }
+.bs-comment-form .comment-form-comment, .bs-comment-form .comment-form-url, .bs-comment-form .form-submit, .bs-comment-form .comment-form-cookies-consent { grid-column: 1 / -1; }
+.bs-comment-form label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--bs-fg-subtle); }
+.bs-comment-form input[type="text"], .bs-comment-form input[type="email"], .bs-comment-form input[type="url"], .bs-comment-form textarea { width: 100%; min-width: 0; padding: 0 16px; height: 50px; border-radius: var(--radius); border: 1px solid var(--bs-line); background: color-mix(in srgb, var(--bs-bg) 50%, transparent); color: var(--bs-fg); font-family: var(--font-body); font-size: 15px; outline: none; transition: border-color var(--dur), box-shadow var(--dur); }
+.bs-comment-form textarea { height: auto; min-height: 132px; padding: 14px 16px; line-height: 1.6; resize: vertical; }
+.bs-comment-form input:focus, .bs-comment-form textarea:focus { border-color: var(--bs-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--bs-accent) 22%, transparent); }
+.bs-comment-form .form-submit { margin: 0; }
+.bs-comment-form .bs-req { color: var(--bs-accent); }
+.bs-comments__closed { font-family: var(--font-mono); font-size: 13px; letter-spacing: .04em; color: var(--bs-fg-subtle); text-align: center; margin: 24px 0 0; }
+
+@media (max-width: 600px) {
+  .bs-comment-form { grid-template-columns: 1fr; }
+  .bs-comments .comment-respond { padding: 24px; }
+  .bs-comments .comment-body { padding: 78px 22px 20px; }
+  [dir="rtl"] .bs-comments .comment-body { padding: 78px 22px 20px; }
+  .bs-comments .comment-author img.avatar { top: 24px; left: 22px; }
+  [dir="rtl"] .bs-comments .comment-author img.avatar { left: auto; right: 22px; }
+  .bs-commentlist .children { padding-left: 14px; }
+  [dir="rtl"] .bs-commentlist .children { padding-right: 14px; }
+}
