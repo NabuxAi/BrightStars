@@ -23,6 +23,7 @@ while ( have_posts() ) :
 endwhile;
 
 bright_stars_section( 'clients' );
+bright_stars_section( 'client-work' );
 bright_stars_section( 'testimonials' );
 bright_stars_cta_band();
 

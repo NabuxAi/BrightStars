@@ -84,17 +84,105 @@ function bright_stars_default_data() {
 		return array( 'en' => $en, 'ar' => $ar, 'fa' => $fa );
 	};
 	$clients = array(
-		array( 'slug' => 'm2-real-estate', 'name' => 'M2 Real Estate', 'logo' => 'm2.realestates.jpg', 'category' => $cat( 'Real estate', 'عقارات', 'املاک' ) ),
-		array( 'slug' => 'lubna-khalili-academy', 'name' => 'Lubna Khalili Academy', 'logo' => 'academylubnakhalili.jpg', 'category' => $cat( 'Education', 'تعليم', 'آموزش' ) ),
-		array( 'slug' => 'zaytoon-royal', 'name' => 'Zaytoon Royal', 'logo' => 'zaytoonroyal.jpg', 'category' => $cat( 'Hospitality', 'ضيافة', 'مهمان‌نوازی' ) ),
-		array( 'slug' => 'hudhud-fabric', 'name' => 'Hudhud Fabric', 'logo' => 'hudhud.fabric.jpg', 'category' => $cat( 'Textile', 'أقمشة', 'نساجی' ) ),
-		array( 'slug' => 'seeb-waves', 'name' => 'Seeb Waves', 'logo' => 'seebwaves.jpg', 'category' => $cat( 'Lifestyle', 'نمط حياة', 'سبک زندگی' ) ),
-		array( 'slug' => 'sima-vandad', 'name' => 'Sima Vandad', 'logo' => 'sima_vandad.jpg', 'category' => $cat( 'Beauty', 'جمال', 'زیبایی' ) ),
-		array( 'slug' => 'nota-jewelry', 'name' => 'Nota Jewelry', 'logo' => 'notajelwery.jpg', 'category' => $cat( 'Jewelry', 'مجوهرات', 'جواهرات' ) ),
-		array( 'slug' => 'oman-vision', 'name' => 'Oman Vision', 'logo' => '', 'category' => $cat( 'Media', 'إعلام', 'رسانه' ) ),
-		array( 'slug' => 'adam-perfumes', 'name' => 'Adam Perfumes', 'logo' => 'adam.perfumes.jpg', 'category' => $cat( 'Fragrance', 'عطور', 'عطر' ) ),
-		array( 'slug' => 'miss-cheff', 'name' => 'Miss Cheff', 'logo' => 'miisscheff.jpg', 'category' => $cat( 'Food', 'طعام', 'غذا' ) ),
-		array( 'slug' => 'first-glass-oman', 'name' => 'First Glass Oman', 'logo' => '', 'category' => $cat( 'Glass & aluminium', 'زجاج وألمنيوم', 'شیشه و آلومینیوم' ) ),
+		array(
+			'slug' => 'm2-real-estate', 'name' => 'M2 Real Estate', 'logo' => 'm2.realestates.jpg', 'feed' => 'm2.realestates.jpg',
+			'ig' => 'https://www.instagram.com/m2.realestates/', 'handle' => 'm2.realestates', 'color' => 'linear-gradient(135deg,#2E568A,#0A1F38)',
+			'category' => $cat( 'Real estate', 'عقارات', 'املاک' ),
+			'tagline' => "Muscat's most-wanted addresses, sold faster.",
+			'brief' => 'A boutique agency with premium listings but a flat digital presence. We rebuilt the feed and the funnel so every property looked as valuable as it really is.',
+			'services' => array( 'Brand & content system', 'Property reels', 'Lead-gen campaigns', 'CRM & follow-up' ),
+			'results' => array( '+218% | Qualified leads', '579 | Followers', '27 | Deals influenced' ),
+		),
+		array(
+			'slug' => 'lubna-khalili-academy', 'name' => 'Lubna Khalili Academy', 'logo' => 'academylubnakhalili.jpg', 'feed' => 'academylubnakhalili.jpg',
+			'ig' => 'https://www.instagram.com/academylubnakhalili/', 'handle' => 'academylubnakhalili', 'color' => 'linear-gradient(135deg,#F9912F,#7A3A08)',
+			'category' => $cat( 'Education', 'تعليم', 'آموزش' ),
+			'tagline' => 'Turning expertise into a sold-out academy.',
+			'brief' => 'An educator with a loyal following and no system to convert it. We packaged the courses, built the launch calendar, and ran the enrolment campaigns.',
+			'services' => array( 'Course branding', 'Launch campaigns', 'Lead funnels', 'Community content' ),
+			'results' => array( '+340% | Enrolments', '1,245 | Followers', '4.6x | Ad ROAS' ),
+		),
+		array(
+			'slug' => 'zaytoon-royal', 'name' => 'Zaytoon Royal', 'logo' => 'zaytoonroyal.jpg', 'feed' => 'zaytoonroyal.jpg',
+			'ig' => 'https://www.instagram.com/zaytoonroyal/', 'handle' => 'zaytoonroyal', 'color' => 'linear-gradient(135deg,#13335A,#030B16)',
+			'category' => $cat( 'Hospitality', 'ضيافة', 'مهمان‌نوازی' ),
+			'tagline' => 'A royal table, fully booked.',
+			'brief' => 'A fine-dining destination that needed reservations, not just likes. We built a booking-first presence with seasonal campaigns.',
+			'services' => array( 'Brand & art direction', 'Food content', 'Reservations funnel', 'Influencer dinners' ),
+			'results' => array( '2.4x | Direct bookings', '+190% | Weekend covers', '153 | Followers' ),
+		),
+		array(
+			'slug' => 'hudhud-fabric', 'name' => 'Hudhud Fabric', 'logo' => 'hudhud.fabric.jpg', 'feed' => 'hudhud.fabric.jpg',
+			'ig' => 'https://www.instagram.com/hudhud.fabric/', 'handle' => 'hudhud.fabric', 'color' => 'linear-gradient(135deg,#F58021,#B0530B)',
+			'category' => $cat( 'Textile', 'أقمشة', 'نساجی' ),
+			'tagline' => 'Heritage fabric, modern demand.',
+			'brief' => 'A textile house with beautiful product and quiet sales. We told the craft story and turned the catalogue into a shoppable feed.',
+			'services' => array( 'Brand storytelling', 'Product photography', 'Catalogue & shop', 'Paid social' ),
+			'results' => array( '+265% | Online orders', '3.0x | Catalogue views', '8,550 | Followers' ),
+		),
+		array(
+			'slug' => 'seeb-waves', 'name' => 'Seeb Waves', 'logo' => 'seebwaves.jpg', 'feed' => 'seebwaves.jpg',
+			'ig' => 'https://www.instagram.com/seebwaves/', 'handle' => 'seebwaves', 'color' => 'linear-gradient(135deg,#5A7CA8,#13335A)',
+			'category' => $cat( 'Lifestyle', 'نمط حياة', 'سبک زندگی' ),
+			'tagline' => 'Riding the coastal lifestyle wave.',
+			'brief' => "A lifestyle brand for Oman's coast. We gave it a consistent visual world and an always-on content engine.",
+			'services' => array( 'Brand world', 'Always-on content', 'Creator partnerships', 'Community growth' ),
+			'results' => array( '+410% | Engagement', '14.9k | Followers', '5.1x | Reel reach' ),
+		),
+		array(
+			'slug' => 'sima-vandad', 'name' => 'Sima Vandad', 'logo' => 'sima_vandad.jpg', 'feed' => 'sima_vandad.jpg',
+			'ig' => 'https://www.instagram.com/sima_vandad/', 'handle' => 'sima_vandad', 'color' => 'linear-gradient(135deg,#FCA856,#D86A12)',
+			'category' => $cat( 'Beauty', 'جمال', 'زیبایی' ),
+			'tagline' => 'Beauty that books itself.',
+			'brief' => 'A beauty professional ready to scale. We built the booking funnel and the before/after content that actually converts.',
+			'services' => array( 'Brand identity', 'Booking funnel', 'Treatment reels', 'Retargeting' ),
+			'results' => array( '+280% | Bookings', '3.4x | Lead-form rate', '32.1k | Followers' ),
+		),
+		array(
+			'slug' => 'nota-jewelry', 'name' => 'Nota Jewelry', 'logo' => 'notajelwery.jpg', 'feed' => 'notajelwery.jpg',
+			'ig' => 'https://www.instagram.com/notajelwery/', 'handle' => 'notajelwery', 'color' => 'linear-gradient(135deg,#2E568A,#061427)',
+			'category' => $cat( 'Jewelry', 'مجوهرات', 'جواهرات' ),
+			'tagline' => 'Every piece, a moment.',
+			'brief' => 'A jewelry label competing on emotion, not price. We crafted a premium feed and gifting-season campaigns.',
+			'services' => array( 'Brand & art direction', 'Product films', 'Gifting campaigns', 'Paid social' ),
+			'results' => array( '+233% | Store visits', '4.2x | Campaign ROAS', '22.2k | Followers' ),
+		),
+		array(
+			'slug' => 'oman-vision', 'name' => 'Oman Vision', 'logo' => '', 'feed' => '',
+			'ig' => 'https://www.instagram.com/omanvision.ir/', 'handle' => 'omanvision.ir', 'color' => 'linear-gradient(135deg,#F9912F,#7A3A08)',
+			'category' => $cat( 'Media', 'إعلام', 'رسانه' ),
+			'tagline' => "Telling Oman's story to the world.",
+			'brief' => 'A media platform that needed reach and retention. We sharpened the formats and grew the audience.',
+			'services' => array( 'Content strategy', 'Short-form formats', 'Audience growth', 'Distribution' ),
+			'results' => array( '+520% | Watch time', '48k | New followers', '3.7x | Shares' ),
+		),
+		array(
+			'slug' => 'adam-perfumes', 'name' => 'Adam Perfumes', 'logo' => 'adam.perfumes.jpg', 'feed' => 'adam.perfumes.jpg',
+			'ig' => 'https://www.instagram.com/adam.perfumes/', 'handle' => 'adam.perfumes', 'color' => 'linear-gradient(135deg,#13335A,#0A1F38)',
+			'category' => $cat( 'Fragrance', 'عطور', 'عطر' ),
+			'tagline' => 'Scent, made unforgettable online.',
+			'brief' => 'A fragrance house with retail strength and a thin digital funnel. We built the launch playbook and the always-on engine.',
+			'services' => array( 'Brand films', 'Launch campaigns', 'E-commerce funnel', 'Influencer seeding' ),
+			'results' => array( '+295% | Online sales', '5.8x | Launch ROAS', '102k | Followers' ),
+		),
+		array(
+			'slug' => 'miss-cheff', 'name' => 'Miss Cheff', 'logo' => 'miisscheff.jpg', 'feed' => 'miisscheff.jpg',
+			'ig' => 'https://www.instagram.com/miisscheff/', 'handle' => 'miisscheff', 'color' => 'linear-gradient(135deg,#FCA856,#B0530B)',
+			'category' => $cat( 'Food', 'طعام', 'غذا' ),
+			'tagline' => 'From kitchen to fully-booked.',
+			'brief' => 'A culinary brand with great food and inconsistent demand. We made the feed crave-worthy and the orders steady.',
+			'services' => array( 'Food content', 'Menu campaigns', 'Delivery funnel', 'Community' ),
+			'results' => array( '2.7x | Orders', '+205% | Saves', '389 | Followers' ),
+		),
+		array(
+			'slug' => 'first-glass-oman', 'name' => 'First Glass Oman', 'logo' => '', 'feed' => '',
+			'ig' => 'https://www.instagram.com/firstglassoman/', 'handle' => 'firstglassoman', 'color' => 'linear-gradient(135deg,#5A7CA8,#0A1F38)',
+			'category' => $cat( 'Glass & aluminium', 'زجاج وألمنيوم', 'شیشه و آلومینیوم' ),
+			'tagline' => 'Building Oman, pane by pane.',
+			'brief' => 'A glass & aluminium contractor that won on craft, not clicks. We built a project-led presence and a B2B lead engine.',
+			'services' => array( 'Brand & project content', 'B2B lead-gen', 'Project case films', 'Sales enablement' ),
+			'results' => array( '+178% | Qualified RFQs', '3.3x | Site enquiries', '24 | Projects influenced' ),
+		),
 	);
 
 	return compact( 'services', 'pricing', 'team', 'testimonials', 'clients' );
@@ -256,12 +344,66 @@ function bright_stars_seed_content( $force = false ) {
 		foreach ( $data['clients'] as $c ) {
 			$id = wp_insert_post( array( 'post_type' => 'bs_client', 'post_status' => 'publish', 'post_title' => $c['name'], 'post_name' => $c['slug'], 'menu_order' => $order ) );
 			if ( $id && ! is_wp_error( $id ) ) {
-				if ( $c['logo'] ) {
+				if ( ! empty( $c['logo'] ) ) {
 					update_post_meta( $id, '_bs_logo', bs_asset( 'img/clients/' . $c['logo'] ) );
 				}
+				if ( ! empty( $c['feed'] ) ) {
+					update_post_meta( $id, '_bs_feed', bs_asset( 'img/feeds/' . $c['feed'] ) );
+				}
+				update_post_meta( $id, '_bs_instagram', $c['ig'] );
+				update_post_meta( $id, '_bs_handle', $c['handle'] );
+				update_post_meta( $id, '_bs_color', $c['color'] );
+				update_post_meta( $id, '_bs_tagline_en', $c['tagline'] );
+				update_post_meta( $id, '_bs_brief_en', $c['brief'] );
+				update_post_meta( $id, '_bs_services_en', implode( "\n", $c['services'] ) );
+				update_post_meta( $id, '_bs_results_en', implode( "\n", $c['results'] ) );
 				$set_tri( $id, 'category', $c['category'] );
 			}
 			$order++;
+		}
+	}
+}
+
+/**
+ * Backfill missing meta on existing client posts from the default data
+ * (matched by slug). Only fills empty fields, so it never clobbers edits.
+ * This is what makes "deactivate → reactivate" populate older clients.
+ */
+function bright_stars_upgrade_clients() {
+	$data    = bright_stars_default_data();
+	$by_slug = array();
+	foreach ( $data['clients'] as $c ) {
+		$by_slug[ $c['slug'] ] = $c;
+	}
+
+	$clients = get_posts( array( 'post_type' => 'bs_client', 'post_status' => 'any', 'numberposts' => -1 ) );
+	foreach ( $clients as $p ) {
+		if ( ! isset( $by_slug[ $p->post_name ] ) ) {
+			continue;
+		}
+		$c    = $by_slug[ $p->post_name ];
+		$fill = function ( $key, $value ) use ( $p ) {
+			$cur = get_post_meta( $p->ID, $key, true );
+			if ( '' === trim( (string) $cur ) && '' !== trim( (string) $value ) ) {
+				update_post_meta( $p->ID, $key, $value );
+			}
+		};
+
+		$fill( '_bs_tagline_en', $c['tagline'] );
+		$fill( '_bs_brief_en', $c['brief'] );
+		$fill( '_bs_services_en', implode( "\n", $c['services'] ) );
+		$fill( '_bs_results_en', implode( "\n", $c['results'] ) );
+		$fill( '_bs_instagram', $c['ig'] );
+		$fill( '_bs_handle', $c['handle'] );
+		$fill( '_bs_color', $c['color'] );
+		foreach ( array( 'en', 'ar', 'fa' ) as $lg ) {
+			$fill( '_bs_category_' . $lg, $c['category'][ $lg ] );
+		}
+		if ( ! empty( $c['logo'] ) ) {
+			$fill( '_bs_logo', bs_asset( 'img/clients/' . $c['logo'] ) );
+		}
+		if ( ! empty( $c['feed'] ) ) {
+			$fill( '_bs_feed', bs_asset( 'img/feeds/' . $c['feed'] ) );
 		}
 	}
 }
@@ -327,14 +469,36 @@ function bright_stars_run_setup( $force_seed = false ) {
 function bright_stars_after_switch_theme() {
 	$o = get_option( 'bright_stars_options', array() );
 	if ( is_array( $o ) && ! empty( $o['seeded'] ) ) {
-		// Pages may still need ensuring after a theme re-activation.
+		// Re-activation: ensure pages exist and backfill any new client fields.
 		bright_stars_create_pages();
+		bright_stars_upgrade_clients();
 		flush_rewrite_rules();
+		update_option( 'bright_stars_data_version', BRIGHT_STARS_VERSION );
 		return;
 	}
 	bright_stars_run_setup( false );
+	update_option( 'bright_stars_data_version', BRIGHT_STARS_VERSION );
 }
 add_action( 'after_switch_theme', 'bright_stars_after_switch_theme' );
+
+/**
+ * Run data migrations once after the theme files are updated (no re-activation
+ * required) — guarded by a stored version so it only runs when something
+ * changed. This guarantees the changes show up in WordPress after an update.
+ */
+function bright_stars_maybe_upgrade() {
+	if ( get_option( 'bright_stars_data_version' ) === BRIGHT_STARS_VERSION ) {
+		return;
+	}
+	$o = get_option( 'bright_stars_options', array() );
+	if ( is_array( $o ) && ! empty( $o['seeded'] ) ) {
+		bright_stars_create_pages();
+		bright_stars_upgrade_clients();
+		flush_rewrite_rules();
+	}
+	update_option( 'bright_stars_data_version', BRIGHT_STARS_VERSION );
+}
+add_action( 'admin_init', 'bright_stars_maybe_upgrade' );
 
 /* ------------------------------------------------------------------ *
  * Setup admin page.

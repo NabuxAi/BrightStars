@@ -86,16 +86,19 @@
   --bs-glow: 0 0 0 1px rgba(232, 196, 92, .5), 0 14px 38px rgba(201, 162, 39, .22);
 }
 
-/* Script-specific typography. */
+/* Script-specific typography. Latin display fonts have no Arabic/Persian
+   glyphs, so — exactly like the original design — every element switches to
+   the script font in AR/FA. !important is needed to beat the per-component
+   font-family rules. The brand wordmark keeps its Latin face on purpose. */
 body.bs-lang-ar,
-body.bs-lang-ar :where(h1, h2, h3, h4, h5, h6, p, a, span, button, input, textarea, select, li, div) {
-  font-family: var(--font-arabic);
-  letter-spacing: 0;
+body.bs-lang-ar *:not(.bs-keep-font):not(.bs-keep-font *) {
+  font-family: var(--font-arabic) !important;
+  letter-spacing: 0 !important;
 }
 body.bs-lang-fa,
-body.bs-lang-fa :where(h1, h2, h3, h4, h5, h6, p, a, span, button, input, textarea, select, li, div) {
-  font-family: var(--font-persian);
-  letter-spacing: 0;
+body.bs-lang-fa *:not(.bs-keep-font):not(.bs-keep-font *) {
+  font-family: var(--font-persian) !important;
+  letter-spacing: 0 !important;
 }
 
 /* Animations ported from the prototype. */

@@ -20,7 +20,7 @@ if ( $items ) {
 			$cards[] = array( 'soon' => true );
 			continue;
 		}
-		$logo = has_post_thumbnail( $p ) ? get_the_post_thumbnail_url( $p, 'thumbnail' ) : get_post_meta( $p->ID, '_bs_logo', true );
+		$logo = has_post_thumbnail( $p ) ? get_the_post_thumbnail_url( $p, 'thumbnail' ) : bs_image_src( get_post_meta( $p->ID, '_bs_logo', true ), 'thumbnail' );
 		$cards[] = array(
 			'soon'  => false,
 			'name'  => get_the_title( $p ),
