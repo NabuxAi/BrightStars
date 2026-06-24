@@ -658,3 +658,14 @@ button { font-family: inherit; }
   .bs-commentlist .children { padding-left: 14px; }
   [dir="rtl"] .bs-commentlist .children { padding-right: 14px; }
 }
+
+/* ---------- RTL: mirror decorative corner accents & badges ---------- */
+[dir="rtl"] .bs-card__corner { left: auto; right: 12px; border-left: 0; border-right: 2px solid var(--bs-accent); }
+[dir="rtl"] .bs-card__cat { right: auto; left: 12px; }
+[dir="rtl"] .bs-svc__corner { left: auto; right: 14px; border-left: 0; border-right: 2px solid var(--bs-accent); }
+[dir="rtl"] .bs-plan__badge { left: auto; right: 30px; }
+[dir="rtl"] .bs-cta__c1 { left: auto; right: 18px; border-left: 0; border-right: 2px solid var(--bs-accent); }
+[dir="rtl"] .bs-cta__c2 { right: auto; left: 18px; border-right: 0; border-left: 2px solid var(--bs-accent); }
+[dir="rtl"] .bs-feedcard__ig { right: auto; left: 12px; }
+[dir="rtl"] .bs-cs-corner.tl { left: auto; right: -12px; border-left: 0; border-right: 2px solid var(--bs-accent); }
+[dir="rtl"] .bs-cs-corner.br { right: auto; left: -12px; border-right: 0; border-left: 2px solid var(--bs-accent); }
