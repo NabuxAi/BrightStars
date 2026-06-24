@@ -1,0 +1,61 @@
+/* Bright Stars — Color tokens
+   Dark-canvas brand. Navy + black do the heavy lifting; orange is rare and
+   intentional (CTAs, focus, the one thing that glows). */
+
+:root {
+  /* ---- Core brand ---- */
+  --brand-orange: #F58021;
+  --brand-navy: #13335A;
+  --canvas: #000000;
+
+  /* ---- Orange scale ---- */
+  --orange-50:  #FFF3E8;
+  --orange-100: #FFE1C2;
+  --orange-200: #FFC891;
+  --orange-300: #FCA856;
+  --orange-400: #F9912F; /* hover */
+  --orange-500: #F58021; /* BASE */
+  --orange-600: #D86A12; /* pressed */
+  --orange-700: #B0530B;
+  --orange-800: #7A3A08;
+
+  /* ---- Navy scale ---- */
+  --navy-50:  #E7EDF5;
+  --navy-100: #C4D2E4;
+  --navy-200: #8FA8C8;
+  --navy-300: #5A7CA8;
+  --navy-400: #2E568A;
+  --navy-500: #13335A; /* BASE */
+  --navy-600: #0F2A4A;
+  --navy-700: #0A1F38;
+  --navy-800: #061427;
+  --navy-900: #030B16;
+
+  /* ---- Neutrals (dark UI) ---- */
+  --surface: #0A0F18;        /* cards / first elevation */
+  --surface-2: #101826;      /* elevated panels, modals */
+  --border: #1C2738;         /* hairlines, dividers */
+  --border-strong: #2A384D;  /* inputs, focus boundaries */
+  --text: #F4F7FB;           /* primary text */
+  --text-muted: #93A1B5;     /* secondary text */
+  --text-subtle: #5E6B7E;    /* placeholders, captions */
+
+  /* ---- Semantic ---- */
+  --success: #2FB873;
+  --warning: #FFC857;
+  --danger:  #F0524B;
+  --info:    #3B82F6;
+
+  /* ---- Functional aliases ---- */
+  --accent: var(--brand-orange);
+  --accent-hover: var(--orange-400);
+  --accent-pressed: var(--orange-600);
+  --on-accent: #0A0F18;          /* near-black text on orange (WCAG-safe) */
+  --bg-page: var(--canvas);
+  --surface-card: var(--surface-2);
+  --text-body: var(--text);
+  --text-heading: var(--text);
+  --link: var(--brand-orange);
+  --focus-ring: rgba(245,128,33,.45);
+  --orange-soft: rgba(245,128,33,.10); /* ghost/chip tint */
+}

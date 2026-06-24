@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  :root{
+    --font-hero:"Saira Condensed",sans-serif;
+    --font-display:"Space Grotesk",sans-serif;
+    --font-body:"Inter",sans-serif;
+    --font-mono:"JetBrains Mono",monospace;
+    --font-arabic:"Tajawal","Inter",sans-serif;
+    --font-persian:"Vazirmatn","Tajawal",sans-serif;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px; --radius-pill:9999px;
+    --ease:cubic-bezier(.2,.8,.2,1); --dur:200ms;
+    --shadow-lg:0 16px 48px rgba(0,0,0,.55);
+    --bs-bg:#000000; --bs-panel:#0A0F18; --bs-panel-2:#101826;
+    --bs-fg:#F4F7FB; --bs-fg-muted:#93A1B5; --bs-fg-subtle:#5E6B7E;
+    --bs-accent:#F58021; --bs-accent-strong:#F9912F; --bs-on-accent:#0A0F18;
+    --bs-line:#1C2738; --bs-line-soft:rgba(244,247,251,.06);
+    --bs-glow:0 0 0 1px #F58021,0 8px 24px rgba(245,128,33,.28);
+  }
+  @keyframes bsFadeUp{from{transform:translateY(18px);}to{transform:none;}}
+  [data-reveal]{animation:bsFadeUp .6s var(--ease) both;}
+  [data-lang="ar"]{font-family:var(--font-arabic)!important;}
+  [data-lang="ar"] *{font-family:var(--font-arabic)!important;letter-spacing:0!important;}
+  [data-lang="fa"]{font-family:var(--font-persian)!important;}
+  [data-lang="fa"] *{font-family:var(--font-persian)!important;letter-spacing:0!important;}
+  [data-rev-delay="0.06"]{animation-delay:.06s;}
+  [data-rev-delay="0.12"]{animation-delay:.12s;}
+  [data-rev-delay="0.18"]{animation-delay:.18s;}
+  @keyframes bsPulse{0%,100%{opacity:.3;transform:scale(1);}50%{opacity:.55;transform:scale(1.08);}}
+  @keyframes bsFloat{0%,100%{transform:rotate(45deg) translateY(0);}50%{transform:rotate(45deg) translateY(-14px);}}
+  @media (prefers-reduced-motion:reduce){[data-reveal]{animation:none!important;}}
+  @media (max-width:880px){
+    [data-hero-grid]{grid-template-columns:1fr!important;}
+    [data-grid-3]{grid-template-columns:1fr!important;}
+    [data-gallery]{grid-template-columns:1fr 1fr!important;}
+    [data-pad]{padding-left:22px!important;padding-right:22px!important;}
+    [data-name]{font-size:46px!important;}
+    [data-cta-row]{flex-direction:column!important;align-items:stretch!important;}
+  }
+</style>
+<script src="image-slot.js"></script>
+</helmet>
+
+<div ref="{{ rootRef }}" style="min-height:100vh;background:var(--bs-bg);color:var(--bs-fg);font-family:var(--font-body);overflow-x:hidden;">
+
+  <!-- NAV -->
+  <header data-pad style="position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;border-bottom:1px solid var(--bs-line);background:color-mix(in srgb, var(--bs-bg) 80%, transparent);backdrop-filter:blur(14px);">
+    <a href="{{ homeUrl }}" style="display:inline-flex;align-items:center;gap:11px;">
+      <img src="assets/logo-mark-color.png" alt="" style="height:32px;width:auto;display:block;">
+      <span style="display:flex;flex-direction:column;line-height:1;">
+        <span style="font-family:var(--font-hero);font-weight:800;font-size:20px;letter-spacing:.02em;text-transform:uppercase;">Bright Starts</span>
+        <span style="font-family:var(--font-mono);font-size:7.5px;letter-spacing:.34em;color:var(--bs-accent);text-transform:uppercase;margin-top:4px;">Muscat · Oman</span>
+      </span>
+    </a>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div style="display:inline-flex;align-items:center;border:1px solid var(--bs-line);border-radius:var(--radius-pill);overflow:hidden;">
+        <button onClick="{{ setEn }}" style="font-family:var(--font-mono);font-size:11.5px;font-weight:500;letter-spacing:.06em;padding:7px 12px;border:none;cursor:pointer;background:{{ enBg }};color:{{ enFg }};">EN</button>
+        <button onClick="{{ setAr }}" style="font-family:var(--font-arabic);font-size:13px;font-weight:700;padding:6px 12px;border:none;cursor:pointer;background:{{ arBg }};color:{{ arFg }};">ع</button>
+        <button onClick="{{ setFa }}" style="font-family:var(--font-persian);font-size:12px;font-weight:700;padding:6px 11px;border:none;cursor:pointer;background:{{ faBg }};color:{{ faFg }};">فا</button>
+      </div>
+      <a href="{{ clientsUrl }}" style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-body);font-size:14.5px;font-weight:500;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-i18n="all">All clients</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section data-pad style="position:relative;max-width:1200px;margin:0 auto;padding:72px 40px 64px;overflow:hidden;">
+    <div aria-hidden style="position:absolute;right:-60px;top:40px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle, rgba(245,128,33,.16), transparent 70%);animation:bsPulse 7s ease-in-out infinite;pointer-events:none;"></div>
+    <div data-hero-grid style="position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;">
+      <div>
+        <div data-reveal style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);">
+          <span style="opacity:.5;">&lt;</span> {{ active.cat }} <sc-if value="{{ arabicAccents }}" hint-placeholder-val="{{ true }}"><span style="font-family:var(--font-arabic);letter-spacing:0;opacity:.85;">· {{ active.ar }}</span></sc-if> <span style="opacity:.5;">&gt;</span>
+        </div>
+        <h1 data-reveal data-rev-delay="0.06" data-name style="font-family:var(--font-hero);font-weight:800;text-transform:uppercase;font-size:68px;line-height:.98;letter-spacing:.006em;margin:18px 0 0;">{{ active.name }}</h1>
+        <p data-reveal data-rev-delay="0.12" style="font-family:var(--font-display);font-weight:500;font-size:22px;line-height:1.35;letter-spacing:-.01em;color:var(--bs-accent);margin:18px 0 0;">{{ active.tagline }}</p>
+        <p data-reveal data-rev-delay="0.18" style="font-family:var(--font-body);font-size:17px;line-height:1.65;color:var(--bs-fg-muted);max-width:520px;margin:18px 0 0;">{{ active.brief }}</p>
+        <div data-reveal data-rev-delay="0.18" data-cta-row style="display:flex;gap:13px;margin-top:32px;">
+          <a href="{{ active.ig }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:9px;height:52px;padding:0 26px;font-family:var(--font-display);font-weight:600;font-size:15.5px;border-radius:var(--radius);background:var(--bs-accent);color:var(--bs-on-accent);border:1px solid transparent;transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-2px);box-shadow:var(--bs-glow);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            <span data-i18n="ig">Visit on Instagram</span>
+          </a>
+          <a href="{{ contactUrl }}" data-i18n="start" style="display:inline-flex;align-items:center;justify-content:center;gap:9px;height:52px;padding:0 24px;font-family:var(--font-display);font-weight:600;font-size:15.5px;border-radius:var(--radius);background:transparent;color:var(--bs-fg);border:1px solid var(--bs-line);transition:all var(--dur) var(--ease);" style-hover="border-color:var(--bs-accent);transform:translateY(-2px);">Start a project</a>
+        </div>
+      </div>
+      <div data-reveal data-rev-delay="0.12" style="position:relative;">
+        <span aria-hidden style="position:absolute;top:-12px;left:-12px;width:30px;height:30px;border-top:2px solid var(--bs-accent);border-left:2px solid var(--bs-accent);z-index:2;"></span>
+        <span aria-hidden style="position:absolute;bottom:-12px;right:-12px;width:30px;height:30px;border-bottom:2px solid var(--bs-accent);border-right:2px solid var(--bs-accent);z-index:2;"></span>
+        <div style="position:relative;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--bs-line);background:{{ active.c }};height:380px;display:flex;align-items:center;justify-content:center;">
+          <sc-if value="{{ hasLogo }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:18px;padding:24px;">
+              <img data-logo="{{ logo }}" alt="{{ active.name }}" style="width:150px;height:150px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,.85);box-shadow:0 10px 30px rgba(0,0,0,.35);">
+              <span style="font-family:var(--font-hero);font-weight:800;font-size:26px;text-transform:uppercase;letter-spacing:.02em;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.4);text-align:center;">{{ active.name }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ noLogo }}" hint-placeholder-val="{{ false }}">
+            <image-slot id="hero-{{ active.slug }}" shape="rect" placeholder="Drop a hero image" style="display:block;width:100%;height:380px;"></image-slot>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE DID -->
+  <section style="background:var(--bs-panel);border-top:1px solid var(--bs-line);border-bottom:1px solid var(--bs-line);">
+    <div data-pad style="max-width:1200px;margin:0 auto;padding:64px 40px;">
+      <div data-reveal style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:34px;">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> <span data-i18n="didE">What we did</span> <span style="opacity:.5;">&gt;</span></div>
+          <h2 data-i18n="didH" style="font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;font-size:38px;margin:14px 0 0;">The engagement</h2>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;">
+        <sc-for list="{{ active.services }}" as="s" hint-placeholder-count="4">
+          <span style="display:inline-flex;align-items:center;gap:10px;padding:13px 20px;border-radius:var(--radius-pill);border:1px solid var(--bs-line);background:var(--bs-panel-2);font-family:var(--font-display);font-weight:500;font-size:15px;">
+            <span style="width:8px;height:8px;transform:rotate(45deg);background:var(--bs-accent);border-radius:2px;display:inline-block;"></span>{{ s }}
+          </span>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section data-pad style="max-width:1200px;margin:0 auto;padding:72px 40px;">
+    <div data-reveal style="text-align:center;margin-bottom:40px;">
+      <div style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> <span data-i18n="resE">The results</span> <span style="opacity:.5;">&gt;</span></div>
+      <h2 data-i18n="resH" style="font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;font-size:38px;margin:14px 0 0;">What changed</h2>
+    </div>
+    <div data-reveal data-rev-delay="0.06" data-grid-3 style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bs-line);border:1px solid var(--bs-line);border-radius:var(--radius-lg);overflow:hidden;">
+      <sc-for list="{{ active.results }}" as="r" hint-placeholder-count="3">
+        <div style="background:var(--bs-panel-2);padding:40px 26px;text-align:center;">
+          <div style="font-family:var(--font-hero);font-weight:800;font-size:56px;line-height:1;color:var(--bs-accent);">{{ r.n }}</div>
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--bs-fg-subtle);margin-top:12px;">{{ r.l }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- LIVE FEED -->
+  <section style="background:var(--bs-panel);border-top:1px solid var(--bs-line);border-bottom:1px solid var(--bs-line);">
+    <div data-pad style="max-width:1100px;margin:0 auto;padding:64px 40px;">
+      <div data-reveal style="margin-bottom:26px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> <span data-i18n="workE">Selected work</span> <span style="opacity:.5;">&gt;</span></div>
+        <h2 data-i18n="workH" style="font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;font-size:34px;margin:14px 0 0;">The feed we built</h2>
+        <p data-i18n="workSub" style="font-family:var(--font-body);color:var(--bs-fg-muted);font-size:15px;margin:10px 0 0;">Scroll through the real profile — content, art direction and grid by Bright Starts.</p>
+      </div>
+      <sc-if value="{{ active.feed }}" hint-placeholder-val="{{ true }}">
+        <div data-reveal data-rev-delay="0.06" style="border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--bs-line);background:#0d0d0f;box-shadow:var(--shadow-lg);max-width:760px;margin:0 auto;">
+          <div style="display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--bs-line);background:var(--bs-panel-2);">
+            <span style="width:11px;height:11px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#28c840;display:inline-block;"></span>
+            <span style="flex:1;display:flex;justify-content:center;"><span style="font-family:var(--font-mono);font-size:11.5px;letter-spacing:.04em;color:var(--bs-fg-muted);background:var(--bs-bg);border:1px solid var(--bs-line);border-radius:var(--radius-pill);padding:5px 16px;">instagram.com/{{ active.handle }}</span></span>
+          </div>
+          <div style="height:600px;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:#000;">
+            <img data-logo="{{ active.feed }}" alt="{{ active.name }} Instagram feed" style="display:block;width:100%;height:auto;">
+          </div>
+        </div>
+        <p data-reveal data-i18n="scrollHint" style="text-align:center;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--bs-fg-subtle);margin:18px 0 0;">↕ Scroll inside the window</p>
+      </sc-if>
+      <sc-if value="{{ active.noFeed }}" hint-placeholder-val="{{ false }}">
+        <div data-reveal data-rev-delay="0.06" data-gallery style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+          <image-slot id="g1-{{ active.slug }}" shape="rounded" radius="14" placeholder="Drop an image" style="display:block;width:100%;aspect-ratio:4/5;"></image-slot>
+          <image-slot id="g2-{{ active.slug }}" shape="rounded" radius="14" placeholder="Drop an image" style="display:block;width:100%;aspect-ratio:4/5;"></image-slot>
+          <image-slot id="g3-{{ active.slug }}" shape="rounded" radius="14" placeholder="Drop an image" style="display:block;width:100%;aspect-ratio:4/5;"></image-slot>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- NEXT / CTA -->
+  <section data-pad style="max-width:1200px;margin:0 auto;padding:64px 40px 88px;">
+    <div data-reveal style="display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);padding:36px 40px;box-shadow:var(--bs-glow);">
+      <div>
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--bs-fg-subtle);" data-i18n="nextE">Next client</div>
+        <a href="client.dc.html#{{ next.slug }}" style="display:inline-flex;align-items:center;gap:12px;font-family:var(--font-hero);font-weight:800;text-transform:uppercase;font-size:34px;letter-spacing:.01em;margin-top:6px;color:var(--bs-fg);" style-hover="color:var(--bs-accent);">
+          {{ next.name }}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:26px;height:26px;"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <a href="{{ contactUrl }}" style="display:inline-flex;align-items:center;justify-content:center;gap:9px;height:54px;padding:0 30px;font-family:var(--font-display);font-weight:600;font-size:16px;border-radius:var(--radius);background:var(--bs-accent);color:var(--bs-on-accent);border:1px solid transparent;transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-2px);box-shadow:var(--bs-glow);" data-i18n="startBig">Start your project</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer data-pad style="border-top:1px solid var(--bs-line);padding:40px;">
+    <div style="max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--font-mono);font-size:12px;color:var(--bs-fg-subtle);">
+      <span data-i18n="copy">© 2026 Bright Starts · Muscat, Oman</span>
+      <a href="{{ homeUrl }}" data-i18n="back" style="color:var(--bs-fg-subtle);" style-hover="color:var(--bs-fg);">&lt; Back to home &gt;</a>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const T = {
+  en: { all:"All clients", didE:"What we did", didH:"The engagement", resE:"The results", resH:"What changed", workE:"Selected work", workH:"The feed we built", workSub:"Scroll through the real profile — content, art direction and grid by Bright Starts.", scrollHint:"\u2195 Scroll inside the window", dropHint:"Drop in feed posts, reels or campaign visuals — they'll save automatically.", ig:"Visit on Instagram", start:"Start a project", nextE:"Next client", startBig:"Start your project", back:"< Back to home >", copy:"\u00a9 2026 Bright Starts \u00b7 Muscat, Oman" },
+  ar: { all:"كل العملاء", didE:"ماذا فعلنا", didH:"نطاق العمل", resE:"النتائج", resH:"ما الذي تغيّر", workE:"أعمال مختارة", workH:"الحساب الذي بنيناه", workSub:"تصفّح الحساب الحقيقي — المحتوى والإخراج الفني والشبكة من برايت ستارتس.", scrollHint:"\u2195 مرّر داخل النافذة", dropHint:"أفلت منشورات أو ريلز أو صور حملات — تُحفظ تلقائياً.", ig:"زيارة إنستغرام", start:"ابدأ مشروعك", nextE:"العميل التالي", startBig:"ابدأ مشروعك", back:"< العودة للرئيسية >", copy:"\u00a9 2026 برايت ستارتس \u00b7 مسقط، عُمان" },
+  fa: { all:"همهٔ مشتریان", didE:"چه کردیم", didH:"محدودهٔ کار", resE:"نتایج", resH:"چه تغییر کرد", workE:"کارهای منتخب", workH:"حسابی که ساختیم", workSub:"در حساب واقعی پیمایش کنید — محتوا، مدیریت هنری و شبکه از برایت استارتس.", scrollHint:"\u2195 داخل پنجره پیمایش کنید", dropHint:"پست‌ها، ریلز یا تصاویر کمپین را رها کنید — خودکار ذخیره می‌شوند.", ig:"دیدن در اینستاگرام", start:"شروع پروژه", nextE:"مشتری بعدی", startBig:"پروژه‌ات را شروع کن", back:"< بازگشت به خانه >", copy:"\u00a9 ۲۰۲۶ برایت استارتس \u00b7 مسقط، عمان" },
+};
+const AR = {
+  "m2-real-estate": { cat:"عقارات", tagline:"أكثر عناوين مسقط طلباً، تُباع أسرع.", brief:"وكالة عقارية بمعروضات فاخرة وحضور رقمي باهت. أعدنا بناء الحساب والمسار البيعي ليبدو كل عقار بقيمته الحقيقية.", services:["نظام علامة ومحتوى","ريلز عقارية","حملات جذب عملاء","متابعة وإدارة علاقات"], rl:["عملاء مؤهلون","متابعون","صفقات متأثرة"] },
+  "lubna-khalili-academy": { cat:"تعليم", tagline:"نحوّل الخبرة إلى أكاديمية كاملة العدد.", brief:"مُعلّمة بجمهور وفيّ بلا نظام للتحويل. غلّفنا الدورات وبنينا تقويم الإطلاق وأدرنا حملات التسجيل.", services:["هوية الدورات","حملات إطلاق","مسارات جذب","محتوى مجتمعي"], rl:["تسجيلات","متابعون","عائد إعلاني"] },
+  "zaytoon-royal": { cat:"ضيافة", tagline:"طاولة ملكية، محجوزة بالكامل.", brief:"وجهة طعام راقية تحتاج حجوزات لا إعجابات فقط. بنينا حضوراً يركّز على الحجز بحملات موسمية.", services:["علامة وإخراج فني","محتوى طعام","مسار حجوزات","عشاء المؤثرين"], rl:["حجوزات مباشرة","طاولات نهاية الأسبوع","متابعون"] },
+  "hudhud-fabric": { cat:"أقمشة", tagline:"قماش تراثي، طلب عصري.", brief:"دار أقمشة بمنتج جميل ومبيعات هادئة. روينا قصة الحرفة وحوّلنا الكتالوج إلى حساب قابل للتسوّق.", services:["سرد العلامة","تصوير المنتج","كتالوج ومتجر","إعلانات مدفوعة"], rl:["طلبات أونلاين","مشاهدات الكتالوج","متابعون"] },
+  "seeb-waves": { cat:"نمط حياة", tagline:"نركب موجة نمط الحياة الساحلي.", brief:"علامة نمط حياة لساحل عُمان. منحناها عالماً بصرياً متناسقاً ومحرّك محتوى دائم.", services:["عالم العلامة","محتوى مستمر","شراكات صنّاع","نمو المجتمع"], rl:["تفاعل","متابعون","وصول الريلز"] },
+  "sima-vandad": { cat:"جمال", tagline:"جمالٌ يحجز نفسه.", brief:"خبيرة تجميل جاهزة للتوسّع. بنينا مسار الحجز ومحتوى قبل/بعد الذي يحوّل فعلاً.", services:["هوية بصرية","مسار حجز","ريلز العلاجات","إعادة استهداف"], rl:["حجوزات","معدل النماذج","متابعون"] },
+  "nota-jewelry": { cat:"مجوهرات", tagline:"كل قطعة، لحظة.", brief:"علامة مجوهرات تنافس بالعاطفة لا بالسعر. صممنا حساباً فاخراً وحملات مواسم الهدايا.", services:["علامة وإخراج فني","أفلام منتج","حملات هدايا","إعلانات مدفوعة"], rl:["زيارات المتجر","عائد الحملات","متابعون"] },
+  "oman-vision": { cat:"إعلام", tagline:"نروي قصة عُمان للعالم.", brief:"منصّة إعلامية تحتاج وصولاً وبقاءً. شحذنا القوالب ونمّينا الجمهور.", services:["استراتيجية محتوى","قوالب قصيرة","نمو الجمهور","التوزيع"], rl:["وقت المشاهدة","متابعون جدد","مشاركات"] },
+  "adam-perfumes": { cat:"عطور", tagline:"عطرٌ لا يُنسى على الإنترنت.", brief:"دار عطور بقوة بيع تجزئة ومسار رقمي ضعيف. بنينا دليل الإطلاق والمحرّك الدائم.", services:["أفلام علامة","حملات إطلاق","متجر إلكتروني","بذر المؤثرين"], rl:["مبيعات أونلاين","عائد الإطلاق","متابعون"] },
+  "miss-cheff": { cat:"طعام", tagline:"من المطبخ إلى الحجز الكامل.", brief:"علامة طهي بطعام رائع وطلب متذبذب. جعلنا الحساب مشتهى والطلبات ثابتة.", services:["محتوى طعام","حملات قوائم","مسار توصيل","مجتمع"], rl:["طلبات","حفظ","متابعون"] },
+  "first-glass-oman": { cat:"زجاج وألمنيوم", tagline:"نبني عُمان، لوحاً بلوح.", brief:"مقاول زجاج وألمنيوم يكسب بالحرفة لا بالنقرات. بنينا حضوراً قائماً على المشاريع ومحرّك عملاء B2B.", services:["محتوى علامة ومشاريع","جذب عملاء B2B","أفلام مشاريع","تمكين المبيعات"], rl:["طلبات عروض مؤهلة","استفسارات الموقع","مشاريع متأثرة"] },
+};
+
+const FA = {
+  "m2-real-estate": { cat:"املاک", tagline:"مطلوب‌ترین آدرس‌های مسقط، سریع‌تر فروخته می‌شوند.", brief:"آژانسی بوتیک با املاک لوکس اما حضور دیجیتال کم‌رنگ. حساب و قیف فروش را بازسازی کردیم تا هر ملک به ارزش واقعی‌اش دیده شود.", services:["سیستم برند و محتوا","ریلز املاک","کمپین جذب مشتری","پیگیری و مدیریت ارتباط"], rl:["مشتری واجد شرایط","دنبال‌کننده","معاملات متأثر"] },
+  "lubna-khalili-academy": { cat:"آموزش", tagline:"تبدیل تخصص به آکادمی پر از ثبت‌نام.", brief:"مدرّسی با مخاطب وفادار اما بدون سیستم تبدیل. دوره‌ها را بسته‌بندی کردیم، تقویم لانچ ساختیم و کمپین ثبت‌نام اجرا کردیم.", services:["هویت دوره‌ها","کمپین لانچ","قیف جذب","محتوای جامعه"], rl:["ثبت‌نام","دنبال‌کننده","بازده تبلیغات"] },
+  "zaytoon-royal": { cat:"مهمان‌نوازی", tagline:"میز سلطنتی، کاملاً رزرو.", brief:"مقصد غذای لوکس که به رزرو نیاز داشت نه فقط لایک. حضوری رزروـمحور با کمپین‌های فصلی ساختیم.", services:["برند و مدیریت هنری","محتوای غذا","قیف رزرو","شام اینفلوئنسرها"], rl:["رزرو مستقیم","میزهای آخر هفته","دنبال‌کننده"] },
+  "hudhud-fabric": { cat:"پارچه", tagline:"پارچهٔ اصیل، تقاضای امروزی.", brief:"خانهٔ پارچه با محصول زیبا و فروش آرام. داستان صنعت‌گری را روایت کردیم و کاتالوگ را به حساب قابل‌خرید تبدیل کردیم.", services:["روایت برند","عکاسی محصول","کاتالوگ و فروشگاه","تبلیغات پولی"], rl:["سفارش آنلاین","بازدید کاتالوگ","دنبال‌کننده"] },
+  "seeb-waves": { cat:"سبک زندگی", tagline:"سوار بر موج سبک زندگی ساحلی.", brief:"برند سبک زندگی برای ساحل عمان. جهان بصری منسجم و موتور محتوای همیشه‌فعال به آن دادیم.", services:["جهان برند","محتوای مستمر","همکاری سازندگان","رشد جامعه"], rl:["تعامل","دنبال‌کننده","دسترسی ریلز"] },
+  "sima-vandad": { cat:"زیبایی", tagline:"زیبایی‌ای که خودش رزرو می‌گیرد.", brief:"متخصص زیبایی آمادهٔ توسعه. قیف رزرو و محتوای قبل/بعد که واقعاً تبدیل می‌کند را ساختیم.", services:["هویت بصری","قیف رزرو","ریلز درمان‌ها","ریتارگتینگ"], rl:["رزرو","نرخ فرم","دنبال‌کننده"] },
+  "nota-jewelry": { cat:"جواهرات", tagline:"هر قطعه، یک لحظه.", brief:"برند جواهرات که با احساس رقابت می‌کند نه قیمت. حسابی لوکس و کمپین‌های فصل هدیه ساختیم.", services:["برند و مدیریت هنری","فیلم محصول","کمپین هدیه","تبلیغات پولی"], rl:["بازدید فروشگاه","بازده کمپین","دنبال‌کننده"] },
+  "oman-vision": { cat:"رسانه", tagline:"روایت داستان عمان برای جهان.", brief:"پلتفرم رسانه‌ای که به دسترسی و ماندگاری نیاز داشت. قالب‌ها را تیز کردیم و مخاطب را رشد دادیم.", services:["استراتژی محتوا","قالب‌های کوتاه","رشد مخاطب","توزیع"], rl:["زمان تماشا","فالوور جدید","اشتراک‌گذاری"] },
+  "adam-perfumes": { cat:"عطر", tagline:"عطری که آنلاین فراموش‌نشدنی می‌شود.", brief:"خانهٔ عطر با قدرت خرده‌فروشی و قیف دیجیتال ضعیف. دفترچهٔ لانچ و موتور همیشه‌فعال ساختیم.", services:["فیلم برند","کمپین لانچ","فروشگاه آنلاین","معرفی اینفلوئنسر"], rl:["فروش آنلاین","بازده لانچ","دنبال‌کننده"] },
+  "miss-cheff": { cat:"غذا", tagline:"از آشپزخانه تا رزرو کامل.", brief:"برند آشپزی با غذای عالی و تقاضای نوسانی. حساب را اشتها‌برانگیز و سفارش‌ها را پایدار کردیم.", services:["محتوای غذا","کمپین منو","قیف تحویل","جامعه"], rl:["سفارش","ذخیره","دنبال‌کننده"] },
+  "first-glass-oman": { cat:"شیشه و آلومینیوم", tagline:"ساختن عمان، جام به جام.", brief:"پیمانکار شیشه و آلومینیوم که با صنعت‌گری برنده می‌شد نه کلیک. حضوری پروژه‌محور و موتور جذب B2B ساختیم.", services:["محتوای برند و پروژه","جذب B2B","فیلم پروژه‌ها","توانمندسازی فروش"], rl:["درخواست واجد شرایط","استعلام سایت","پروژه‌های متأثر"] },
+};
+
+class Component extends DCLogic {
+  state = { slug: null, lang: "en" };
+  rootRef = React.createRef();
+
+  componentDidMount() {
+    let saved = "en";
+    try { saved = localStorage.getItem("bs-lang") || "en"; } catch (e) {}
+    this._sync = () => this.setState({ slug: (location.hash || "").replace(/^#/, "") });
+    this._sync();
+    window.addEventListener("hashchange", this._sync);
+    if (saved !== this.state.lang) this.setState({ lang: saved });
+    else this.applyLang();
+  }
+  componentDidUpdate() { this.applyLang(); }
+  applyLang() {
+    const root = this.rootRef.current;
+    if (!root) return;
+    const lang = this.state.lang || "en";
+    const dict = T[lang] || T.en;
+    root.setAttribute("dir", (lang === "ar" || lang === "fa") ? "rtl" : "ltr");
+    root.setAttribute("data-lang", lang);
+    root.querySelectorAll("[data-i18n]").forEach((el) => {
+      const k = el.getAttribute("data-i18n");
+      if (dict[k] != null) el.textContent = dict[k];
+    });
+    root.querySelectorAll("img[data-logo]").forEach((im) => {
+      const u = im.getAttribute("data-logo");
+      if (u && u.indexOf("{{") < 0 && im.getAttribute("src") !== u) im.setAttribute("src", u);
+    });
+  }
+  setLang(lang) {
+    try { localStorage.setItem("bs-lang", lang); } catch (e) {}
+    this.setState({ lang });
+  }
+  _origDidUnmount() {
+    if (this._sync) window.removeEventListener("hashchange", this._sync);
+  }
+
+  renderVals() {
+    const DATA = [
+      { slug: "m2-real-estate", name: "M2 Real Estate", cat: "Real estate", ar: "عقارات", ig: "https://www.instagram.com/m2.realestates/",
+        c: "linear-gradient(135deg,#2E568A,#0A1F38)",
+        tagline: "Muscat's most-wanted addresses, sold faster.",
+        brief: "A boutique agency with premium listings but a flat digital presence. We rebuilt the feed and the funnel so every property looked as valuable as it really is.",
+        services: ["Brand & content system", "Property reels", "Lead-gen campaigns", "CRM & follow-up"],
+        results: [{ n: "+218%", l: "Qualified leads" }, { n: "579", l: "Followers" }, { n: "27", l: "Deals influenced" }] },
+      { slug: "lubna-khalili-academy", name: "Lubna Khalili Academy", cat: "Education", ar: "أكاديمية", ig: "https://www.instagram.com/academylubnakhalili/",
+        c: "linear-gradient(135deg,#F9912F,#7A3A08)",
+        tagline: "Turning expertise into a sold-out academy.",
+        brief: "An educator with a loyal following and no system to convert it. We packaged the courses, built the launch calendar, and ran the enrolment campaigns.",
+        services: ["Course branding", "Launch campaigns", "Lead funnels", "Community content"],
+        results: [{ n: "+340%", l: "Enrolments" }, { n: "1,245", l: "Followers" }, { n: "4.6x", l: "Ad ROAS" }] },
+      { slug: "zaytoon-royal", name: "Zaytoon Royal", cat: "Hospitality", ar: "ضيافة", ig: "https://www.instagram.com/zaytoonroyal/",
+        c: "linear-gradient(135deg,#13335A,#030B16)",
+        tagline: "A royal table, fully booked.",
+        brief: "A fine-dining destination that needed reservations, not just likes. We built a booking-first presence with seasonal campaigns.",
+        services: ["Brand & art direction", "Food content", "Reservations funnel", "Influencer dinners"],
+        results: [{ n: "2.4x", l: "Direct bookings" }, { n: "+190%", l: "Weekend covers" }, { n: "153", l: "Followers" }] },
+      { slug: "hudhud-fabric", name: "Hudhud Fabric", cat: "Textile", ar: "أقمشة", ig: "https://www.instagram.com/hudhud.fabric/",
+        c: "linear-gradient(135deg,#F58021,#B0530B)",
+        tagline: "Heritage fabric, modern demand.",
+        brief: "A textile house with beautiful product and quiet sales. We told the craft story and turned the catalogue into a shoppable feed.",
+        services: ["Brand storytelling", "Product photography", "Catalogue & shop", "Paid social"],
+        results: [{ n: "+265%", l: "Online orders" }, { n: "3.0x", l: "Catalogue views" }, { n: "8,550", l: "Followers" }] },
+      { slug: "seeb-waves", name: "Seeb Waves", cat: "Lifestyle", ar: "نمط حياة", ig: "https://www.instagram.com/seebwaves/",
+        c: "linear-gradient(135deg,#5A7CA8,#13335A)",
+        tagline: "Riding the coastal lifestyle wave.",
+        brief: "A lifestyle brand for Oman's coast. We gave it a consistent visual world and an always-on content engine.",
+        services: ["Brand world", "Always-on content", "Creator partnerships", "Community growth"],
+        results: [{ n: "+410%", l: "Engagement" }, { n: "14.9k", l: "Followers" }, { n: "5.1x", l: "Reel reach" }] },
+      { slug: "sima-vandad", name: "Sima Vandad", cat: "Beauty", ar: "جمال", ig: "https://www.instagram.com/sima_vandad/",
+        c: "linear-gradient(135deg,#FCA856,#D86A12)",
+        tagline: "Beauty that books itself.",
+        brief: "A beauty professional ready to scale. We built the booking funnel and the before/after content that actually converts.",
+        services: ["Brand identity", "Booking funnel", "Treatment reels", "Retargeting"],
+        results: [{ n: "+280%", l: "Bookings" }, { n: "3.4x", l: "Lead-form rate" }, { n: "32.1k", l: "Followers" }] },
+      { slug: "nota-jewelry", name: "Nota Jewelry", cat: "Jewelry", ar: "مجوهرات", ig: "https://www.instagram.com/notajelwery/",
+        c: "linear-gradient(135deg,#2E568A,#061427)",
+        tagline: "Every piece, a moment.",
+        brief: "A jewelry label competing on emotion, not price. We crafted a premium feed and gifting-season campaigns.",
+        services: ["Brand & art direction", "Product films", "Gifting campaigns", "Paid social"],
+        results: [{ n: "+233%", l: "Store visits" }, { n: "4.2x", l: "Campaign ROAS" }, { n: "22.2k", l: "Followers" }] },
+      { slug: "oman-vision", name: "Oman Vision", cat: "Media", ar: "إعلام", ig: "https://www.instagram.com/omanvision.ir/",
+        c: "linear-gradient(135deg,#F9912F,#7A3A08)",
+        tagline: "Telling Oman's story to the world.",
+        brief: "A media platform that needed reach and retention. We sharpened the formats and grew the audience.",
+        services: ["Content strategy", "Short-form formats", "Audience growth", "Distribution"],
+        results: [{ n: "+520%", l: "Watch time" }, { n: "48k", l: "New followers" }, { n: "3.7x", l: "Shares" }] },
+      { slug: "adam-perfumes", name: "Adam Perfumes", cat: "Fragrance", ar: "عطور", ig: "https://www.instagram.com/adam.perfumes/",
+        c: "linear-gradient(135deg,#13335A,#0A1F38)",
+        tagline: "Scent, made unforgettable online.",
+        brief: "A fragrance house with retail strength and a thin digital funnel. We built the launch playbook and the always-on engine.",
+        services: ["Brand films", "Launch campaigns", "E-commerce funnel", "Influencer seeding"],
+        results: [{ n: "+295%", l: "Online sales" }, { n: "5.8x", l: "Launch ROAS" }, { n: "102k", l: "Followers" }] },
+      { slug: "miss-cheff", name: "Miss Cheff", cat: "Food", ar: "طعام", ig: "https://www.instagram.com/miisscheff/",
+        c: "linear-gradient(135deg,#FCA856,#B0530B)",
+        tagline: "From kitchen to fully-booked.",
+        brief: "A culinary brand with great food and inconsistent demand. We made the feed crave-worthy and the orders steady.",
+        services: ["Food content", "Menu campaigns", "Delivery funnel", "Community"],
+        results: [{ n: "2.7x", l: "Orders" }, { n: "+205%", l: "Saves" }, { n: "389", l: "Followers" }] },
+      { slug: "first-glass-oman", name: "First Glass Oman", cat: "Glass & aluminium", ar: "زجاج", ig: "https://www.instagram.com/firstglassoman/",
+        c: "linear-gradient(135deg,#5A7CA8,#0A1F38)",
+        tagline: "Building Oman, pane by pane.",
+        brief: "A glass & aluminium contractor that won on craft, not clicks. We built a project-led presence and a B2B lead engine.",
+        services: ["Brand & project content", "B2B lead-gen", "Project case films", "Sales enablement"],
+        results: [{ n: "+178%", l: "Qualified RFQs" }, { n: "3.3x", l: "Site enquiries" }, { n: "24", l: "Projects influenced" }] },
+    ];
+    const FEEDS = {
+      "m2-real-estate": { handle: "m2.realestates", feed: "feeds/m2.realestates.jpg" },
+      "lubna-khalili-academy": { handle: "academylubnakhalili", feed: "feeds/academylubnakhalili.jpg" },
+      "zaytoon-royal": { handle: "zaytoonroyal", feed: "feeds/zaytoonroyal.jpg" },
+      "hudhud-fabric": { handle: "hudhud.fabric", feed: "feeds/hudhud.fabric.jpg" },
+      "seeb-waves": { handle: "seebwaves", feed: "feeds/seebwaves.jpg" },
+      "sima-vandad": { handle: "sima_vandad", feed: "feeds/sima_vandad.jpg" },
+      "nota-jewelry": { handle: "notajelwery", feed: "feeds/notajelwery.jpg" },
+      "adam-perfumes": { handle: "adam.perfumes", feed: "feeds/adam.perfumes.jpg" },
+      "miss-cheff": { handle: "miisscheff", feed: "feeds/miisscheff.jpg" },
+    };
+    DATA.forEach((d) => {
+      const f = FEEDS[d.slug];
+      d.feed = f ? f.feed : null;
+      d.handle = f ? f.handle : (d.ig.replace(/.*instagram\.com\//, "").replace(/\/.*$/, ""));
+      d.noFeed = !d.feed;
+      d.logo = f ? ("logos/" + f.handle + ".jpg") : null;
+    });
+    const lang = this.state.lang || "en";
+    const base = DATA.find((d) => d.slug === this.state.slug) || DATA[0];
+    const tr = (lang === "fa" ? FA : AR)[base.slug];
+    const active = ((lang === "ar" || lang === "fa") && tr)
+      ? Object.assign({}, base, { cat: tr.cat, tagline: tr.tagline, brief: tr.brief, services: tr.services,
+          results: base.results.map((r, i) => ({ n: r.n, l: (tr.rl && tr.rl[i]) || r.l })) })
+      : base;
+    const idx = DATA.indexOf(base);
+    const next = DATA[(idx + 1) % DATA.length];
+    return {
+      active,
+      hasLogo: !!base.logo,
+      noLogo: !base.logo,
+      logo: base.logo,
+      next,
+      rootRef: this.rootRef,
+      arabicAccents: lang === "ar",
+      isEn: lang === "en",
+      isAr: lang === "ar",
+      setEn: () => this.setLang("en"),
+      setAr: () => this.setLang("ar"),
+      setFa: () => this.setLang("fa"),
+      enBg: lang === "en" ? "var(--bs-accent)" : "transparent",
+      enFg: lang === "en" ? "var(--bs-on-accent)" : "var(--bs-fg-muted)",
+      arBg: lang === "ar" ? "var(--bs-accent)" : "transparent",
+      arFg: lang === "ar" ? "var(--bs-on-accent)" : "var(--bs-fg-muted)",
+      faBg: lang === "fa" ? "var(--bs-accent)" : "transparent",
+      faFg: lang === "fa" ? "var(--bs-on-accent)" : "var(--bs-fg-muted)",
+      homeUrl: "Bright%20Starts%20Home.dc.html",
+      clientsUrl: "Bright%20Starts%20Home.dc.html#clients",
+      contactUrl: "Bright%20Starts%20Home.dc.html#contact",
+    };
+  }
+}
+</script>
+</body>
+</html>

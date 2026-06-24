@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800;900&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  [data-step]{min-height:165vh;}
+  [data-step-title]{transition:transform .45s var(--ease), opacity .45s var(--ease);}
+  [data-path-fill]{transition:height .18s linear;}
+  [data-lang="ar"]{font-family:var(--font-arabic)!important;}
+  [data-lang="ar"] *{font-family:var(--font-arabic)!important;letter-spacing:0!important;}
+  [data-lang="fa"]{font-family:var(--font-persian)!important;}
+  [data-lang="fa"] *{font-family:var(--font-persian)!important;letter-spacing:0!important;}
+  [data-lang="ar"] [data-lightpath],[data-lang="fa"] [data-lightpath]{left:auto!important;right:0!important;}
+  [data-lang="ar"] [data-pathwrap],[data-lang="fa"] [data-pathwrap]{padding-left:40px!important;padding-right:110px!important;}
+  [data-lang="ar"] [data-spine],[data-lang="fa"] [data-spine]{left:auto!important;right:60px!important;}
+  [data-lang="ar"] [data-step-title],[data-lang="fa"] [data-step-title]{transform-origin:right center!important;}
+  /* ---- Base tokens (Bright Stars ORANGE core is the default; paints immediately) ---- */
+  :root{
+    --font-hero:"Saira Condensed",sans-serif;
+    --font-display:"Space Grotesk",sans-serif;
+    --font-body:"Inter",sans-serif;
+    --font-mono:"JetBrains Mono",monospace;
+    --font-arabic:"Tajawal","Inter",sans-serif;
+    --font-persian:"Vazirmatn","Tajawal",sans-serif;
+    --radius-sm:6px; --radius:10px; --radius-lg:16px; --radius-pill:9999px;
+    --ease:cubic-bezier(.2,.8,.2,1); --dur:200ms; --dur-slow:320ms;
+    --shadow-lg:0 16px 48px rgba(0,0,0,.55);
+    /* orange theme — Bright Stars core (#000 canvas · #F58021 accent · navy structure) */
+    --bs-bg:#000000; --bs-panel:#0A0F18; --bs-panel-2:#101826;
+    --bs-fg:#F4F7FB; --bs-fg-muted:#93A1B5; --bs-fg-subtle:#5E6B7E;
+    --bs-accent:#F58021; --bs-accent-strong:#F9912F; --bs-on-accent:#0A0F18;
+    --bs-energy:#F58021;
+    --bs-line:#1C2738; --bs-line-soft:rgba(244,247,251,.06);
+    --bs-glow:0 0 0 1px #F58021,0 8px 24px rgba(245,128,33,.28);
+  }
+  [data-dir="gold"]{
+    --bs-bg:#08070A; --bs-panel:#110F0A; --bs-panel-2:#1A160E;
+    --bs-fg:#F6F1E7; --bs-fg-muted:#A89F8C; --bs-fg-subtle:#6F6655;
+    --bs-accent:#E8C45C; --bs-accent-strong:#C9A227; --bs-on-accent:#14110A;
+    --bs-energy:#F58021;
+    --bs-line:rgba(232,196,92,.16); --bs-line-soft:rgba(246,241,231,.08);
+    --bs-glow:0 0 0 1px rgba(232,196,92,.5),0 14px 38px rgba(201,162,39,.22);
+  }
+  [data-dir="pearl"]{
+    --bs-bg:#F4ECDD; --bs-panel:#FBF6EC; --bs-panel-2:#FFFFFF;
+    --bs-fg:#1A1812; --bs-fg-muted:#6B6353; --bs-fg-subtle:#9A917D;
+    --bs-accent:#B0841C; --bs-accent-strong:#8A6710; --bs-on-accent:#FFFFFF;
+    --bs-energy:#D86A12;
+    --bs-line:rgba(26,24,18,.12); --bs-line-soft:rgba(26,24,18,.07);
+    --bs-glow:0 0 0 1px rgba(176,132,28,.4),0 14px 38px rgba(138,103,16,.18);
+    --shadow-lg:0 16px 48px rgba(90,70,20,.16);
+  }
+  [data-dir="emerald"]{
+    --bs-bg:#06231A; --bs-panel:#0A2C21; --bs-panel-2:#0F3528;
+    --bs-fg:#F1F0E6; --bs-fg-muted:#A7C2B4; --bs-fg-subtle:#6E8C7D;
+    --bs-accent:#E8C45C; --bs-accent-strong:#C9A227; --bs-on-accent:#07140F;
+    --bs-energy:#2FB873;
+    --bs-line:rgba(232,196,92,.16); --bs-line-soft:rgba(241,240,230,.08);
+    --bs-glow:0 0 0 1px rgba(232,196,92,.5),0 14px 38px rgba(201,162,39,.22);
+  }
+  /* Scroll reveals are JS-driven (directional, on intersection) — see logic. */
+  @keyframes bsPulse{0%,100%{opacity:.32;transform:scale(1);}50%{opacity:.6;transform:scale(1.09);}}
+  @keyframes bsFloat{0%,100%{transform:rotate(45deg) translateY(0);}50%{transform:rotate(45deg) translateY(-15px);}}
+  @keyframes bsFloat2{0%,100%{transform:rotate(45deg) translateY(0);}50%{transform:rotate(45deg) translateY(13px);}}
+  @keyframes bsSpinSlow{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+  @keyframes bsSheen{0%{transform:translateX(-130%) skewX(-18deg);}55%,100%{transform:translateX(360%) skewX(-18deg);}}
+  @keyframes bsScrollDot{0%{transform:translateY(0);opacity:1;}70%{transform:translateY(10px);opacity:.15;}100%{transform:translateY(0);opacity:1;}}
+  @keyframes bsFloatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-16px);}}
+  @keyframes bsFloatY2{0%,100%{transform:translateY(0);}50%{transform:translateY(13px);}}
+  [data-burger]{display:none;}
+  @media (max-width:880px){
+    [data-desk-nav]{display:none!important;}
+    [data-nav-cta]{display:none!important;}
+    [data-burger]{display:inline-flex!important;}
+    [data-grid-3]{grid-template-columns:1fr!important;}
+    [data-hero-decor]{display:none!important;}
+    [data-grid-4]{grid-template-columns:1fr 1fr!important;}
+    [data-zv]{grid-template-columns:1fr 1fr!important;}
+    [data-blog-grid]{grid-template-columns:1fr!important;}
+    [data-pathwrap]{padding-left:64px!important;}
+    [data-spine]{left:34px!important;}
+    [data-pathwrap] [data-node]{left:-50px!important;width:34px!important;height:34px!important;}
+    [data-step]{min-height:auto!important;padding:36px 0!important;}
+    [data-process]{grid-template-columns:1fr 1fr!important;}
+    [data-pricing]{grid-template-columns:1fr!important;}
+    [data-hero-h1]{font-size:50px!important;}
+    [data-stats-grid]{grid-template-columns:1fr 1fr!important;}
+    [data-clients-grid]{grid-template-columns:1fr 1fr!important;}
+    [data-pad]{padding-left:22px!important;padding-right:22px!important;}
+    [data-cta-row]{flex-direction:column!important;align-items:stretch!important;}
+  }
+</style>
+<script src="image-slot.js"></script>
+</helmet>
+
+<div ref="{{ rootRef }}" data-dir="{{ dir }}" style="min-height:100vh;background:var(--bs-bg);color:var(--bs-fg);font-family:var(--font-body);overflow-x:hidden;">
+
+  <!-- ============ SCROLL LIGHTING PATH ============ -->
+  <div aria-hidden="" data-lightpath="" style="position:fixed;top:0;left:0;width:4px;height:100vh;z-index:60;pointer-events:none;background:var(--bs-line-soft);">
+    <div ref="{{ progressRef }}" style="position:absolute;top:0;left:0;width:100%;height:0%;background:linear-gradient(to bottom, color-mix(in srgb, var(--bs-accent) 40%, transparent), var(--bs-accent) 70%, var(--bs-energy));will-change:height;">
+      <span ref="{{ progressTipRef }}" style="position:absolute;bottom:-5px;left:50%;width:10px;height:10px;border-radius:50%;background:var(--bs-accent);transform:translateX(-50%);box-shadow:0 0 10px 2px var(--bs-accent);"></span>
+    </div>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <header data-pad="" style="position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;border-bottom:1px solid var(--bs-line);background:color-mix(in srgb, var(--bs-bg) 80%, transparent);backdrop-filter:blur(14px);">
+    <a href="#/home" style="display:inline-flex;align-items:center;gap:11px;">
+      <img src="assets/logo-mark-color.png" alt="" style="height:34px;width:auto;display:block;">
+      <span style="display:flex;flex-direction:column;line-height:1;">
+        <span style="font-family:var(--font-hero);font-weight:800;font-size:21px;letter-spacing:.02em;color:var(--bs-fg);text-transform:uppercase;">Bright Starts</span>
+        <span style="font-family:var(--font-mono);font-size:7.5px;letter-spacing:.34em;color:var(--bs-accent);text-transform:uppercase;margin-top:4px;">Muscat · Oman</span>
+      </span>
+    </a>
+    <nav data-desk-nav="" style="display:flex;gap:32px;align-items:center;">
+      <a href="#/home" data-nav="home" data-i18n="nav.home" style="font-family:var(--font-body);font-size:14.5px;font-weight:500;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">Home</a>
+      <a href="#/services" data-nav="services" data-i18n="nav.services" style="font-family:var(--font-body);font-size:14.5px;font-weight:500;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">Services</a>
+      <a href="#/clients" data-nav="clients" data-i18n="nav.clients" style="font-family:var(--font-body);font-size:14.5px;font-weight:500;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">Clients</a>
+      <a href="#/about" data-nav="about" data-i18n="nav.about" style="font-family:var(--font-body);font-size:14.5px;font-weight:500;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">About</a>
+      <a href="#/pricing" data-nav="pricing" data-i18n="nav.pricing" style="font-family:var(--font-body);font-size:14.5px;font-weight:500;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">Pricing</a>
+      <a href="#/blog" data-nav="blog" data-i18n="nav.blog" style="font-family:var(--font-body);font-size:14.5px;font-weight:500;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">Blog</a>
+      <a href="#/contact" data-nav="contact" data-i18n="nav.contact" style="font-family:var(--font-body);font-size:14.5px;font-weight:500;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">Contact</a>
+    </nav>
+    <div data-nav-cta="" style="display:flex;align-items:center;gap:14px;">
+      <div style="display:inline-flex;align-items:center;border:1px solid var(--bs-line);border-radius:var(--radius-pill);overflow:hidden;">
+        <button onClick="{{ setEn }}" style="font-family:var(--font-mono);font-size:11.5px;font-weight:500;letter-spacing:.06em;padding:7px 12px;border:none;cursor:pointer;background:{{ enBg }};color:{{ enFg }};">EN</button>
+        <button onClick="{{ setAr }}" style="font-family:var(--font-arabic);font-size:13px;font-weight:700;padding:6px 12px;border:none;cursor:pointer;background:{{ arBg }};color:{{ arFg }};">ع</button>
+        <button onClick="{{ setFa }}" style="font-family:var(--font-persian);font-size:12px;font-weight:700;padding:6px 11px;border:none;cursor:pointer;background:{{ faBg }};color:{{ faFg }};">فا</button>
+      </div>
+      <a href="#/contact" data-i18n="nav.start" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 18px;font-family:var(--font-display);font-weight:600;font-size:14px;border-radius:var(--radius);background:var(--bs-accent);color:var(--bs-on-accent);border:1px solid transparent;transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-2px);box-shadow:var(--bs-glow);">Start a project</a>
+    </div>
+    <button data-burger="" onClick="{{ toggleMobile }}" aria-label="Menu" style="align-items:center;justify-content:center;width:42px;height:42px;border-radius:var(--radius);background:transparent;border:1px solid var(--bs-line);color:var(--bs-fg);cursor:pointer;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+    </button>
+  </header>
+
+  <!-- ============ MOBILE MENU ============ -->
+  <sc-if value="{{ mobileOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:50;background:color-mix(in srgb, var(--bs-bg) 96%, transparent);backdrop-filter:blur(16px);display:flex;flex-direction:column;padding:24px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-family:var(--font-hero);font-weight:800;font-size:20px;text-transform:uppercase;letter-spacing:.02em;">Bright Starts</span>
+        <button onClick="{{ closeMobile }}" aria-label="Close" style="width:42px;height:42px;border-radius:var(--radius);background:transparent;border:1px solid var(--bs-line);color:var(--bs-fg);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        </button>
+      </div>
+      <nav style="display:flex;flex-direction:column;gap:4px;margin-top:36px;">
+        <a href="#/home" onClick="{{ closeMobile }}" data-i18n="nav.home" style="font-family:var(--font-hero);font-weight:700;font-size:34px;text-transform:uppercase;letter-spacing:.01em;color:var(--bs-fg);padding:9px 0;border-bottom:1px solid var(--bs-line);">Home</a>
+        <a href="#/services" onClick="{{ closeMobile }}" data-i18n="nav.services" style="font-family:var(--font-hero);font-weight:700;font-size:34px;text-transform:uppercase;letter-spacing:.01em;color:var(--bs-fg);padding:9px 0;border-bottom:1px solid var(--bs-line);">Services</a>
+        <a href="#/clients" onClick="{{ closeMobile }}" data-i18n="nav.clients" style="font-family:var(--font-hero);font-weight:700;font-size:34px;text-transform:uppercase;letter-spacing:.01em;color:var(--bs-fg);padding:9px 0;border-bottom:1px solid var(--bs-line);">Clients</a>
+        <a href="#/about" onClick="{{ closeMobile }}" data-i18n="nav.about" style="font-family:var(--font-hero);font-weight:700;font-size:34px;text-transform:uppercase;letter-spacing:.01em;color:var(--bs-fg);padding:9px 0;border-bottom:1px solid var(--bs-line);">About</a>
+        <a href="#/pricing" onClick="{{ closeMobile }}" data-i18n="nav.pricing" style="font-family:var(--font-hero);font-weight:700;font-size:34px;text-transform:uppercase;letter-spacing:.01em;color:var(--bs-fg);padding:9px 0;border-bottom:1px solid var(--bs-line);">Pricing</a>
+        <a href="#/blog" onClick="{{ closeMobile }}" data-i18n="nav.blog" style="font-family:var(--font-hero);font-weight:700;font-size:34px;text-transform:uppercase;letter-spacing:.01em;color:var(--bs-fg);padding:9px 0;border-bottom:1px solid var(--bs-line);">Blog</a>
+        <a href="#/contact" onClick="{{ closeMobile }}" data-i18n="nav.contact" style="font-family:var(--font-hero);font-weight:700;font-size:34px;text-transform:uppercase;letter-spacing:.01em;color:var(--bs-fg);padding:9px 0;border-bottom:1px solid var(--bs-line);">Contact</a>
+      </nav>
+      <div style="display:flex;gap:10px;margin-top:20px;">
+        <button onClick="{{ setEn }}" style="flex:1;height:46px;font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;border-radius:var(--radius);border:1px solid var(--bs-line);cursor:pointer;background:{{ enBg }};color:{{ enFg }};">EN</button>
+        <button onClick="{{ setAr }}" style="flex:1;height:46px;font-family:var(--font-arabic);font-size:16px;font-weight:700;border-radius:var(--radius);border:1px solid var(--bs-line);cursor:pointer;background:{{ arBg }};color:{{ arFg }};">العربية</button>
+        <button onClick="{{ setFa }}" style="flex:1;height:46px;font-family:var(--font-persian);font-size:16px;font-weight:700;border-radius:var(--radius);border:1px solid var(--bs-line);cursor:pointer;background:{{ faBg }};color:{{ faFg }};">فارسی</button>
+      </div>
+      <a href="#/contact" onClick="{{ closeMobile }}" style="margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:9px;height:56px;font-family:var(--font-display);font-weight:600;font-size:17px;border-radius:var(--radius);background:var(--bs-accent);color:var(--bs-on-accent);">Start a project</a>
+    </div>
+  </sc-if>
+
+  <!-- ============ HERO ============ -->
+  <section id="top" data-page="home" data-pad="" style="position:relative;max-width:1200px;margin:0 auto;padding:100px 40px 84px;overflow:hidden;">
+    <sc-if value="{{ decor }}" hint-placeholder-val="{{ true }}">
+      
+    </sc-if>
+    <div style="position:relative;max-width:820px;">
+      <div data-reveal="" style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);">
+        <span style="opacity:.5;">&lt;</span>
+        <span data-i18n="hero.tag">Digital marketing · Oman</span>
+        <sc-if value="{{ arabicAccents }}" hint-placeholder-val="{{ true }}"><span style="font-family:var(--font-arabic);letter-spacing:0;opacity:.85;">· وكالة تسويق رقمي</span></sc-if>
+        <span style="opacity:.5;">&gt;</span>
+      </div>
+      <h1 data-reveal="" data-rev-delay="0.06" data-hero-h1="" style="font-family:var(--font-hero);font-weight:800;text-transform:uppercase;font-size:84px;line-height:.96;letter-spacing:.006em;margin:22px 0 0;">
+        <span data-i18n="hero.h1a">Lighting the path</span><br><span data-i18n="hero.h1b">for your</span> <span data-i18n="hero.brand" style="color:var(--bs-accent);">brand.</span>
+      </h1>
+      <p data-reveal="" data-rev-delay="0.12" data-i18n="hero.sub" style="font-family:var(--font-body);font-size:20px;line-height:1.6;color:var(--bs-fg-muted);max-width:580px;margin:26px 0 0;">
+        Bright Starts is a Muscat-based digital marketing agency for ambitious brands — we partner with you from growth to business development, and from the bright idea all the way to execution.
+      </p>
+      <div data-reveal="" data-rev-delay="0.18" data-cta-row="" style="display:flex;gap:14px;margin-top:38px;">
+        <a href="#/contact" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;padding:0 32px;font-family:var(--font-display);font-weight:600;font-size:16px;letter-spacing:.01em;border-radius:var(--radius);background:var(--bs-accent);color:var(--bs-on-accent);border:1px solid transparent;transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-2px);box-shadow:var(--bs-glow);">
+          <span data-i18n="hero.start">Start a project</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </a>
+        <a href="#/services" style="display:inline-flex;align-items:center;justify-content:center;gap:9px;height:56px;padding:0 30px;font-family:var(--font-display);font-weight:600;font-size:16px;border-radius:var(--radius);background:transparent;color:var(--bs-fg);border:1px solid var(--bs-line);transition:all var(--dur) var(--ease);" style-hover="border-color:var(--bs-accent);transform:translateY(-2px);">
+          <span data-i18n="hero.what">What we do</span>
+        </a>
+      </div>
+      <div data-reveal="" data-rev-delay="0.24" data-stats="" style="display:flex;align-items:center;gap:44px;margin-top:58px;flex-wrap:wrap;">
+        <div><div style="font-family:var(--font-display);font-weight:700;font-size:32px;letter-spacing:-.02em;">120+</div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--bs-fg-subtle);margin-top:5px;" data-i18n="st.brands">Brands grown</div></div>
+        <div style="width:1px;height:38px;background:var(--bs-line);"></div>
+        <div><div style="font-family:var(--font-display);font-weight:700;font-size:32px;letter-spacing:-.02em;">8 yrs</div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--bs-fg-subtle);margin-top:5px;" data-i18n="st.gulf">In the Gulf</div></div>
+        <div style="width:1px;height:38px;background:var(--bs-line);"></div>
+        <div><div style="font-family:var(--font-display);font-weight:700;font-size:32px;letter-spacing:-.02em;color:var(--bs-accent);">4.2x</div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--bs-fg-subtle);margin-top:5px;" data-i18n="st.roas">Avg. ROAS</div></div>
+      </div>
+    </div>
+  <div aria-hidden="" data-hero-decor="" style="position: absolute; top: 131px; width: 440px; height: 470px; pointer-events: none; left: 761px">
+        <div style="position:absolute;right:50px;top:60px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle, rgba(245,128,33,.22), transparent 70%);animation:bsPulse 7s ease-in-out infinite;"></div>
+        <div style="position:absolute;right:70px;top:36px;width:300px;height:300px;border:1.5px solid var(--bs-line);border-radius:46px;transform:rotate(45deg);animation:bsFloat 12s ease-in-out infinite;"></div>
+
+        <div style="position:absolute;right:128px;top:18px;width:176px;height:236px;border-radius:18px;overflow:hidden;border:1px solid var(--bs-line);background:linear-gradient(165deg,#16202F,#0A0F18);box-shadow:0 18px 44px rgba(0,0,0,.55);animation:bsFloatY 7s ease-in-out infinite;">
+          <span style="position:absolute;top:12px;left:12px;width:16px;height:16px;border-top:2px solid var(--bs-accent);border-left:2px solid var(--bs-accent);"></span>
+          <span style="position:absolute;top:12px;right:12px;display:inline-flex;align-items:center;gap:5px;font-family:var(--font-mono);font-size:8px;letter-spacing:.16em;color:var(--bs-fg-muted);"><span style="width:6px;height:6px;border-radius:50%;background:var(--bs-accent);animation:bsPulse 2s ease-in-out infinite;"></span>REC</span>
+          <div style="position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:var(--bs-accent);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(245,128,33,.45);">
+            <svg viewBox="0 0 24 24" fill="var(--bs-on-accent)" style="width:22px;height:22px;margin-left:3px;"><path d="M8 5v14l11-7z"></path></svg>
+          </div>
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:14px;background:linear-gradient(to top, rgba(0,0,0,.6), transparent);">
+            <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;color:var(--bs-accent);">&lt; REELS &gt;</div>
+            <div style="height:6px;width:78%;border-radius:3px;background:#2A384D;margin-top:8px;"></div>
+            <div style="height:6px;width:52%;border-radius:3px;background:var(--bs-line);margin-top:6px;"></div>
+          </div>
+        </div>
+
+        <div style="position:absolute;right:44px;top:226px;width:166px;height:120px;border-radius:16px;border:1px solid var(--bs-line);background:var(--bs-panel-2);box-shadow:0 16px 38px rgba(0,0,0,.5);padding:16px;animation:bsFloatY2 8s ease-in-out infinite;">
+          <div style="font-family:var(--font-mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-fg-subtle);">&lt; ENGAGEMENT &gt;</div>
+          <div style="font-family:var(--font-hero);font-weight:800;font-size:30px;line-height:1;color:var(--bs-accent);margin-top:6px;">+312%</div>
+          <div style="display:flex;align-items:flex-end;gap:5px;height:30px;margin-top:10px;">
+            <span style="flex:1;height:38%;background:#2A384D;border-radius:2px;"></span>
+            <span style="flex:1;height:58%;background:#2A384D;border-radius:2px;"></span>
+            <span style="flex:1;height:46%;background:#2A384D;border-radius:2px;"></span>
+            <span style="flex:1;height:78%;background:var(--bs-accent);border-radius:2px;"></span>
+            <span style="flex:1;height:100%;background:var(--bs-accent);border-radius:2px;"></span>
+          </div>
+        </div>
+
+        <div style="position:absolute;right:300px;top:250px;width:46px;height:46px;border:1.5px solid var(--bs-accent);border-radius:9px;transform:rotate(45deg);display:flex;align-items:center;justify-content:center;background:color-mix(in srgb, var(--bs-accent) 12%, transparent);animation:bsFloat 6.5s ease-in-out infinite;">
+          <svg viewBox="0 0 24 24" fill="var(--bs-accent)" style="width:16px;height:16px;transform:rotate(-45deg);margin-left:2px;"><path d="M8 5v14l11-7z"></path></svg>
+        </div>
+      </div></section>
+
+  <!-- ============ PROCESS PATH (home, sticky-title) ============ -->
+  <section data-page="home" style="position:relative;border-top:1px solid var(--bs-line);">
+    <div data-pad="" style="max-width:1100px;margin:0 auto;padding:92px 40px 8px;text-align:center;">
+      <div data-reveal="">
+        <div style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> <span data-i18n="zv.eyebrow">From zero to viral</span> <span style="opacity:.5;">&gt;</span></div>
+        <h2 data-i18n="zv.h" style="font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;font-size:46px;margin:16px 0 0;">We take brands the whole way</h2>
+        <p data-i18n="zv.sub" style="font-family:var(--font-body);color:var(--bs-fg-muted);font-size:17px;line-height:1.6;max-width:640px;margin:14px auto 0;">From the first spark to a brand people can't stop sharing — idea, production and distribution under one roof.</p>
+      </div>
+    </div>
+    <div data-pathwrap="" data-pad="" style="position:relative;max-width:980px;margin:0 auto;padding:0 40px 40px 110px;">
+      <div data-spine="" style="position:absolute;left:60px;top:0;bottom:0;width:2px;background:var(--bs-line);">
+        <div data-path-fill="" style="position:absolute;top:0;left:0;width:100%;height:0%;background:linear-gradient(180deg,var(--bs-accent),var(--bs-energy));box-shadow:0 0 14px var(--bs-accent);will-change:height;"></div>
+      </div>
+
+      <div data-step="" style="position:relative;">
+        <div data-step-head="" style="position:sticky;top:58px;z-index:2;background:linear-gradient(180deg,var(--bs-bg) 60%,rgba(0,0,0,0));padding:22px 0 30px;">
+          <div style="font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);margin-bottom:12px;">&lt; STEP 01 / 05 &gt;</div>
+          <h3 data-step-title="" data-i18n="zv1t" style="font-family:var(--font-hero);font-weight:800;text-transform:uppercase;font-size:clamp(42px,8.5vw,112px);line-height:.92;letter-spacing:.01em;color:var(--bs-fg);margin:0;transform-origin:left center;will-change:transform,opacity;">Spark the idea</h3>
+        </div>
+        <div style="max-width:760px;padding:6vh 0 0;display:flex;flex-direction:column;gap:24px;">
+          <span data-reveal="" style="display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:var(--radius-lg);background:color-mix(in srgb,var(--bs-accent) 12%,transparent);color:var(--bs-accent);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg></span>
+          <p data-reveal="" data-i18n="zv1d" style="font-family:var(--font-body);font-size:21px;line-height:1.6;color:var(--bs-fg-muted);margin:0;max-width:620px;">Positioning, story and the bright idea that sets you apart.</p>
+          <p data-reveal="" data-i18n="zv1x" style="font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;color:var(--bs-accent);margin:0;">&lt; Audit · market research · audience mapping &gt;</p>
+          <div style="margin-top:8px;border-bottom:1px solid var(--bs-line);">
+            <div data-reveal="" data-rev-delay="0.00" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--bs-line);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none;"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="zv1a" style="font-family:var(--font-display);font-weight:500;font-size:17px;color:var(--bs-fg);">Brand audit &amp; positioning</span></div>
+            <div data-reveal="" data-rev-delay="0.04" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--bs-line);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none;"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="zv1b" style="font-family:var(--font-display);font-weight:500;font-size:17px;color:var(--bs-fg);">Audience &amp; competitor research</span></div>
+            <div data-reveal="" data-rev-delay="0.08" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--bs-line);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none;"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="zv1c" style="font-family:var(--font-display);font-weight:500;font-size:17px;color:var(--bs-fg);">The core creative idea</span></div>
+          </div>
+        </div>
+        <div aria-hidden="" style="height:30vh;"></div>
+      </div>
+
+      <div data-step="" style="position:relative;">
+        <div data-step-head="" style="position:sticky;top:58px;z-index:2;background:linear-gradient(180deg,var(--bs-bg) 60%,rgba(0,0,0,0));padding:22px 0 30px;">
+          <div style="font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);margin-bottom:12px;">&lt; STEP 02 / 05 &gt;</div>
+          <h3 data-step-title="" data-i18n="zv2t" style="font-family:var(--font-hero);font-weight:800;text-transform:uppercase;font-size:clamp(42px,8.5vw,112px);line-height:.92;letter-spacing:.01em;color:var(--bs-fg);margin:0;transform-origin:left center;will-change:transform,opacity;">Roll the camera</h3>
+        </div>
+        <div style="max-width:760px;padding:6vh 0 0;display:flex;flex-direction:column;gap:24px;">
+          <span data-reveal="" style="display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:var(--radius-lg);background:color-mix(in srgb,var(--bs-accent) 12%,transparent);color:var(--bs-accent);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1.5"></circle></svg></span>
+          <p data-reveal="" data-i18n="zv2d" style="font-family:var(--font-body);font-size:21px;line-height:1.6;color:var(--bs-fg-muted);margin:0;max-width:620px;">Filming, editing and design that make every frame premium.</p>
+          <p data-reveal="" data-i18n="zv2x" style="font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;color:var(--bs-accent);margin:0;">&lt; Scripting · filming · editing · motion &gt;</p>
+          <div style="margin-top:8px;border-bottom:1px solid var(--bs-line);">
+            <div data-reveal="" data-rev-delay="0.00" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--bs-line);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none;"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="zv2a" style="font-family:var(--font-display);font-weight:500;font-size:17px;color:var(--bs-fg);">Scripts &amp; storyboards</span></div>
+            <div data-reveal="" data-rev-delay="0.04" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--bs-line);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none;"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="zv2b" style="font-family:var(--font-display);font-weight:500;font-size:17px;color:var(--bs-fg);">Filming &amp; photography</span></div>
+            <div data-reveal="" data-rev-delay="0.08" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--bs-line);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none;"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="zv2c" style="font-family:var(--font-display);font-weight:500;font-size:17px;color:var(--bs-fg);">Editing, motion &amp; design</span></div>
+          </div>
+        </div>
+        <div aria-hidden="" style="height:30vh;"></div>
+      </div>
+
+      <div data-step="" style="position:relative;">
+        <div data-step-head="" style="position:sticky;top:58px;z-index:2;background:linear-gradient(180deg,var(--bs-bg) 60%,rgba(0,0,0,0));padding:22px 0 30px;">
+          <div style="font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);margin-bottom:12px;">&lt; STEP 03 / 05 &gt;</div>
+          <h3 data-step-title="" data-i18n="zv3t" style="font-family:var(--font-hero);font-weight:800;text-transform:uppercase;font-size:clamp(42px,8.5vw,112px);line-height:.92;letter-spacing:.01em;color:var(--bs-fg);margin:0;transform-origin:left center;will-change:transform,opacity;">Go live</h3>
+        </div>
+        <div style="max-width:760px;padding:6vh 0 0;display:flex;flex-direction:column;gap:24px;">
+          <span data-reveal="" style="display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:var(--radius-lg);background:color-mix(in srgb,var(--bs-accent) 12%,transparent);color:var(--bs-accent);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;"><path d="M20.2 6 3 11l-.9-2.4c-.3-1 .3-2 1.3-2.3l13.5-4c1-.3 2 .3 2.3 1.3z"></path><path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><path d="m9 11 2 4M14 9.5l2 4"></path></svg></span>
+          <p data-reveal="" data-i18n="zv3d" style="font-family:var(--font-body);font-size:21px;line-height:1.6;color:var(--bs-fg-muted);margin:0;max-width:620px;">Launch across the right channels with a coordinated rollout.</p>
+          <p data-reveal="" data-i18n="zv3x" style="font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;color:var(--bs-accent);margin:0;">&lt; Channel plan · publishing · paid boost &gt;</p>
+          <div style="margin-top:8px;border-bottom:1px solid var(--bs-line);">
+            <div data-reveal="" data-rev-delay="0.00" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--bs-line);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none;"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="zv3a" style="font-family:var(--font-display);font-weight:500;font-size:17px;color:var(--bs-fg);">Channel &amp; content plan</span></div>
+            <div data-reveal="" data-rev-delay="0.04" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--bs-line);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none;"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="zv3b" style="font-family:var(--font-display);font-weight:500;font-size:17px;color:var(--bs-fg);">Coordinated publishing</span></div>
+            <div data-reveal="" data-rev-delay="0.08" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--bs-line);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none;"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="zv3c" style="font-family:var(--font-display);font-weight:500;font-size:17px;color:var(--bs-fg);">Paid media setup</span></div>
+          </div>
+        </div>
+        <div aria-hidden="" style="height:30vh;"></div>
+      </div>
+
+      <div data-step="" style="position:relative;">
+        <div data-step-head="" style="position:sticky;top:58px;z-index:2;background:linear-gradient(180deg,var(--bs-bg) 60%,rgba(0,0,0,0));padding:22px 0 30px;">
+          <div style="font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);margin-bottom:12px;">&lt; STEP 04 / 05 &gt;</div>
+          <h3 data-step-title="" data-i18n="zv4t" style="font-family:var(--font-hero);font-weight:800;text-transform:uppercase;font-size:clamp(42px,8.5vw,112px);line-height:.92;letter-spacing:.01em;color:var(--bs-fg);margin:0;transform-origin:left center;will-change:transform,opacity;">Build momentum</h3>
+        </div>
+        <div style="max-width:760px;padding:6vh 0 0;display:flex;flex-direction:column;gap:24px;">
+          <span data-reveal="" style="display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:var(--radius-lg);background:color-mix(in srgb,var(--bs-accent) 12%,transparent);color:var(--bs-accent);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"></path><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"></path><circle cx="12" cy="12" r="2"></circle><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"></path><path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1"></path></svg></span>
+          <p data-reveal="" data-i18n="zv4d" style="font-family:var(--font-body);font-size:21px;line-height:1.6;color:var(--bs-fg-muted);margin:0;max-width:620px;">Optimise, double down on what works and grow the audience.</p>
+          <p data-reveal="" data-i18n="zv4x" style="font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;color:var(--bs-accent);margin:0;">&lt; A/B testing · analytics · community &gt;</p>
+          <div style="margin-top:8px;border-bottom:1px solid var(--bs-line);">
+            <div data-reveal="" data-rev-delay="0.00" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--bs-line);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none;"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="zv4a" style="font-family:var(--font-display);font-weight:500;font-size:17px;color:var(--bs-fg);">Weekly optimisation</span></div>
+            <div data-reveal="" data-rev-delay="0.04" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--bs-line);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none;"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="zv4b" style="font-family:var(--font-display);font-weight:500;font-size:17px;color:var(--bs-fg);">Performance reporting</span></div>
+            <div data-reveal="" data-rev-delay="0.08" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--bs-line);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none;"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="zv4c" style="font-family:var(--font-display);font-weight:500;font-size:17px;color:var(--bs-fg);">Community management</span></div>
+          </div>
+        </div>
+        <div aria-hidden="" style="height:30vh;"></div>
+      </div>
+
+      <div data-step="" style="position:relative;">
+        <div data-step-head="" style="position:sticky;top:58px;z-index:2;background:linear-gradient(180deg,var(--bs-bg) 60%,rgba(0,0,0,0));padding:22px 0 30px;">
+          <div style="font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);margin-bottom:12px;">&lt; STEP 05 / 05 &gt;</div>
+          <h3 data-step-title="" data-i18n="zv5t" style="font-family:var(--font-hero);font-weight:800;text-transform:uppercase;font-size:clamp(42px,8.5vw,112px);line-height:.92;letter-spacing:.01em;color:var(--bs-fg);margin:0;transform-origin:left center;will-change:transform,opacity;">Go viral</h3>
+        </div>
+        <div style="max-width:760px;padding:6vh 0 0;display:flex;flex-direction:column;gap:24px;">
+          <span data-reveal="" style="display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:var(--radius-lg);background:color-mix(in srgb,var(--bs-accent) 12%,transparent);color:var(--bs-accent);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg></span>
+          <p data-reveal="" data-i18n="zv5d" style="font-family:var(--font-body);font-size:21px;line-height:1.6;color:var(--bs-fg-muted);margin:0;max-width:620px;">Reach, shares and a brand people recognise and remember.</p>
+          <p data-reveal="" data-i18n="zv5x" style="font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;color:var(--bs-accent);margin:0;">&lt; Trends · creators · earned reach &gt;</p>
+          <div style="margin-top:8px;border-bottom:1px solid var(--bs-line);">
+            <div data-reveal="" data-rev-delay="0.00" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--bs-line);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none;"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="zv5a" style="font-family:var(--font-display);font-weight:500;font-size:17px;color:var(--bs-fg);">Trend-led content</span></div>
+            <div data-reveal="" data-rev-delay="0.04" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--bs-line);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none;"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="zv5b" style="font-family:var(--font-display);font-weight:500;font-size:17px;color:var(--bs-fg);">Creator partnerships</span></div>
+            <div data-reveal="" data-rev-delay="0.08" style="display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--bs-line);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none;"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="zv5c" style="font-family:var(--font-display);font-weight:500;font-size:17px;color:var(--bs-fg);">Earned &amp; shared reach</span></div>
+          </div>
+        </div>
+        <div aria-hidden="" style="height:30vh;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BLOG TEASER (home) ============ -->
+  <section data-page="home" style="background:var(--bs-panel);border-top:1px solid var(--bs-line);border-bottom:1px solid var(--bs-line);">
+    <div data-pad="" style="max-width:1200px;margin:0 auto;padding:72px 40px;">
+      <div data-reveal="" style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:34px;">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> <span data-i18n="bl.eyebrow">From the studio</span> <span style="opacity:.5;">&gt;</span></div>
+          <h2 data-i18n="bl.h" style="font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;font-size:42px;margin:14px 0 0;">Insights &amp; stories</h2>
+        </div>
+        <a href="#/blog" style="display:inline-flex;align-items:center;gap:9px;height:46px;padding:0 22px;font-family:var(--font-display);font-weight:600;font-size:15px;border-radius:var(--radius);background:transparent;color:var(--bs-fg);border:1px solid var(--bs-line);transition:all var(--dur) var(--ease);" style-hover="border-color:var(--bs-accent);transform:translateY(-2px);"><span data-i18n="bl.all">Read the blog</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+      </div>
+      <div data-blog-grid="" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+        <sc-for list="{{ postsTop }}" as="p" hint-placeholder-count="3">
+          <a href="#/blog" style="display:flex;flex-direction:column;background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);overflow:hidden;transition:transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-lg);">
+            <div style="position:relative;aspect-ratio:16/10;background:linear-gradient(150deg,#16202F,#0A0F18);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--bs-line);">
+              <span aria-hidden="" style="position:absolute;top:12px;left:12px;width:16px;height:16px;border-top:2px solid var(--bs-accent);border-left:2px solid var(--bs-accent);"></span>
+              <span style="position:absolute;top:12px;right:12px;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--bs-on-accent);background:var(--bs-accent);padding:4px 9px;border-radius:var(--radius-pill);">{{ p.cat }}</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2A384D" stroke-width="1.4" style="width:84px;height:84px;"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M7 3v18M17 3v18M3 7.5h4M3 12h4M3 16.5h4M17 7.5h4M17 12h4M17 16.5h4"></path></svg>
+              <span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:var(--bs-accent);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(245,128,33,.4);"><svg viewBox="0 0 24 24" fill="var(--bs-on-accent)" style="width:18px;height:18px;margin-left:2px;"><path d="M8 5v14l11-7z"></path></svg></span>
+            </div>
+            <div style="padding:20px;display:flex;flex-direction:column;gap:10px;flex:1;">
+              <div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--bs-fg-subtle);">{{ p.date }} · {{ p.read }}</div>
+              <h3 style="font-family:var(--font-display);font-weight:600;font-size:19px;line-height:1.3;letter-spacing:-.01em;color:var(--bs-fg);margin:0;">{{ p.title }}</h3>
+              <span style="margin-top:auto;display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--bs-accent);"><span data-i18n="bl.read">Read article</span> &gt;</span>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLIENTS ============ -->
+  <section id="clients" data-page="clients" data-pad="" style="border-top:1px solid var(--bs-line);border-bottom:1px solid var(--bs-line);background:var(--bs-panel);">
+    <div style="max-width:1200px;margin:0 auto;padding:56px 40px;">
+      <div data-reveal="" style="text-align:center;margin-bottom:34px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> <span data-i18n="cl.eyebrow">Selected clients</span> <span style="opacity:.5;">&gt;</span></div>
+        <p data-i18n="cl.sub" style="font-family:var(--font-body);color:var(--bs-fg-muted);font-size:16px;max-width:520px;margin:14px auto 0;line-height:1.6;">Brands we've grown across Oman and the Gulf — from real estate to fragrance, fashion to fine dining.</p>
+      </div>
+      <div data-reveal="" data-rev-delay="0.06" data-clients-grid="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(188px,1fr));gap:1px;background:var(--bs-line);border:1px solid var(--bs-line);border-radius:var(--radius-lg);overflow:hidden;" data-comment-anchor="66dae340c9-div">
+        <sc-for list="{{ clients }}" as="c" hint-placeholder-count="0">
+          <sc-if value="{{ c.real }}" hint-placeholder-val="{{ true }}">
+          <a href="client.dc.html#{{ c.slug }}" style="background:var(--bs-panel-2);padding:26px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;transition:background var(--dur) var(--ease), transform var(--dur) var(--ease);position:relative;" style-hover="background:color-mix(in srgb, var(--bs-accent) 9%, var(--bs-panel-2));transform:translateY(-2px);">
+            <sc-if value="{{ c.logo }}" hint-placeholder-val="{{ false }}"><img data-logo="{{ c.logo }}" alt="{{ c.name }}" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:1px solid var(--bs-line);"></sc-if>
+            <sc-if value="{{ c.noLogo }}" hint-placeholder-val="{{ false }}"><image-slot id="logo-{{ c.slug }}" shape="circle" placeholder="Logo" style="width:54px;height:54px;"></image-slot></sc-if>
+            <span style="display:flex;flex-direction:column;gap:6px;">
+              <span style="font-family:var(--font-hero);font-weight:700;font-size:18px;letter-spacing:.02em;text-transform:uppercase;color:var(--bs-fg);line-height:1.04;">{{ c.name }}</span>
+              <span style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--bs-accent);">{{ c.cat }}</span>
+            </span>
+          </a>
+          </sc-if>
+          <sc-if value="{{ c.soon }}" hint-placeholder-val="{{ false }}">
+          <div style="background:repeating-linear-gradient(45deg, var(--bs-panel-2) 0 12px, color-mix(in srgb, var(--bs-panel-2) 80%, #000) 12px 24px);padding:26px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;opacity:.6;">
+            <span aria-hidden="" style="width:54px;height:54px;border-radius:50%;border:1.5px dashed var(--bs-fg-subtle);display:flex;align-items:center;justify-content:center;color:var(--bs-fg-subtle);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+            </span>
+            <span style="display:flex;flex-direction:column;gap:6px;">
+              <span data-i18n="cl.soon" style="font-family:var(--font-hero);font-weight:700;font-size:18px;letter-spacing:.02em;text-transform:uppercase;color:var(--bs-fg-subtle);line-height:1.04;">Coming soon</span>
+              <span data-i18n="cl.soonsub" style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--bs-accent);">New client</span>
+            </span>
+          </div>
+          </sc-if>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services" data-page="services" data-pad="" style="max-width:1200px;margin:0 auto;padding:84px 40px 70px;">
+    <div data-reveal="" style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:42px;flex-wrap:wrap;gap:20px;">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> <span data-i18n="sv.eyebrow">What we do</span> <span style="opacity:.5;">&gt;</span></div>
+        <h2 data-i18n="sv.h" style="font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;font-size:46px;margin:16px 0 0;">Full-funnel, full-service</h2>
+      </div>
+      <p data-i18n="sv.sub" style="font-family:var(--font-body);color:var(--bs-fg-muted);max-width:380px;font-size:16px;line-height:1.6;margin:0;">One senior team across every channel — so your growth is joined-up, not stitched together.</p>
+    </div>
+    <div data-grid-3="" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+
+      <div data-reveal="" style="position:relative;background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);padding:28px;transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-lg);">
+        <span aria-hidden="" style="position:absolute;top:14px;left:14px;width:16px;height:16px;border-top:2px solid var(--bs-accent);border-left:2px solid var(--bs-accent);"></span>
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:var(--radius);background:color-mix(in srgb, var(--bs-accent) 12%, transparent);color:var(--bs-accent);margin-bottom:18px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></span>
+        <h3 data-i18n="sv1t" style="font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:-.01em;margin:0 0 8px;">SEO &amp; organic growth</h3>
+        <p data-i18n="sv1d" style="font-family:var(--font-body);font-size:14.5px;line-height:1.6;color:var(--bs-fg-muted);margin:0;">Technical SEO, content engines and authority building that compound month over month.</p>
+      </div>
+
+      <div data-reveal="" data-rev-delay="0.05" style="position:relative;background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);padding:28px;transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-lg);">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:var(--radius);background:color-mix(in srgb, var(--bs-accent) 12%, transparent);color:var(--bs-accent);margin-bottom:18px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></span>
+        <h3 data-i18n="sv2t" style="font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:-.01em;margin:0 0 8px;">Paid media &amp; PPC</h3>
+        <p data-i18n="sv2d" style="font-family:var(--font-body);font-size:14.5px;line-height:1.6;color:var(--bs-fg-muted);margin:0;">Performance campaigns across Google, Meta and TikTok — engineered for ROAS, not vanity.</p>
+      </div>
+
+      <div data-reveal="" data-rev-delay="0.1" style="position:relative;background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);padding:28px;transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-lg);">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:var(--radius);background:color-mix(in srgb, var(--bs-accent) 12%, transparent);color:var(--bs-accent);margin-bottom:18px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg></span>
+        <h3 data-i18n="sv3t" style="font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:-.01em;margin:0 0 8px;">Social media</h3>
+        <p data-i18n="sv3d" style="font-family:var(--font-body);font-size:14.5px;line-height:1.6;color:var(--bs-fg-muted);margin:0;">Always-on content, community and creator partnerships tuned for the Gulf audience.</p>
+      </div>
+
+      <div data-reveal="" style="position:relative;background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);padding:28px;transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-lg);">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:var(--radius);background:color-mix(in srgb, var(--bs-accent) 12%, transparent);color:var(--bs-accent);margin-bottom:18px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><path d="m12 19 7-7 3 3-7 7-3-3z"></path><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="m2 2 7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg></span>
+        <h3 data-i18n="sv4t" style="font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:-.01em;margin:0 0 8px;">Content &amp; branding</h3>
+        <p data-i18n="sv4d" style="font-family:var(--font-body);font-size:14.5px;line-height:1.6;color:var(--bs-fg-muted);margin:0;">Brand systems, art direction and bilingual content that look and sound premium.</p>
+      </div>
+
+      <div data-reveal="" data-rev-delay="0.05" style="position:relative;background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);padding:28px;transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-lg);">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:var(--radius);background:color-mix(in srgb, var(--bs-accent) 12%, transparent);color:var(--bs-accent);margin-bottom:18px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18"></path><path d="M9 21V9"></path></svg></span>
+        <h3 data-i18n="sv5t" style="font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:-.01em;margin:0 0 8px;">Web &amp; app design</h3>
+        <p data-i18n="sv5d" style="font-family:var(--font-body);font-size:14.5px;line-height:1.6;color:var(--bs-fg-muted);margin:0;">Conversion-first websites and product experiences, designed and built end to end.</p>
+      </div>
+
+      <div data-reveal="" data-rev-delay="0.1" style="position:relative;background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);padding:28px;transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-lg);">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:var(--radius);background:color-mix(in srgb, var(--bs-accent) 12%, transparent);color:var(--bs-accent);margin-bottom:18px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg></span>
+        <h3 data-i18n="sv6t" style="font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:-.01em;margin:0 0 8px;">Strategy &amp; consulting</h3>
+        <p data-i18n="sv6d" style="font-family:var(--font-body);font-size:14.5px;line-height:1.6;color:var(--bs-fg-muted);margin:0;">Market entry, positioning and growth roadmaps from a senior, embedded team.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ STATS / METRICS BAND ============ -->
+  <section data-page="services" style="background:var(--bs-panel);border-top:1px solid var(--bs-line);border-bottom:1px solid var(--bs-line);">
+    <div data-pad="" style="max-width:1200px;margin:0 auto;padding:64px 40px;">
+      <div data-reveal="" style="text-align:center;margin-bottom:44px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> <span data-i18n="mt.eyebrow">By the numbers</span> <span style="opacity:.5;">&gt;</span></div>
+        <h2 data-i18n="mt.h" style="font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;font-size:40px;margin:14px 0 0;">Growth you can measure</h2>
+      </div>
+      <div data-reveal="" data-rev-delay="0.08" data-stats-grid="" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bs-line);border:1px solid var(--bs-line);border-radius:var(--radius-lg);overflow:hidden;">
+        <div style="background:var(--bs-panel-2);padding:34px 26px;text-align:center;"><div style="font-family:var(--font-hero);font-weight:800;font-size:54px;line-height:1;color:var(--bs-accent);">+312%</div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--bs-fg-subtle);margin-top:10px;" data-i18n="mt1">Peak revenue lift</div></div>
+        <div style="background:var(--bs-panel-2);padding:34px 26px;text-align:center;"><div style="font-family:var(--font-hero);font-weight:800;font-size:54px;line-height:1;">120+</div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--bs-fg-subtle);margin-top:10px;" data-i18n="mt2">Brands grown</div></div>
+        <div style="background:var(--bs-panel-2);padding:34px 26px;text-align:center;"><div style="font-family:var(--font-hero);font-weight:800;font-size:54px;line-height:1;">4.2x</div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--bs-fg-subtle);margin-top:10px;" data-i18n="mt3">Average ROAS</div></div>
+        <div style="background:var(--bs-panel-2);padding:34px 26px;text-align:center;"><div style="font-family:var(--font-hero);font-weight:800;font-size:54px;line-height:1;">98%</div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--bs-fg-subtle);margin-top:10px;" data-i18n="mt4">Client retention</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROCESS ============ -->
+  <section id="process" data-page="services" data-pad="" style="max-width:1200px;margin:0 auto;padding:84px 40px;">
+    <div data-reveal="" style="text-align:center;margin-bottom:16px;">
+      <div style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> <span data-i18n="pr.eyebrow">From idea to execution</span> <sc-if value="{{ arabicAccents }}" hint-placeholder-val="{{ true }}"><span style="font-family:var(--font-arabic);letter-spacing:0;opacity:.85;">· من الفكرة إلى التنفيذ</span></sc-if> <span style="opacity:.5;">&gt;</span></div>
+    </div>
+    <h2 data-reveal="" data-i18n="pr.h" style="text-align:center;font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;font-size:46px;margin:0 0 50px;">How we work</h2>
+    <div data-process="" style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;">
+      <div data-reveal="" style="padding:0 26px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><span style="width:9px;height:9px;transform:rotate(45deg);background:var(--bs-accent);border-radius:2px;display:inline-block;"></span><span style="font-family:var(--font-mono);font-size:13px;color:var(--bs-accent);letter-spacing:.1em;">01</span></div>
+        <h3 data-i18n="pr1t" style="font-family:var(--font-display);font-weight:600;font-size:22px;letter-spacing:-.01em;margin:0 0 10px;">Discover</h3>
+        <p data-i18n="pr1d" style="font-family:var(--font-body);font-size:14.5px;line-height:1.6;color:var(--bs-fg-muted);margin:0;">Audit, market research and goals. We learn your business before we touch a campaign.</p>
+      </div>
+      <div data-reveal="" data-rev-delay="0.07" style="padding:0 26px;border-left:1px solid var(--bs-line);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><span style="width:9px;height:9px;transform:rotate(45deg);background:var(--bs-accent);border-radius:2px;display:inline-block;"></span><span style="font-family:var(--font-mono);font-size:13px;color:var(--bs-accent);letter-spacing:.1em;">02</span></div>
+        <h3 data-i18n="pr2t" style="font-family:var(--font-display);font-weight:600;font-size:22px;letter-spacing:-.01em;margin:0 0 10px;">Strategize</h3>
+        <p data-i18n="pr2d" style="font-family:var(--font-body);font-size:14.5px;line-height:1.6;color:var(--bs-fg-muted);margin:0;">A clear roadmap: channels, budget, KPIs and the bright idea that ties it together.</p>
+      </div>
+      <div data-reveal="" data-rev-delay="0.14" style="padding:0 26px;border-left:1px solid var(--bs-line);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><span style="width:9px;height:9px;transform:rotate(45deg);background:var(--bs-accent);border-radius:2px;display:inline-block;"></span><span style="font-family:var(--font-mono);font-size:13px;color:var(--bs-accent);letter-spacing:.1em;">03</span></div>
+        <h3 data-i18n="pr3t" style="font-family:var(--font-display);font-weight:600;font-size:22px;letter-spacing:-.01em;margin:0 0 10px;">Execute</h3>
+        <p data-i18n="pr3d" style="font-family:var(--font-body);font-size:14.5px;line-height:1.6;color:var(--bs-fg-muted);margin:0;">Design, build and launch — creative, media and web, shipped by one senior team.</p>
+      </div>
+      <div data-reveal="" data-rev-delay="0.21" style="padding:0 26px;border-left:1px solid var(--bs-line);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><span style="width:9px;height:9px;transform:rotate(45deg);background:var(--bs-accent);border-radius:2px;display:inline-block;"></span><span style="font-family:var(--font-mono);font-size:13px;color:var(--bs-accent);letter-spacing:.1em;">04</span></div>
+        <h3 data-i18n="pr4t" style="font-family:var(--font-display);font-weight:600;font-size:22px;letter-spacing:-.01em;margin:0 0 10px;">Grow</h3>
+        <p data-i18n="pr4d" style="font-family:var(--font-body);font-size:14.5px;line-height:1.6;color:var(--bs-fg-muted);margin:0;">Measure, optimise and scale what works. Transparent reporting, every week.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT US ============ -->
+  <section id="about" data-page="about" data-pad="" style="max-width:1200px;margin:0 auto;padding:84px 40px 40px;">
+    <div data-reveal="" style="text-align:center;margin-bottom:14px;">
+      <div style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> <span data-i18n="ab.eyebrow">About us</span> <span style="opacity:.5;">&gt;</span></div>
+    </div>
+    <h2 data-reveal="" data-i18n="ab.h" style="text-align:center;font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;font-size:42px;margin:0 auto 18px;">The team behind Bright Starts</h2>
+    <p data-reveal="" data-rev-delay="0.06" data-i18n="ab.intro" style="text-align:center;font-family:var(--font-body);font-size:17px;line-height:1.7;color:var(--bs-fg-muted);max-width:720px;margin:0 auto 48px;">Bright Starts is a Muscat-based digital marketing agency helping ambitious brands grow — from strategy to execution. We are a small senior team that treats your brand like our own, combining sharp marketing with high-craft content and design.</p>
+    <div data-grid-3="" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+      <div data-reveal="" style="background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);padding:30px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px;">
+          <img src="team/hossein.jpg" alt="Mohammad Hossein" style="width:74px;height:74px;border-radius:50%;object-fit:cover;border:2px solid var(--bs-accent);">
+          <div>
+            <div style="font-family:var(--font-hero);font-weight:800;font-size:24px;text-transform:uppercase;letter-spacing:.01em;line-height:1;">Mohammad Hossein</div>
+            <div data-i18n="ab.r1" style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--bs-accent);margin-top:8px;">Digital Marketing &amp; Advertising</div>
+          </div>
+        </div>
+        <p data-i18n="ab.s1" style="font-family:var(--font-display);font-weight:600;font-size:18px;line-height:1.4;letter-spacing:-.01em;color:var(--bs-fg);margin:6px 0 4px;">“In a world where everyone shouts, we create a voice that's heard.”</p>
+        <p data-i18n="ab.b1" style="font-family:var(--font-body);font-size:14.5px;line-height:1.65;color:var(--bs-fg-muted);margin:0;">I'm Mohammad Hossein, a digital marketing and advertising specialist. I help your brand grow and get noticed in the digital space — planning effective ad campaigns, managing social platforms, building online strategy, and producing targeted content.</p>
+      </div>
+      <div data-reveal="" data-rev-delay="0.08" style="background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);padding:30px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px;">
+          <img src="team/ali.jpg" alt="Mohammad Ali" style="width:74px;height:74px;border-radius:50%;object-fit:cover;border:2px solid var(--bs-accent);">
+          <div>
+            <div style="font-family:var(--font-hero);font-weight:800;font-size:24px;text-transform:uppercase;letter-spacing:.01em;line-height:1;">Mohammad Ali</div>
+            <div data-i18n="ab.r2" style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--bs-accent);margin-top:8px;">Content Creation, Editing &amp; Design</div>
+          </div>
+        </div>
+        <p data-i18n="ab.s2" style="font-family:var(--font-display);font-weight:600;font-size:18px;line-height:1.4;letter-spacing:-.01em;color:var(--bs-fg);margin:6px 0 4px;">“Every brand has a story; we bring it to life.”</p>
+        <p data-i18n="ab.b2" style="font-family:var(--font-body);font-size:14.5px;line-height:1.65;color:var(--bs-fg-muted);margin:0;">I'm Mohammad Ali, a specialist in content creation, video editing and filming. Through high-quality video, engaging graphic design and creative storytelling, I narrate your brand's story in the most captivating way and keep your audience connected.</p>
+      </div>
+      <div data-reveal="" data-rev-delay="0.12" style="background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);padding:30px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px;">
+          <img src="team/hanieh.jpg" alt="Hanieh Salehi" style="width:74px;height:74px;border-radius:50%;object-fit:cover;border:2px solid var(--bs-accent);">
+          <div>
+            <div style="font-family:var(--font-hero);font-weight:800;font-size:24px;text-transform:uppercase;letter-spacing:.01em;line-height:1;">Hanieh Salehi</div>
+            <div data-i18n="ab.r3" style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--bs-accent);margin-top:8px;">I/O Psychologist · Neuromarketing &amp; Brand Strategy</div>
+          </div>
+        </div>
+        <p data-i18n="ab.s3" style="font-family:var(--font-display);font-weight:600;font-size:18px;line-height:1.4;letter-spacing:-.01em;color:var(--bs-fg);margin:6px 0 4px;">“When minds are engaged, brands become unforgettable.”</p>
+        <p data-i18n="ab.b3" style="font-family:var(--font-body);font-size:14.5px;line-height:1.65;color:var(--bs-fg-muted);margin:0;">I'm Hanieh Salehi, an industrial &amp; organizational psychologist specializing in neuromarketing and brand strategy. I help you build a memorable, impactful brand by analyzing your audience's mind and designing smart strategies that make your brand stand out in the market and stay in people's minds.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section id="voices" data-page="clients" style="background:var(--bs-panel);border-top:1px solid var(--bs-line);border-bottom:1px solid var(--bs-line);">
+    <div data-pad="" style="max-width:1200px;margin:0 auto;padding:76px 40px;">
+      <div data-reveal="" style="text-align:center;margin-bottom:42px;"><div style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> <span data-i18n="ts.eyebrow">Client voices</span> <span style="opacity:.5;">&gt;</span></div></div>
+      <div data-grid-3="" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+        <div data-reveal="" style="background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);padding:34px;">
+          <div style="font-family:var(--font-hero);font-size:50px;line-height:.5;color:var(--bs-accent);height:26px;">“</div>
+          <p data-i18n="ts1q" style="font-family:var(--font-display);font-weight:500;font-size:21px;line-height:1.45;letter-spacing:-.01em;margin:0 0 24px;">Bright Starts feels like our in-house team — senior, fast, and genuinely invested in the numbers.</p>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="width:42px;height:42px;border-radius:var(--radius);background:color-mix(in srgb, var(--bs-accent) 18%, var(--bs-panel));display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;color:var(--bs-accent);">LA</span>
+            <div><div style="font-family:var(--font-body);font-weight:600;font-size:14.5px;">Layla Al-Harthy</div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--bs-fg-subtle);margin-top:2px;" data-i18n="ts1r">CMO, Oasis Living</div></div>
+          </div>
+        </div>
+        <div data-reveal="" data-rev-delay="0.08" style="background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);padding:34px;">
+          <div style="font-family:var(--font-hero);font-size:50px;line-height:.5;color:var(--bs-accent);height:26px;">“</div>
+          <p data-i18n="ts2q" style="font-family:var(--font-display);font-weight:500;font-size:21px;line-height:1.45;letter-spacing:-.01em;margin:0 0 24px;">From idea to launch in six weeks. The strategy was sharp and the execution flawless.</p>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="width:42px;height:42px;border-radius:var(--radius);background:color-mix(in srgb, var(--bs-accent) 18%, var(--bs-panel));display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;color:var(--bs-accent);">OS</span>
+            <div><div style="font-family:var(--font-body);font-weight:600;font-size:14.5px;">Omar Said</div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--bs-fg-subtle);margin-top:2px;" data-i18n="ts2r">Founder, Mizan Pay</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRICING ============ -->
+  <section id="pricing" data-page="pricing" data-pad="" style="max-width:1200px;margin:0 auto;padding:84px 40px 70px;">
+    <div data-reveal="" style="text-align:center;margin-bottom:46px;">
+      <div style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> <span data-i18n="pc.eyebrow">Engagements</span> <span style="opacity:.5;">&gt;</span></div>
+      <h2 data-i18n="pc.h" style="font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;font-size:46px;margin:14px 0 8px;">Pick how we partner</h2>
+      <p data-i18n="pc.sub" style="font-family:var(--font-body);color:var(--bs-fg-muted);font-size:16px;max-width:480px;margin:0 auto;">Monthly retainers, no long lock-ins. Scale up or down as your growth demands.</p>
+    </div>
+    <div data-pricing="" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start;">
+
+      <div data-reveal="" style="background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);padding:30px;transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-lg);">
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--bs-fg-subtle);" data-i18n="pc1n">Spark</div>
+        <div style="display:flex;align-items:baseline;gap:6px;margin:16px 0 4px;"><span style="font-family:var(--font-hero);font-weight:800;font-size:46px;line-height:1;">450</span><span style="font-family:var(--font-display);font-weight:600;font-size:15px;color:var(--bs-fg-muted);" data-i18n="pc.mo">OMR / mo</span></div>
+        <p data-i18n="pc1d" style="font-family:var(--font-body);font-size:14px;line-height:1.6;color:var(--bs-fg-muted);margin:8px 0 22px;">For early brands finding their footing.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:26px;">
+          <span style="display:flex;gap:10px;align-items:flex-start;font-family:var(--font-body);font-size:14px;color:var(--bs-fg);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none;margin-top:3px;"><path d="M20 6 9 17l-5-5"></path></svg> <span data-i18n="pc1f1">2 marketing channels</span></span>
+          <span style="display:flex;gap:10px;align-items:flex-start;font-family:var(--font-body);font-size:14px;color:var(--bs-fg);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none;margin-top:3px;"><path d="M20 6 9 17l-5-5"></path></svg> <span data-i18n="pc1f2">Monthly strategy session</span></span>
+          <span style="display:flex;gap:10px;align-items:flex-start;font-family:var(--font-body);font-size:14px;color:var(--bs-fg);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none;margin-top:3px;"><path d="M20 6 9 17l-5-5"></path></svg> <span data-i18n="pc1f3">Monthly performance report</span></span>
+        </div>
+        <a href="#/contact" style="display:flex;align-items:center;justify-content:center;height:48px;font-family:var(--font-display);font-weight:600;font-size:15px;border-radius:var(--radius);background:transparent;color:var(--bs-fg);border:1px solid var(--bs-line);transition:all var(--dur) var(--ease);" style-hover="border-color:var(--bs-accent);" data-i18n="pc1b">Choose Spark</a>
+      </div>
+
+      <div data-reveal="" data-rev-delay="0.07" style="position:relative;background:var(--bs-panel-2);border:1px solid var(--bs-accent);border-radius:var(--radius-lg);padding:32px 30px;box-shadow:var(--bs-glow);transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-4px);">
+        <span style="position:absolute;top:-12px;left:30px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;background:var(--bs-accent);color:var(--bs-on-accent);padding:5px 11px;border-radius:var(--radius-pill);" data-i18n="pc2tag">Most popular</span>
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--bs-accent);" data-i18n="pc2n">Growth</div>
+        <div style="display:flex;align-items:baseline;gap:6px;margin:16px 0 4px;"><span style="font-family:var(--font-hero);font-weight:800;font-size:46px;line-height:1;">950</span><span style="font-family:var(--font-display);font-weight:600;font-size:15px;color:var(--bs-fg-muted);" data-i18n="pc.mo">OMR / mo</span></div>
+        <p data-i18n="pc2d" style="font-family:var(--font-body);font-size:14px;line-height:1.6;color:var(--bs-fg-muted);margin:8px 0 22px;">Full-funnel growth for scaling brands.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:26px;">
+          <span style="display:flex;gap:10px;align-items:flex-start;font-family:var(--font-body);font-size:14px;color:var(--bs-fg);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none;margin-top:3px;"><path d="M20 6 9 17l-5-5"></path></svg> <span data-i18n="pc2f1">Up to 4 channels</span></span>
+          <span style="display:flex;gap:10px;align-items:flex-start;font-family:var(--font-body);font-size:14px;color:var(--bs-fg);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none;margin-top:3px;"><path d="M20 6 9 17l-5-5"></path></svg> <span data-i18n="pc2f2">Weekly optimisation</span></span>
+          <span style="display:flex;gap:10px;align-items:flex-start;font-family:var(--font-body);font-size:14px;color:var(--bs-fg);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none;margin-top:3px;"><path d="M20 6 9 17l-5-5"></path></svg> <span data-i18n="pc2f3">Dedicated strategist</span></span>
+          <span style="display:flex;gap:10px;align-items:flex-start;font-family:var(--font-body);font-size:14px;color:var(--bs-fg);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none;margin-top:3px;"><path d="M20 6 9 17l-5-5"></path></svg> <span data-i18n="pc2f4">Bi-weekly creative</span></span>
+        </div>
+        <a href="#/contact" style="display:flex;align-items:center;justify-content:center;height:48px;font-family:var(--font-display);font-weight:600;font-size:15px;border-radius:var(--radius);background:var(--bs-accent);color:var(--bs-on-accent);border:1px solid transparent;transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-2px);box-shadow:var(--bs-glow);" data-i18n="pc2b">Choose Growth</a>
+      </div>
+
+      <div data-reveal="" data-rev-delay="0.14" style="background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);padding:30px;transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-lg);">
+        <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--bs-fg-subtle);" data-i18n="pc3n">Scale</div>
+        <div style="display:flex;align-items:baseline;gap:6px;margin:16px 0 4px;"><span style="font-family:var(--font-hero);font-weight:800;font-size:46px;line-height:1;" data-i18n="pc3price">Custom</span></div>
+        <p data-i18n="pc3d" style="font-family:var(--font-body);font-size:14px;line-height:1.6;color:var(--bs-fg-muted);margin:8px 0 22px;">An embedded senior team for market leaders.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:26px;">
+          <span style="display:flex;gap:10px;align-items:flex-start;font-family:var(--font-body);font-size:14px;color:var(--bs-fg);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none;margin-top:3px;"><path d="M20 6 9 17l-5-5"></path></svg> <span data-i18n="pc3f1">Every channel, joined-up</span></span>
+          <span style="display:flex;gap:10px;align-items:flex-start;font-family:var(--font-body);font-size:14px;color:var(--bs-fg);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none;margin-top:3px;"><path d="M20 6 9 17l-5-5"></path></svg> <span data-i18n="pc3f2">Dedicated squad</span></span>
+          <span style="display:flex;gap:10px;align-items:flex-start;font-family:var(--font-body);font-size:14px;color:var(--bs-fg);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none;margin-top:3px;"><path d="M20 6 9 17l-5-5"></path></svg> <span data-i18n="pc3f3">Weekly reporting</span></span>
+          <span style="display:flex;gap:10px;align-items:flex-start;font-family:var(--font-body);font-size:14px;color:var(--bs-fg);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--bs-accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;flex:none;margin-top:3px;"><path d="M20 6 9 17l-5-5"></path></svg> <span data-i18n="pc3f4">Priority support</span></span>
+        </div>
+        <a href="#/contact" style="display:flex;align-items:center;justify-content:center;height:48px;font-family:var(--font-display);font-weight:600;font-size:15px;border-radius:var(--radius);background:transparent;color:var(--bs-fg);border:1px solid var(--bs-line);transition:all var(--dur) var(--ease);" style-hover="border-color:var(--bs-accent);" data-i18n="pc3b">Talk to us</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section id="contact" data-page="contact" data-pad="" style="max-width:1200px;margin:0 auto;padding:100px 40px 96px;">
+    <div data-reveal="" style="position:relative;overflow:hidden;background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);padding:60px 48px;box-shadow:var(--bs-glow);">
+      <span aria-hidden="" style="position:absolute;top:18px;left:18px;width:26px;height:26px;border-top:2px solid var(--bs-accent);border-left:2px solid var(--bs-accent);"></span>
+      <span aria-hidden="" style="position:absolute;bottom:18px;right:18px;width:26px;height:26px;border-bottom:2px solid var(--bs-accent);border-right:2px solid var(--bs-accent);"></span>
+      <div style="max-width:620px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> <span data-i18n="cta.eyebrow">Let's build</span> <sc-if value="{{ arabicAccents }}" hint-placeholder-val="{{ true }}"><span style="font-family:var(--font-arabic);letter-spacing:0;opacity:.85;">· لنبدأ</span></sc-if> <span style="opacity:.5;">&gt;</span></div>
+        <h2 data-i18n="cta.h" style="font-family:var(--font-hero);font-weight:800;text-transform:uppercase;font-size:56px;line-height:1.02;letter-spacing:.01em;margin:18px 0 0;">Tell us the bright idea</h2>
+        <p data-i18n="cta.sub" style="font-family:var(--font-body);font-size:17px;line-height:1.6;color:var(--bs-fg-muted);margin:16px 0 30px;">Share your goal and we'll come back within one business day with how we'd approach it.</p>
+        <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:12px;max-width:640px;">
+            <div data-cta-row="" style="display:flex;gap:12px;">
+              <input data-i18n-ph="f.name" placeholder="Full name" style="flex:1;min-width:0;height:52px;padding:0 16px;border-radius:var(--radius);border:1px solid var(--bs-line);background:color-mix(in srgb, var(--bs-bg) 50%, transparent);color:var(--bs-fg);font-family:var(--font-body);font-size:15px;outline:none;" style-focus="border-color:var(--bs-accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--bs-accent) 22%, transparent);">
+              <input data-i18n-ph="f.brand" placeholder="Brand / company" style="flex:1;min-width:0;height:52px;padding:0 16px;border-radius:var(--radius);border:1px solid var(--bs-line);background:color-mix(in srgb, var(--bs-bg) 50%, transparent);color:var(--bs-fg);font-family:var(--font-body);font-size:15px;outline:none;" style-focus="border-color:var(--bs-accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--bs-accent) 22%, transparent);">
+            </div>
+            <div data-cta-row="" style="display:flex;gap:12px;">
+              <input data-i18n-ph="f.email" type="email" placeholder="Email" style="flex:1;min-width:0;height:52px;padding:0 16px;border-radius:var(--radius);border:1px solid var(--bs-line);background:color-mix(in srgb, var(--bs-bg) 50%, transparent);color:var(--bs-fg);font-family:var(--font-body);font-size:15px;outline:none;" style-focus="border-color:var(--bs-accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--bs-accent) 22%, transparent);">
+              <input data-i18n-ph="f.phone" placeholder="Phone / WhatsApp" style="flex:1;min-width:0;height:52px;padding:0 16px;border-radius:var(--radius);border:1px solid var(--bs-line);background:color-mix(in srgb, var(--bs-bg) 50%, transparent);color:var(--bs-fg);font-family:var(--font-body);font-size:15px;outline:none;" style-focus="border-color:var(--bs-accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--bs-accent) 22%, transparent);">
+            </div>
+            <div data-cta-row="" style="display:flex;gap:12px;">
+              <select style="flex:1;min-width:0;height:52px;padding:0 14px;border-radius:var(--radius);border:1px solid var(--bs-line);background:color-mix(in srgb, var(--bs-bg) 50%, transparent);color:var(--bs-fg);font-family:var(--font-body);font-size:15px;outline:none;cursor:pointer;" style-focus="border-color:var(--bs-accent);">
+                <option value="" data-i18n="f.service">What do you need?</option>
+                <option data-i18n="f.svc1">SEO &amp; organic</option>
+                <option data-i18n="f.svc2">Paid media</option>
+                <option data-i18n="f.svc3">Social media</option>
+                <option data-i18n="f.svc4">Content &amp; branding</option>
+                <option data-i18n="f.svc5">Web &amp; app</option>
+                <option data-i18n="f.svc6">Strategy</option>
+              </select>
+              <select style="flex:1;min-width:0;height:52px;padding:0 14px;border-radius:var(--radius);border:1px solid var(--bs-line);background:color-mix(in srgb, var(--bs-bg) 50%, transparent);color:var(--bs-fg);font-family:var(--font-body);font-size:15px;outline:none;cursor:pointer;" style-focus="border-color:var(--bs-accent);">
+                <option value="" data-i18n="f.budget">Monthly budget</option>
+                <option data-i18n="f.b1">Under 500 OMR</option>
+                <option data-i18n="f.b2">500–1,500 OMR</option>
+                <option data-i18n="f.b3">1,500–3,000 OMR</option>
+                <option data-i18n="f.b4">3,000+ OMR</option>
+              </select>
+            </div>
+            <textarea data-i18n-ph="f.msg" rows="3" placeholder="Tell us about your project" style="width:100%;padding:14px 16px;border-radius:var(--radius);border:1px solid var(--bs-line);background:color-mix(in srgb, var(--bs-bg) 50%, transparent);color:var(--bs-fg);font-family:var(--font-body);font-size:15px;line-height:1.55;outline:none;resize:vertical;" style-focus="border-color:var(--bs-accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--bs-accent) 22%, transparent);"></textarea>
+            <button onClick="{{ send }}" style="display:inline-flex;align-items:center;justify-content:center;gap:9px;height:54px;padding:0 30px;align-self:flex-start;font-family:var(--font-display);font-weight:600;font-size:16px;border-radius:var(--radius);background:var(--bs-accent);color:var(--bs-on-accent);border:1px solid transparent;cursor:pointer;transition:all var(--dur) var(--ease);white-space:nowrap;" style-hover="transform:translateY(-2px);box-shadow:var(--bs-glow);">
+              <span data-i18n="f.send">Send request</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            </button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:16px;background:color-mix(in srgb, var(--bs-accent) 10%, transparent);border:1px solid var(--bs-accent);border-radius:var(--radius-lg);padding:24px 26px;max-width:560px;">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;flex:none;border-radius:50%;background:var(--bs-accent);color:var(--bs-on-accent);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:26px;height:26px;"><path d="m5 13 4 4L19 7"></path></svg></span>
+            <div>
+              <div data-i18n="f.thanksH" style="font-family:var(--font-display);font-weight:700;font-size:19px;color:var(--bs-fg);">Request received</div>
+              <div data-i18n="f.thanksSub" style="font-family:var(--font-body);font-size:14.5px;line-height:1.55;color:var(--bs-fg-muted);margin-top:4px;">Thank you — our team will be in touch within one business day.</div>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MAP ============ -->
+  <section id="map" data-page="contact" data-pad="" style="max-width:1200px;margin:0 auto;padding:24px 40px 88px;">
+    <div data-reveal="" style="display:grid;grid-template-columns:1fr 1.4fr;gap:0;border:1px solid var(--bs-line);border-radius:var(--radius-lg);overflow:hidden;background:var(--bs-panel-2);" data-hero-grid="">
+      <div style="padding:40px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> <span data-i18n="mp.eyebrow">Find us</span> <span style="opacity:.5;">&gt;</span></div>
+        <h2 data-i18n="mp.h" style="font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;font-size:34px;margin:14px 0 10px;">Visit our studio</h2>
+        <p data-i18n="mp.addr" style="font-family:var(--font-body);font-size:16px;line-height:1.6;color:var(--bs-fg-muted);margin:0 0 24px;">Muscat, Sultanate of Oman</p>
+        <a href="https://maps.app.goo.gl/m8YDcuF6oo77eLp47" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:9px;height:50px;padding:0 24px;align-self:flex-start;font-family:var(--font-display);font-weight:600;font-size:15px;border-radius:var(--radius);background:var(--bs-accent);color:var(--bs-on-accent);border:1px solid transparent;transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-2px);box-shadow:var(--bs-glow);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <span data-i18n="mp.cta">Open in Google Maps</span>
+        </a>
+      </div>
+      <div style="min-height:340px;background:#0d1420;">
+        <iframe title="Map" src="https://www.google.com/maps?q=Muscat%2C%20Oman&amp;z=12&amp;output=embed" style="border:0;width:100%;height:100%;min-height:340px;display:block;filter:grayscale(.3) invert(.92) hue-rotate(180deg) contrast(.9);" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BLOG PAGE ============ -->
+  <section data-page="blog" data-pad="" style="max-width:1200px;margin:0 auto;padding:100px 40px 88px;">
+    <div data-reveal="" style="text-align:center;margin-bottom:46px;">
+      <div style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> <span data-i18n="bl.eyebrow">From the studio</span> <span style="opacity:.5;">&gt;</span></div>
+      <h2 data-i18n="bl.h2" style="font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;font-size:48px;margin:14px 0 8px;">The Bright Starts blog</h2>
+      <p data-i18n="bl.sub" style="font-family:var(--font-body);color:var(--bs-fg-muted);font-size:16px;line-height:1.6;max-width:560px;margin:0 auto;">Playbooks, production notes and growth stories from taking brands from zero to viral.</p>
+    </div>
+    <div data-blog-grid="" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+      <sc-for list="{{ posts }}" as="p" hint-placeholder-count="6">
+        <a href="#/blog" style="display:flex;flex-direction:column;background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);overflow:hidden;transition:transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-lg);">
+          <div style="position:relative;aspect-ratio:16/10;background:linear-gradient(150deg,#16202F,#0A0F18);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--bs-line);">
+            <span aria-hidden="" style="position:absolute;top:12px;left:12px;width:16px;height:16px;border-top:2px solid var(--bs-accent);border-left:2px solid var(--bs-accent);"></span>
+            <span style="position:absolute;top:12px;right:12px;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--bs-on-accent);background:var(--bs-accent);padding:4px 9px;border-radius:var(--radius-pill);">{{ p.cat }}</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2A384D" stroke-width="1.4" style="width:84px;height:84px;"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M7 3v18M17 3v18M3 7.5h4M3 12h4M3 16.5h4M17 7.5h4M17 12h4M17 16.5h4"></path></svg>
+            <span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:var(--bs-accent);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(245,128,33,.4);"><svg viewBox="0 0 24 24" fill="var(--bs-on-accent)" style="width:18px;height:18px;margin-left:2px;"><path d="M8 5v14l11-7z"></path></svg></span>
+          </div>
+          <div style="padding:20px;display:flex;flex-direction:column;gap:10px;flex:1;">
+            <div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--bs-fg-subtle);">{{ p.date }} · {{ p.read }}</div>
+            <h3 style="font-family:var(--font-display);font-weight:600;font-size:19px;line-height:1.3;letter-spacing:-.01em;color:var(--bs-fg);margin:0;">{{ p.title }}</h3>
+            <span style="margin-top:auto;display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--bs-accent);"><span data-i18n="bl.read">Read article</span> &gt;</span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer data-pad="" style="border-top:1px solid var(--bs-line);padding:48px 40px 40px;">
+    <div style="max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;">
+      <div style="max-width:300px;">
+        <span style="display:inline-flex;align-items:center;gap:10px;">
+          <img src="assets/logo-mark-color.png" alt="" style="height:30px;width:auto;display:block;">
+          <span style="font-family:var(--font-hero);font-weight:800;font-size:19px;letter-spacing:.02em;text-transform:uppercase;">Bright Starts</span>
+        </span>
+        <p style="font-family:var(--font-mono);font-size:12px;color:var(--bs-fg-subtle);letter-spacing:.04em;margin:16px 0 0;line-height:1.7;" data-i18n="ft.tag">&lt; Lighting the path for your brand &gt;</p>
+      </div>
+      <div style="display:flex;gap:56px;flex-wrap:wrap;">
+        <div>
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--bs-accent);margin-bottom:14px;" data-i18n="ft.services">Services</div>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+            <li><a href="#/services" style="font-family:var(--font-body);font-size:14px;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">SEO</a></li>
+            <li><a href="#/services" style="font-family:var(--font-body);font-size:14px;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">Paid media</a></li>
+            <li><a href="#/services" style="font-family:var(--font-body);font-size:14px;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">Social</a></li>
+            <li><a href="#/services" style="font-family:var(--font-body);font-size:14px;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">Web &amp; app</a></li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--bs-accent);margin-bottom:14px;" data-i18n="ft.agency">Agency</div>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+            <li><a href="#/clients" style="font-family:var(--font-body);font-size:14px;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">Clients</a></li>
+            <li><a href="#/services" style="font-family:var(--font-body);font-size:14px;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">Process</a></li>
+            <li><a href="#/pricing" style="font-family:var(--font-body);font-size:14px;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">Pricing</a></li>
+            <li><a href="#/contact" style="font-family:var(--font-body);font-size:14px;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--bs-accent);margin-bottom:14px;" data-i18n="ft.contact">Contact</div>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+            <li><a href="mailto:info@brightstarsoman.com" style="font-family:var(--font-body);font-size:14px;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">info@brightstarsoman.com</a></li>
+            <li><a href="tel:+96879229343" style="font-family:var(--font-body);font-size:14px;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">+968 79229343</a></li>
+            <li><a href="https://www.instagram.com/brightstarsoman/" target="_blank" rel="noopener" style="font-family:var(--font-body);font-size:14px;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">@brightstarsoman</a></li>
+            <li><a href="https://www.instagram.com/brightstars.oman/" target="_blank" rel="noopener" style="font-family:var(--font-body);font-size:14px;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">@brightstars.oman</a></li>
+            <li><span style="font-family:var(--font-body);font-size:14px;color:var(--bs-fg-muted);">Muscat, Oman</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1200px;margin:40px auto 0;padding-top:24px;border-top:1px solid var(--bs-line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--font-mono);font-size:12px;color:var(--bs-fg-subtle);">
+      <span data-i18n="ft.copy">© 2026 Bright Starts · Muscat, Oman</span>
+      <span data-i18n="ft.legal">Terms · Privacy</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;direction&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;orange&quot;,&quot;gold&quot;,&quot;pearl&quot;,&quot;emerald&quot;],&quot;default&quot;:&quot;orange&quot;,&quot;tsType&quot;:&quot;\&quot;orange\&quot; | \&quot;gold\&quot; | \&quot;pearl\&quot; | \&quot;emerald\&quot;&quot;},&quot;arabicAccents&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;decor&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const I18N = {
+  en: {
+    "nav.services":"Services","nav.process":"Process","nav.clients":"Clients","nav.about":"About","nav.pricing":"Pricing","nav.start":"Start a project","nav.home":"Home","nav.contact":"Contact","nav.blog":"Blog",
+    "zv.eyebrow":"From zero to viral","zv1x":"< Audit · market research · audience mapping >","zv2x":"< Scripting · filming · editing · motion >","zv3x":"< Channel plan · publishing · paid boost >","zv4x":"< A/B testing · analytics · community >","zv5x":"< Trends · creators · earned reach >",
+    "zv1a":"Brand audit & positioning","zv1b":"Audience & competitor research","zv1c":"The core creative idea","zv2a":"Scripts & storyboards","zv2b":"Filming & photography","zv2c":"Editing, motion & design","zv3a":"Channel & content plan","zv3b":"Coordinated publishing","zv3c":"Paid media setup","zv4a":"Weekly optimisation","zv4b":"Performance reporting","zv4c":"Community management","zv5a":"Trend-led content","zv5b":"Creator partnerships","zv5c":"Earned & shared reach","zv.h":"We take brands the whole way","zv.sub":"From the first spark to a brand people can't stop sharing — idea, production and distribution under one roof.",
+    "zv1t":"Spark the idea","zv1d":"Positioning, story and the bright idea that sets you apart.","zv2t":"Roll the camera","zv2d":"Filming, editing and design that make every frame premium.","zv3t":"Go live","zv3d":"Launch across the right channels with a coordinated rollout.","zv4t":"Build momentum","zv4d":"Optimise, double down on what works and grow the audience.","zv5t":"Go viral","zv5d":"Reach, shares and a brand people recognise and remember.",
+    "bl.eyebrow":"From the studio","bl.h":"Insights & stories","bl.h2":"The Bright Starts blog","bl.sub":"Playbooks, production notes and growth stories from taking brands from zero to viral.","bl.read":"Read article","bl.all":"Read the blog",
+    "hero.tag":"Digital marketing · Oman","hero.h1a":"Lighting the path","hero.h1b":"for your","hero.brand":"brand.",
+    "hero.sub":"Bright Starts is a Muscat-based digital marketing agency for ambitious brands — we partner with you from growth to business development, and from the bright idea all the way to execution.",
+    "hero.what":"What we do","st.brands":"Brands grown","st.gulf":"In the Gulf","st.roas":"Avg. ROAS",
+    "cl.eyebrow":"Selected clients","cl.sub":"Brands we've grown across Oman and the Gulf — from real estate to fragrance, fashion to fine dining.","cl.soon":"Coming soon","cl.soonsub":"New client",
+    "sv.eyebrow":"What we do","sv.h":"Full-funnel, full-service","sv.sub":"One senior team across every channel — so your growth is joined-up, not stitched together.",
+    "sv1t":"SEO & organic growth","sv1d":"Technical SEO, content engines and authority building that compound month over month.",
+    "sv2t":"Paid media & PPC","sv2d":"Performance campaigns across Google, Meta and TikTok — engineered for ROAS, not vanity.",
+    "sv3t":"Social media","sv3d":"Always-on content, community and creator partnerships tuned for the Gulf audience.",
+    "sv4t":"Content & branding","sv4d":"Brand systems, art direction and bilingual content that look and sound premium.",
+    "sv5t":"Web & app design","sv5d":"Conversion-first websites and product experiences, designed and built end to end.",
+    "sv6t":"Strategy & consulting","sv6d":"Market entry, positioning and growth roadmaps from a senior, embedded team.",
+    "mt.eyebrow":"By the numbers","mt.h":"Growth you can measure","mt1":"Peak revenue lift","mt2":"Brands grown","mt3":"Average ROAS","mt4":"Client retention",
+    "pr.eyebrow":"From idea to execution","pr.h":"How we work",
+    "pr1t":"Discover","pr1d":"Audit, market research and goals. We learn your business before we touch a campaign.",
+    "pr2t":"Strategize","pr2d":"A clear roadmap: channels, budget, KPIs and the bright idea that ties it together.",
+    "pr3t":"Execute","pr3d":"Design, build and launch — creative, media and web, shipped by one senior team.",
+    "pr4t":"Grow","pr4d":"Measure, optimise and scale what works. Transparent reporting, every week.",
+    "ab.eyebrow":"About us","ab.h":"The team behind Bright Starts","ab.intro":"Bright Starts is a Muscat-based digital marketing agency helping ambitious brands grow — from strategy to execution. We are a small senior team that treats your brand like our own, combining sharp marketing with high-craft content and design.",
+    "ab.r1":"Digital Marketing & Advertising","ab.s1":"“In a world where everyone shouts, we create a voice that's heard.”","ab.b1":"I'm Mohammad Hossein, a digital marketing and advertising specialist. I help your brand grow and get noticed in the digital space — planning effective ad campaigns, managing social platforms, building online strategy, and producing targeted content.",
+    "ab.r2":"Content Creation, Editing & Design","ab.s2":"“Every brand has a story; we bring it to life.”","ab.b2":"I'm Mohammad Ali, a specialist in content creation, video editing and filming. Through high-quality video, engaging graphic design and creative storytelling, I narrate your brand's story in the most captivating way and keep your audience connected.",
+    "ab.r3":"I/O Psychologist · Neuromarketing & Brand Strategy","ab.s3":"“When minds are engaged, brands become unforgettable.”","ab.b3":"I'm Hanieh Salehi, an industrial & organizational psychologist specializing in neuromarketing and brand strategy. I help you build a memorable, impactful brand by analyzing your audience's mind and designing smart strategies that make your brand stand out in the market and stay in people's minds.",
+    "mp.eyebrow":"Find us","mp.h":"Visit our studio","mp.addr":"Muscat, Sultanate of Oman","mp.cta":"Open in Google Maps",
+    "ts.eyebrow":"Client voices","ts1q":"Bright Starts feels like our in-house team — senior, fast, and genuinely invested in the numbers.","ts1r":"CMO, Oasis Living","ts2q":"From idea to launch in six weeks. The strategy was sharp and the execution flawless.","ts2r":"Founder, Mizan Pay",
+    "pc.eyebrow":"Engagements","pc.h":"Pick how we partner","pc.sub":"Monthly retainers, no long lock-ins. Scale up or down as your growth demands.",
+    "pc1n":"Spark","pc1d":"For early brands finding their footing.","pc1f1":"2 marketing channels","pc1f2":"Monthly strategy session","pc1f3":"Monthly performance report","pc1b":"Choose Spark",
+    "pc2n":"Growth","pc2tag":"Most popular","pc2d":"Full-funnel growth for scaling brands.","pc2f1":"Up to 4 channels","pc2f2":"Weekly optimisation","pc2f3":"Dedicated strategist","pc2f4":"Bi-weekly creative","pc2b":"Choose Growth",
+    "pc3n":"Scale","pc3price":"Custom","pc3d":"An embedded senior team for market leaders.","pc3f1":"Every channel, joined-up","pc3f2":"Dedicated squad","pc3f3":"Weekly reporting","pc3f4":"Priority support","pc3b":"Talk to us","pc.mo":"OMR / mo",
+    "cta.eyebrow":"Let's build","cta.h":"Tell us the bright idea","cta.sub":"Share your goal and we'll come back within one business day with how we'd approach it.","cta.send":"Send","cta.thanks":"Thank you — we'll be in touch shortly.",
+    "f.name":"Full name","f.brand":"Brand / company","f.email":"Email","f.phone":"Phone / WhatsApp","f.service":"What do you need?","f.budget":"Monthly budget","f.msg":"Tell us about your project","f.send":"Send request","f.opt":"Select…","f.svc1":"SEO & organic","f.svc2":"Paid media","f.svc3":"Social media","f.svc4":"Content & branding","f.svc5":"Web & app","f.svc6":"Strategy","f.b1":"Under 500 OMR","f.b2":"500–1,500 OMR","f.b3":"1,500–3,000 OMR","f.b4":"3,000+ OMR","f.thanksH":"Request received","f.thanksSub":"Thank you — our team will be in touch within one business day.",
+    "ft.tag":"< Lighting the path for your brand >","ft.services":"Services","ft.agency":"Agency","ft.contact":"Contact","ft.work":"Clients","ft.copy":"© 2026 Bright Starts · Muscat, Oman","ft.legal":"Terms · Privacy",
+  },
+  ar: {
+    "nav.services":"خدماتنا","nav.process":"آلية العمل","nav.clients":"عملاؤنا","nav.about":"من نحن","nav.pricing":"الباقات","nav.start":"ابدأ مشروعك","nav.home":"الرئيسية","nav.contact":"تواصل معنا","nav.blog":"المدوّنة",
+    "zv.eyebrow":"من الصفر إلى الانتشار","zv1x":"< تدقيق · بحث سوق · تحليل الجمهور >","zv2x":"< كتابة · تصوير · مونتاج · موشن >","zv3x":"< خطة قنوات · نشر · دعم مدفوع >","zv4x":"< اختبارات · تحليلات · مجتمع >","zv5x":"< ترندات · صنّاع محتوى · وصول مكتسب >",
+    "zv1a":"تدقيق وتموضع العلامة","zv1b":"بحث الجمهور والمنافسين","zv1c":"الفكرة الإبداعية الأساسية","zv2a":"سيناريوهات وستوري بورد","zv2b":"تصوير فوتو وفيديو","zv2c":"مونتاج وموشن وتصميم","zv3a":"خطة القنوات والمحتوى","zv3b":"نشر منسّق","zv3c":"إعداد الإعلانات المدفوعة","zv4a":"تحسين أسبوعي","zv4b":"تقارير أداء","zv4c":"إدارة المجتمع","zv5a":"محتوى يركب الترند","zv5b":"شراكات صنّاع المحتوى","zv5c":"وصول مكتسب ومشاركات","zv.h":"نأخذ العلامة على طول الطريق","zv.sub":"من الشرارة الأولى إلى علامة لا يتوقف الناس عن مشاركتها — الفكرة والإنتاج والتوزيع تحت سقف واحد.",
+    "zv1t":"أطلق الفكرة","zv1d":"التموضع والقصة والفكرة المضيئة التي تميّزك.","zv2t":"ابدأ التصوير","zv2d":"تصوير ومونتاج وتصميم يجعل كل لقطة فاخرة.","zv3t":"انطلق","zv3d":"إطلاق عبر القنوات المناسبة بخطة متناسقة.","zv4t":"اصنع الزخم","zv4d":"نحسّن ونضاعف ما ينجح وننمّي الجمهور.","zv5t":"انتشر","zv5d":"وصول ومشاركات وعلامة يتذكّرها الناس.",
+    "bl.eyebrow":"من الاستوديو","bl.h":"رؤى وقصص","bl.h2":"مدوّنة برايت ستارتس","bl.sub":"أدلة عملية وملاحظات إنتاج وقصص نمو من رحلة العلامات من الصفر إلى الانتشار.","bl.read":"اقرأ المقال","bl.all":"تصفّح المدوّنة",
+    "hero.tag":"تسويق رقمي · عُمان","hero.h1a":"نُنير الطريق","hero.h1b":"لعلامتك","hero.brand":"التجارية.",
+    "hero.sub":"برايت ستارتس وكالة تسويق رقمي مقرّها مسقط للعلامات الطموحة — نرافقك من النمو إلى تطوير الأعمال، ومن الفكرة المضيئة حتى التنفيذ.",
+    "hero.what":"ماذا نقدّم","st.brands":"علامة طوّرناها","st.gulf":"في الخليج","st.roas":"متوسط العائد",
+    "cl.eyebrow":"عملاء مختارون","cl.sub":"علامات طوّرناها في عُمان والخليج — من العقارات إلى العطور، ومن الأزياء إلى المطاعم الراقية.","cl.soon":"قريباً","cl.soonsub":"عميل جديد",
+    "sv.eyebrow":"ماذا نقدّم","sv.h":"تسويق متكامل من الألف إلى الياء","sv.sub":"فريق واحد محترف عبر كل القنوات — لينمو عملك بانسجام لا بترقيع.",
+    "sv1t":"تحسين محركات البحث","sv1d":"سيو تقني ومحتوى وبناء مرجعية تتراكم نتائجها شهراً بعد شهر.",
+    "sv2t":"الإعلانات المدفوعة","sv2d":"حملات أداء عبر جوجل وميتا وتيك توك — مصمّمة للعائد لا للظهور.",
+    "sv3t":"وسائل التواصل","sv3d":"محتوى مستمر ومجتمع وشراكات صنّاع محتوى مناسبة لجمهور الخليج.",
+    "sv4t":"المحتوى والهوية","sv4d":"أنظمة علامة وإخراج فني ومحتوى ثنائي اللغة بمظهر وصوت فاخر.",
+    "sv5t":"تصميم المواقع والتطبيقات","sv5d":"مواقع وتجارب منتج تركّز على التحويل، نصمّمها ونبنيها بالكامل.",
+    "sv6t":"الاستراتيجية والاستشارات","sv6d":"دخول الأسواق والتموضع وخرائط النمو من فريق محترف مندمج معك.",
+    "mt.eyebrow":"بالأرقام","mt.h":"نموٌّ يمكن قياسه","mt1":"أعلى نمو في الإيرادات","mt2":"علامة طوّرناها","mt3":"متوسط العائد","mt4":"بقاء العملاء",
+    "pr.eyebrow":"من الفكرة إلى التنفيذ","pr.h":"كيف نعمل",
+    "pr1t":"نكتشف","pr1d":"تدقيق وبحث سوق وأهداف. نفهم عملك قبل أن نلمس أي حملة.",
+    "pr2t":"نخطّط","pr2d":"خارطة واضحة: القنوات والميزانية والمؤشرات والفكرة المضيئة التي تجمعها.",
+    "pr3t":"ننفّذ","pr3d":"تصميم وبناء وإطلاق — إبداع وإعلام وويب، ينجزها فريق محترف واحد.",
+    "pr4t":"ننمو","pr4d":"نقيس ونحسّن ونوسّع ما ينجح. تقارير شفافة كل أسبوع.",
+    "ab.eyebrow":"من نحن","ab.h":"الفريق وراء برايت ستارتس","ab.intro":"برايت ستارتس وكالة تسويق رقمي مقرّها مسقط تساعد العلامات الطموحة على النمو — من الاستراتيجية إلى التنفيذ. نحن فريق صغير محترف يتعامل مع علامتك كأنها علامته، نجمع بين تسويق ذكي ومحتوى وتصميم عالي الإتقان.",
+    "ab.r1":"التسويق الرقمي والإعلان","ab.s1":"«في عالمٍ يصرخ فيه الجميع، نصنع صوتاً يُسمَع.»","ab.b1":"أنا محمد حسين، مختص في التسويق الرقمي والإعلان. أساعد علامتك على النمو والظهور في الفضاء الرقمي عبر تخطيط حملات إعلانية فعّالة، وإدارة منصات التواصل، وبناء استراتيجية رقمية، وإنتاج محتوى موجّه.",
+    "ab.r2":"صناعة المحتوى والمونتاج والتصميم","ab.s2":"«لكل علامة قصة؛ ونحن نبثّ فيها الحياة.»","ab.b2":"أنا محمد علي، مختص في صناعة المحتوى ومونتاج الفيديو والتصوير. عبر إنتاج فيديو عالي الجودة وتصميم جذّاب وسرد إبداعي، أروي قصة علامتك بأكثر الطرق جاذبية وأبقي جمهورك متصلاً.",
+    "ab.r3":"علم النفس الصناعي والمؤسسي · التسويق العصبي واستراتيجية العلامة","ab.s3":"«حين تنشغل العقول، تصبح العلامات لا تُنسى.»","ab.b3":"أنا هانية صالحي، أخصائية علم نفس صناعي ومؤسسي متخصصة في التسويق العصبي واستراتيجية العلامة. أساعدك على بناء علامة مؤثرة لا تُنسى عبر تحليل عقل جمهورك وتصميم استراتيجيات ذكية تجعل علامتك تبرز في السوق وتبقى في الأذهان.",
+    "mp.eyebrow":"موقعنا","mp.h":"زر استوديونا","mp.addr":"مسقط، سلطنة عُمان","mp.cta":"افتح في خرائط جوجل",
+    "ts.eyebrow":"آراء العملاء","ts1q":"برايت ستارتس كأنه فريقنا الداخلي — محترف وسريع ومهتم فعلاً بالأرقام.","ts1r":"مديرة التسويق، أوازيس ليفينغ","ts2q":"من الفكرة إلى الإطلاق في ستة أسابيع. استراتيجية ذكية وتنفيذ بلا أخطاء.","ts2r":"المؤسس، ميزان باي",
+    "pc.eyebrow":"الباقات","pc.h":"اختر طريقة شراكتنا","pc.sub":"اشتراك شهري بلا التزام طويل. وسّع أو قلّص حسب احتياج نموّك.",
+    "pc1n":"سبارك","pc1d":"للعلامات الناشئة التي تبني حضورها.","pc1f1":"قناتان تسويقيتان","pc1f2":"جلسة استراتيجية شهرية","pc1f3":"تقرير أداء شهري","pc1b":"اختر سبارك",
+    "pc2n":"نمو","pc2tag":"الأكثر طلباً","pc2d":"نمو متكامل للعلامات المتوسّعة.","pc2f1":"حتى ٤ قنوات","pc2f2":"تحسين أسبوعي","pc2f3":"استراتيجي مخصّص","pc2f4":"إبداع كل أسبوعين","pc2b":"اختر النمو",
+    "pc3n":"تطوير","pc3price":"مخصّص","pc3d":"فريق محترف مندمج لقادة السوق.","pc3f1":"كل القنوات بانسجام","pc3f2":"فريق مخصّص","pc3f3":"تقارير أسبوعية","pc3f4":"دعم ذو أولوية","pc3b":"تحدّث إلينا","pc.mo":"ر.ع / شهرياً",
+    "cta.eyebrow":"لنبدأ","cta.h":"احكِ لنا الفكرة المضيئة","cta.sub":"شاركنا هدفك ونعود إليك خلال يوم عمل واحد بطريقة تنفيذنا له.","cta.send":"إرسال","cta.thanks":"شكراً لك — سنتواصل معك قريباً.",
+    "f.name":"الاسم الكامل","f.brand":"العلامة / الشركة","f.email":"البريد الإلكتروني","f.phone":"الهاتف / واتساب","f.service":"ما الذي تحتاجه؟","f.budget":"الميزانية الشهرية","f.msg":"حدّثنا عن مشروعك","f.send":"إرسال الطلب","f.opt":"اختر…","f.svc1":"سيو ونمو عضوي","f.svc2":"إعلانات مدفوعة","f.svc3":"وسائل تواصل","f.svc4":"محتوى وهوية","f.svc5":"موقع وتطبيق","f.svc6":"استراتيجية","f.b1":"أقل من ٥٠٠ ر.ع","f.b2":"٥٠٠–١٥٠٠ ر.ع","f.b3":"١٥٠٠–٣٠٠٠ ر.ع","f.b4":"٣٠٠٠+ ر.ع","f.thanksH":"تم استلام طلبك","f.thanksSub":"شكراً لك — سيتواصل فريقنا معك خلال يوم عمل واحد.",
+    "ft.tag":"< نُنير الطريق لعلامتك التجارية >","ft.services":"خدماتنا","ft.agency":"الوكالة","ft.contact":"تواصل","ft.work":"عملاؤنا","ft.copy":"© 2026 برايت ستارتس · مسقط، عُمان","ft.legal":"الشروط · الخصوصية",
+  },
+  fa: {
+    "nav.services":"خدمات","nav.process":"فرایند","nav.clients":"مشتریان","nav.about":"درباره ما","nav.pricing":"تعرفه‌ها","nav.start":"شروع پروژه","nav.home":"خانه","nav.contact":"تماس با ما","nav.blog":"وبلاگ",
+    "zv.eyebrow":"از صفر تا وایرال","zv1x":"< بررسی · تحقیق بازار · شناخت مخاطب >","zv2x":"< نگارش · فیلم‌برداری · تدوین · موشن >","zv3x":"< برنامهٔ کانال · انتشار · تبلیغ پولی >","zv4x":"< تست A/B · تحلیل · جامعه >","zv5x":"< ترندها · سازندگان · دسترسی ارگانیک >",
+    "zv1a":"بررسی و جایگاه‌سازی برند","zv1b":"تحقیق مخاطب و رقبا","zv1c":"ایدهٔ خلاقانهٔ اصلی","zv2a":"سناریو و استوری‌بورد","zv2b":"عکاسی و فیلم‌برداری","zv2c":"تدوین، موشن و طراحی","zv3a":"برنامهٔ کانال و محتوا","zv3b":"انتشار هماهنگ","zv3c":"راه‌اندازی تبلیغات پولی","zv4a":"بهینه‌سازی هفتگی","zv4b":"گزارش عملکرد","zv4c":"مدیریت جامعه","zv5a":"محتوای ترندمحور","zv5b":"همکاری با سازندگان محتوا","zv5c":"دسترسی ارگانیک و اشتراک",
+    "zv.h":"برند را تا انتها همراهی می‌کنیم","zv.sub":"از اولین جرقه تا برندی که مردم از به‌اشتراک‌گذاشتنش سیر نمی‌شوند — ایده، تولید و توزیع زیر یک سقف.",
+    "zv1t":"جرقهٔ ایده","zv1d":"جایگاه‌سازی، روایت و ایدهٔ درخشانی که شما را متمایز می‌کند.","zv2t":"روشن کن دوربین","zv2d":"فیلم‌برداری، تدوین و طراحی که هر فریم را لوکس می‌کند.","zv3t":"برو روی هوا","zv3d":"انتشار در کانال‌های درست با یک برنامهٔ هماهنگ.","zv4t":"ساختن شتاب","zv4d":"بهینه‌سازی، تمرکز بر آنچه جواب می‌دهد و رشد مخاطب.","zv5t":"وایرال شو","zv5d":"دسترسی، اشتراک‌گذاری و برندی که مردم به یاد می‌سپارند.",
+    "bl.eyebrow":"از استودیو","bl.h":"بینش‌ها و داستان‌ها","bl.h2":"وبلاگ برایت استارتس","bl.sub":"راهنماها، یادداشت‌های تولید و داستان‌های رشد از مسیر برندها از صفر تا وایرال.","bl.read":"خواندن مقاله","bl.all":"مشاهدهٔ وبلاگ",
+    "hero.tag":"بازاریابی دیجیتال · عمان","hero.h1a":"روشن‌کردن مسیر","hero.h1b":"برای برند","hero.brand":"شما.","hero.sub":"برایت استارتس یک آژانس بازاریابی دیجیتال در مسقط برای برندهای جاه‌طلب است — از رشد تا توسعهٔ کسب‌وکار و از ایدهٔ درخشان تا اجرا همراه شماییم.","hero.what":"چه می‌کنیم","hero.start":"شروع پروژه",
+    "st.brands":"برند رشدیافته","st.gulf":"در خلیج","st.roas":"میانگین بازده",
+    "cl.eyebrow":"مشتریان منتخب","cl.sub":"برندهایی که در عمان و خلیج رشد دادیم — از املاک تا عطر، از مد تا رستوران‌های لوکس.","cl.soon":"به‌زودی","cl.soonsub":"مشتری جدید",
+    "sv.eyebrow":"چه می‌کنیم","sv.h":"بازاریابی کامل، سرویس کامل","sv.sub":"یک تیم ارشد در همهٔ کانال‌ها — تا رشد شما یکپارچه باشد نه وصله‌پینه.",
+    "sv1t":"سئو و رشد ارگانیک","sv1d":"سئوی فنی، موتور محتوا و اعتبارسازی که ماه‌به‌ماه انباشته می‌شود.","sv2t":"تبلیغات پولی و PPC","sv2d":"کمپین‌های عملکردی در گوگل، متا و تیک‌تاک — برای بازده نه نمایش.","sv3t":"شبکه‌های اجتماعی","sv3d":"محتوای همیشه‌فعال، جامعه و همکاری سازندگان متناسب با مخاطب خلیج.","sv4t":"محتوا و برندینگ","sv4d":"سیستم برند، مدیریت هنری و محتوای دوزبانه با ظاهر و لحن لوکس.","sv5t":"طراحی وب و اپ","sv5d":"وب‌سایت و تجربهٔ محصول تبدیل‌محور، طراحی و ساخت سرتاسری.","sv6t":"استراتژی و مشاوره","sv6d":"ورود به بازار، جایگاه‌یابی و نقشهٔ رشد از یک تیم ارشد و درگیر.",
+    "mt.eyebrow":"با اعداد","mt.h":"رشدی که قابل اندازه‌گیری است","mt1":"اوج رشد درآمد","mt2":"برند رشدیافته","mt3":"میانگین بازده","mt4":"ماندگاری مشتری",
+    "pr.eyebrow":"از ایده تا اجرا","pr.h":"چگونه کار می‌کنیم","pr1t":"کشف","pr1d":"بررسی، تحقیق بازار و اهداف. کسب‌وکارتان را پیش از هر کمپین می‌شناسیم.","pr2t":"استراتژی","pr2d":"نقشهٔ روشن: کانال‌ها، بودجه، شاخص‌ها و ایدهٔ درخشانی که همه را پیوند می‌دهد.","pr3t":"اجرا","pr3d":"طراحی، ساخت و انتشار — خلاقیت، رسانه و وب، توسط یک تیم ارشد.","pr4t":"رشد","pr4d":"اندازه‌گیری، بهینه‌سازی و مقیاس آنچه جواب می‌دهد. گزارش شفاف، هر هفته.",
+    "ab.eyebrow":"درباره ما","ab.h":"تیم پشت برایت استارتس","ab.intro":"برایت استارتس یک آژانس بازاریابی دیجیتال در مسقط است که به برندهای جاه‌طلب کمک می‌کند رشد کنند — از استراتژی تا اجرا. ما تیمی کوچک و حرفه‌ای هستیم که با برند شما مثل برند خودمان رفتار می‌کنیم و بازاریابی هوشمند را با محتوا و طراحی باکیفیت ترکیب می‌کنیم.",
+    "ab.r1":"بازاریابی دیجیتال و تبلیغات","ab.s1":"«در دنیایی که همه فریاد می‌زنند، صدایی می‌سازیم که شنیده شود.»","ab.b1":"من محمدحسین هستم، متخصص بازاریابی دیجیتال و تبلیغات. به رشد و دیده‌شدن برند شما در فضای دیجیتال کمک می‌کنم — با برنامه‌ریزی کمپین‌های مؤثر، مدیریت شبکه‌های اجتماعی، ساخت استراتژی آنلاین و تولید محتوای هدفمند.",
+    "ab.r2":"تولید محتوا، تدوین و طراحی","ab.s2":"«هر برند داستانی دارد؛ ما به آن جان می‌دهیم.»","ab.b2":"من محمدعلی هستم، متخصص تولید محتوا، تدوین ویدیو و فیلم‌برداری. با ویدیوی باکیفیت، طراحی جذاب و روایت خلاق، داستان برند شما را به جذاب‌ترین شکل تعریف می‌کنم و مخاطب را متصل نگه می‌دارم.",
+    "ab.r3":"روان‌شناسی صنعتی-سازمانی · نورومارکتینگ و استراتژی برند","ab.s3":"«وقتی ذهن‌ها درگیر شوند، برندها فراموش‌نشدنی می‌شوند.»","ab.b3":"من هانیه صالحی هستم، روان‌شناس صنعتی-سازمانی متخصص در نورومارکتینگ و استراتژی برند. به شما کمک می‌کنم برندی ماندگار و تأثیرگذار بسازید؛ با تحلیل ذهن مخاطب و طراحی استراتژی‌های هوشمند که برندتان را در بازار متمایز و در ذهن‌ها ماندگار می‌کند.",
+    "mp.eyebrow":"ما را پیدا کنید","mp.h":"از استودیوی ما دیدن کنید","mp.addr":"مسقط، سلطنت عمان","mp.cta":"باز کردن در گوگل مپ",
+    "ts.eyebrow":"صدای مشتریان","ts1q":"برایت استارتس مثل تیم داخلی ماست — حرفه‌ای، سریع و واقعاً درگیر اعداد.","ts1r":"مدیر بازاریابی، اوازیس لیوینگ","ts2q":"از ایده تا اجرا در شش هفته. استراتژی دقیق و اجرای بی‌نقص.","ts2r":"بنیان‌گذار، میزان پی",
+    "pc.eyebrow":"همکاری‌ها","pc.h":"نحوهٔ همکاری را انتخاب کنید","pc.sub":"قرارداد ماهانه، بدون قفل طولانی. متناسب با رشد شما کم یا زیاد می‌شود.",
+    "pc1n":"اسپارک","pc1d":"برای برندهای نوپا که در حال یافتن جای پای خود هستند.","pc1f1":"۲ کانال بازاریابی","pc1f2":"جلسهٔ استراتژی ماهانه","pc1f3":"گزارش عملکرد ماهانه","pc1b":"انتخاب اسپارک",
+    "pc2n":"رشد","pc2tag":"محبوب‌ترین","pc2d":"رشد کامل برای برندهای در حال توسعه.","pc2f1":"تا ۴ کانال","pc2f2":"بهینه‌سازی هفتگی","pc2f3":"استراتژیست اختصاصی","pc2f4":"خلاقیت دوهفته‌ای","pc2b":"انتخاب رشد",
+    "pc3n":"توسعه","pc3price":"سفارشی","pc3d":"تیم ارشد یکپارچه برای رهبران بازار.","pc3f1":"همهٔ کانال‌ها، یکپارچه","pc3f2":"تیم اختصاصی","pc3f3":"گزارش هفتگی","pc3f4":"پشتیبانی اولویت‌دار","pc3b":"با ما صحبت کنید","pc.mo":"ر.ع / ماهانه",
+    "cta.eyebrow":"بیایید بسازیم","cta.h":"ایدهٔ درخشان را به ما بگویید","cta.sub":"هدف‌تان را با ما در میان بگذارید؛ ظرف یک روز کاری با نحوهٔ اجرای ما برمی‌گردیم.","cta.send":"ارسال","cta.thanks":"ممنون — به‌زودی با شما تماس می‌گیریم.",
+    "f.name":"نام کامل","f.brand":"برند / شرکت","f.email":"ایمیل","f.phone":"تلفن / واتساپ","f.service":"به چه چیزی نیاز دارید؟","f.budget":"بودجهٔ ماهانه","f.msg":"دربارهٔ پروژه‌تان بگویید","f.send":"ارسال درخواست","f.opt":"انتخاب…","f.svc1":"سئو و ارگانیک","f.svc2":"تبلیغات پولی","f.svc3":"شبکه‌های اجتماعی","f.svc4":"محتوا و برندینگ","f.svc5":"وب و اپ","f.svc6":"استراتژی","f.b1":"زیر ۵۰۰ ر.ع","f.b2":"۵۰۰ تا ۱۵۰۰ ر.ع","f.b3":"۱۵۰۰ تا ۳۰۰۰ ر.ع","f.b4":"۳۰۰۰+ ر.ع","f.thanksH":"درخواست دریافت شد","f.thanksSub":"ممنون — تیم ما ظرف یک روز کاری با شما تماس می‌گیرد.",
+    "ft.tag":"< روشن‌کردن مسیر برای برند شما >","ft.services":"خدمات","ft.agency":"آژانس","ft.contact":"تماس","ft.work":"مشتریان","ft.copy":"© ۲۰۲۶ برایت استارتس · مسقط، عمان","ft.legal":"قوانین · حریم خصوصی",
+  },
+};
+
+const POSTS = [
+  { cat: "Case study", catAr: "دراسة حالة", title: "How a local brand hit 1M views in 30 days", titleAr: "كيف حقّقت علامة محلية مليون مشاهدة في 30 يوماً", date: "Jun 2026", read: "6 min read", readAr: "6 دقائق" },
+  { cat: "Content", catAr: "محتوى", title: "The anatomy of a scroll-stopping reel", titleAr: "تشريح ريل يوقف التمرير", date: "May 2026", read: "5 min read", readAr: "5 دقائق" },
+  { cat: "Strategy", catAr: "استراتيجية", title: "From zero followers to a full waitlist", titleAr: "من صفر متابع إلى قائمة انتظار كاملة", date: "May 2026", read: "7 min read", readAr: "7 دقائق" },
+  { cat: "Production", catAr: "إنتاج", title: "Lighting & framing for premium brand video", titleAr: "الإضاءة والتأطير لفيديو علامة فاخر", date: "Apr 2026", read: "8 min read", readAr: "8 دقائق" },
+  { cat: "Content", catAr: "محتوى", title: "Why your first three seconds decide everything", titleAr: "لماذا تحسم أول ثلاث ثوانٍ كل شيء", date: "Apr 2026", read: "4 min read", readAr: "4 دقائق" },
+  { cat: "Paid media", catAr: "إعلانات مدفوعة", title: "Turning UGC into a paid-media engine", titleAr: "تحويل محتوى المستخدمين إلى محرك إعلانات", date: "Mar 2026", read: "6 min read", readAr: "6 دقائق" },
+];
+
+class Component extends DCLogic {
+  state = { mobileOpen: false, email: "", sent: false, lang: "en", page: "home" };
+
+  rootRef = React.createRef();
+  progressRef = React.createRef();
+  progressTipRef = React.createRef();
+  pageDarkRef = React.createRef();
+  pageGlowRef = React.createRef();
+
+  componentDidMount() {
+    let saved = "en";
+    try { saved = localStorage.getItem("bs-lang") || "en"; } catch (e) {}
+    if (saved !== this.state.lang) this.setState({ lang: saved });
+    else this.applyLang();
+
+    this._revObs = (typeof IntersectionObserver !== "undefined") ? new IntersectionObserver((ents) => {
+      ents.forEach((en) => {
+        if (en.isIntersecting) { en.target.style.opacity = "1"; en.target.style.transform = "none"; this._revObs.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }) : null;
+
+    this._syncPage = () => {
+      const m = (location.hash || "").match(/#\/(home|services|clients|about|pricing|blog|contact)/);
+      const pg = m ? m[1] : "home";
+      if (pg !== this.state.page) this.setState({ page: pg });
+      else { this.applyPage(); this.armReveals(); }
+    };
+
+    this._onScroll = () => {
+      const root = this.rootRef.current;
+      if (!root) return;
+      const rect = root.getBoundingClientRect();
+      const total = (rect.height - window.innerHeight) || 1;
+      const p = Math.min(1, Math.max(0, -rect.top / total));
+      const fill = this.progressRef.current;
+      const tip = this.progressTipRef.current;
+      if (fill) {
+        fill.style.height = (p * 100).toFixed(2) + "%";
+        fill.style.opacity = (0.4 + p * 0.6).toFixed(3);
+      }
+      if (tip) {
+        const glow = (4 + p * 16).toFixed(1);
+        tip.style.boxShadow = "0 0 " + glow + "px " + (1 + p * 4).toFixed(1) + "px var(--bs-accent)";
+        tip.style.opacity = p > 0.005 ? "1" : "0";
+      }
+      // ---- page-wide progressive illumination (home only) ----
+      if (this.state.page !== "home") {
+        if (this.pageDarkRef.current) this.pageDarkRef.current.style.opacity = "0";
+        if (this.pageGlowRef.current) this.pageGlowRef.current.style.opacity = "0";
+        return;
+      }
+      const jr0 = root.querySelector("[data-journey]");
+      const jBottom = jr0 ? (jr0.offsetTop + jr0.offsetHeight) : 0;
+      const span2 = (document.documentElement.scrollHeight - jBottom) || 1;
+      const cp = Math.min(1, Math.max(0, (window.scrollY + window.innerHeight - jBottom) / span2));
+      const inJourney = (window.scrollY + window.innerHeight) < jBottom + 4;
+      const pd = this.pageDarkRef.current;
+      const pg = this.pageGlowRef.current;
+      const eased = Math.pow(1 - cp, 1.25); // darkness remaining
+      if (pd) {
+        if (inJourney) { pd.style.opacity = "0"; }
+        else {
+          pd.style.opacity = (0.18 + eased * 0.82).toFixed(3);
+          const inner = (30 + cp * 62).toFixed(1);
+          const edge = (0.32 + eased * 0.55).toFixed(3);
+          pd.style.background = "radial-gradient(ellipse 78% 66% at 50% 42%, transparent " + inner + "%, rgba(3,3,6," + edge + ") 100%)";
+        }
+      }
+      if (pg) { pg.style.opacity = inJourney ? "0" : (0.04 + cp * 0.13).toFixed(3); }
+      // ---- process path: spine fill + node activation ----
+      const pw = root.querySelector("[data-pathwrap]");
+      if (pw) {
+        const pr = pw.getBoundingClientRect();
+        const ptotal = (pr.height - window.innerHeight * 0.5) || 1;
+        const pprog = Math.min(1, Math.max(0, (window.innerHeight * 0.5 - pr.top) / ptotal));
+        const pf = root.querySelector("[data-path-fill]");
+        if (pf) pf.style.height = (pprog * 100).toFixed(2) + "%";
+        root.querySelectorAll("[data-step]").forEach((st) => {
+          const title = st.querySelector("[data-step-title]");
+          if (title) {
+            const top = st.getBoundingClientRect().top;
+            const pin = 58;
+            const t = Math.min(1, Math.max(0, (window.innerHeight * 0.52 - top) / (window.innerHeight * 0.52 - pin || 1)));
+            title.style.transform = "scale(" + (0.6 + t * 0.4).toFixed(3) + ")";
+            title.style.opacity = (0.3 + t * 0.7).toFixed(3);
+          }
+          const node = st.querySelector("[data-node]");
+          if (!node) return;
+          const nr = node.getBoundingClientRect();
+          const on = (nr.top + nr.height / 2) < window.innerHeight * 0.56;
+          node.style.borderColor = on ? "var(--bs-accent)" : "var(--bs-line)";
+          node.style.background = on ? "var(--bs-accent)" : "var(--bs-panel-2)";
+          node.style.color = on ? "var(--bs-on-accent)" : "var(--bs-fg-subtle)";
+        });
+      }
+      // ---- cinematic journey ----
+      const jr = root.querySelector("[data-journey]");
+      if (jr) {
+        const r2 = jr.getBoundingClientRect();
+        const span = (r2.height - window.innerHeight) || 1;
+        const jp = Math.min(1, Math.max(0, -r2.top / span));
+        const q = (n, fn) => { const e = root.querySelector('[data-j="' + n + '"]'); if (e) fn(e); };
+        // push forward through the doorway: scene eases in, figure walks toward the light
+        q("scene", (e) => { e.style.transform = "scale(" + (1.04 + jp * 0.62).toFixed(3) + ")"; });
+        q("figure", (e) => {
+          const s = (1 - jp * 0.8).toFixed(3);
+          e.setAttribute("transform", "translate(720,170) scale(" + s + ") translate(-720,-170)");
+          e.style.opacity = (1 - Math.max(0, jp - 0.7) / 0.3 * 0.85).toFixed(3);
+        });
+        q("wedge", (e) => { e.style.opacity = (0.82 + jp * 0.18).toFixed(3); });
+        q("bloom", (e) => { e.style.opacity = Math.min(1, jp * 1.4).toFixed(3); e.style.transform = "translate(-50%,-50%) scale(" + (0.7 + jp * 2.6).toFixed(3) + ")"; });
+        q("dark", (e) => { e.style.opacity = Math.max(0, 0.62 - jp * 1.25).toFixed(3); });
+        // whiteness grows continuously through the second half — flooding the frame
+        q("flood", (e) => { const f = jp < 0.4 ? 0 : (jp - 0.4) / 0.6; e.style.opacity = (Math.pow(f, 1.5) * 0.97).toFixed(3); });
+        const band = (x, a, b, c, d) => x < a ? 0 : x < b ? (x - a) / (b - a) : x < c ? 1 : x < d ? 1 - (x - c) / (d - c) : 0;
+        const setT = (n, a, b, c, d) => q(n, (e) => { const v = band(jp, a, b, c, d); e.style.opacity = v.toFixed(3); e.style.transform = "translateY(" + ((1 - v) * 26).toFixed(1) + "px)"; });
+        setT("t1", -1, -1, 0.16, 0.24);
+        setT("t2", 0.30, 0.40, 0.54, 0.64);
+        setT("t3", 0.70, 0.80, 1.5, 1.6);
+        q("hint", (e) => { e.style.opacity = (jp < 0.06 ? (1 - jp / 0.06) : 0).toFixed(3); });
+      }
+    };
+    window.addEventListener("scroll", this._onScroll, true);
+    window.addEventListener("resize", this._onScroll);
+    window.addEventListener("hashchange", this._syncPage);
+    this._syncPage();
+    this._onScroll();
+  }
+  componentWillUnmount() {
+    if (this._onScroll) {
+      window.removeEventListener("scroll", this._onScroll, true);
+      window.removeEventListener("resize", this._onScroll);
+    }
+    if (this._syncPage) window.removeEventListener("hashchange", this._syncPage);
+    if (this._revObs) this._revObs.disconnect();
+    clearTimeout(this._revTimer);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    this.applyLang();
+    this.applyPage();
+    if (prevState && prevState.page !== this.state.page) {
+      try { window.scrollTo(0, 0); } catch (e) {}
+      this.armReveals();
+      if (this._onScroll) this._onScroll();
+    }
+  }
+
+  applyPage() {
+    const root = this.rootRef.current;
+    if (!root) return;
+    const pg = this.state.page || "home";
+    root.querySelectorAll("[data-page]").forEach((el) => {
+      el.style.display = (el.getAttribute("data-page") === pg) ? "" : "none";
+    });
+    root.querySelectorAll("[data-nav]").forEach((el) => {
+      el.style.color = (el.getAttribute("data-nav") === pg) ? "var(--bs-accent)" : "var(--bs-fg-muted)";
+    });
+  }
+
+  armReveals() {
+    const root = this.rootRef.current;
+    if (!root || !this._revObs) return;
+    clearTimeout(this._revTimer);
+    const vw = window.innerWidth;
+    root.querySelectorAll("[data-reveal]").forEach((el) => {
+      const host = el.closest("[data-page]");
+      if (host && host.style.display === "none") return;
+      this._revObs.unobserve(el);
+      let dir = el.getAttribute("data-rev-dir");
+      if (!dir) {
+        const r = el.getBoundingClientRect();
+        const c = r.left + r.width / 2;
+        if (r.width < vw * 0.6 && c < vw * 0.42) dir = "left";
+        else if (r.width < vw * 0.6 && c > vw * 0.58) dir = "right";
+        else dir = "up";
+      }
+      const off = dir === "left" ? "translateX(-46px)" : dir === "right" ? "translateX(46px)" : "translateY(26px)";
+      const d = parseFloat(el.getAttribute("data-rev-delay") || "0");
+      el.style.transition = "opacity .7s var(--ease) " + d + "s, transform .7s var(--ease) " + d + "s";
+      el.style.willChange = "opacity, transform";
+      el.style.opacity = "0";
+      el.style.transform = off;
+      this._revObs.observe(el);
+    });
+    this._revTimer = setTimeout(() => {
+      root.querySelectorAll("[data-reveal]").forEach((el) => {
+        const host = el.closest("[data-page]");
+        if (host && host.style.display === "none") return;
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight * 1.05) { el.style.opacity = "1"; el.style.transform = "none"; }
+      });
+    }, 1300);
+  }
+
+  applyLang() {
+    const root = this.rootRef.current;
+    if (!root) return;
+    const lang = this.state.lang || "en";
+    const dict = I18N[lang] || I18N.en;
+    root.setAttribute("dir", (lang === "ar" || lang === "fa") ? "rtl" : "ltr");
+    root.setAttribute("data-lang", lang);
+    root.querySelectorAll("[data-i18n]").forEach((el) => {
+      const k = el.getAttribute("data-i18n");
+      if (dict[k] != null) el.textContent = dict[k];
+    });
+    root.querySelectorAll("[data-i18n-ph]").forEach((el) => {
+      const k = el.getAttribute("data-i18n-ph");
+      if (dict[k] != null) el.setAttribute("placeholder", dict[k]);
+    });
+    root.querySelectorAll("img[data-logo]").forEach((im) => {
+      const u = im.getAttribute("data-logo");
+      if (u && u.indexOf("{{") < 0 && im.getAttribute("src") !== u) im.setAttribute("src", u);
+    });
+  }
+
+  setLang(lang) {
+    try { localStorage.setItem("bs-lang", lang); } catch (e) {}
+    this.setState({ lang });
+  }
+
+  renderVals() {
+    const lang = this.state.lang || "en";
+    const raw = [
+      { slug: "m2-real-estate", name: "M2 Real Estate", cat: "Real estate", catAr: "عقارات", logo: "logos/m2.realestates.jpg" },
+      { slug: "lubna-khalili-academy", name: "Lubna Khalili Academy", cat: "Education", catAr: "تعليم", logo: "logos/academylubnakhalili.jpg" },
+      { slug: "zaytoon-royal", name: "Zaytoon Royal", cat: "Hospitality", catAr: "ضيافة", logo: "logos/zaytoonroyal.jpg" },
+      { slug: "hudhud-fabric", name: "Hudhud Fabric", cat: "Textile", catAr: "أقمشة", logo: "logos/hudhud.fabric.jpg" },
+      { slug: "seeb-waves", name: "Seeb Waves", cat: "Lifestyle", catAr: "نمط حياة", logo: "logos/seebwaves.jpg" },
+      { slug: "sima-vandad", name: "Sima Vandad", cat: "Beauty", catAr: "جمال", logo: "logos/sima_vandad.jpg" },
+      { slug: "nota-jewelry", name: "Nota Jewelry", cat: "Jewelry", catAr: "مجوهرات", logo: "logos/notajelwery.jpg" },
+      { slug: "oman-vision", name: "Oman Vision", cat: "Media", catAr: "إعلام", logo: null },
+      { slug: "adam-perfumes", name: "Adam Perfumes", cat: "Fragrance", catAr: "عطور", logo: "logos/adam.perfumes.jpg" },
+      { slug: "miss-cheff", name: "Miss Cheff", cat: "Food", catAr: "طعام", logo: "logos/miisscheff.jpg" },
+      { slug: "first-glass-oman", name: "First Glass Oman", cat: "Glass & aluminium", catAr: "زجاج وألمنيوم", logo: null },
+    ];
+    return {
+      rootRef: this.rootRef,
+      progressRef: this.progressRef,
+      progressTipRef: this.progressTipRef,
+      pageDarkRef: this.pageDarkRef,
+      pageGlowRef: this.pageGlowRef,
+      dir: this.props.direction ?? "orange",
+      lang,
+      isEn: lang === "en",
+      isAr: lang === "ar",
+      setEn: () => this.setLang("en"),
+      setAr: () => this.setLang("ar"),
+      setFa: () => this.setLang("fa"),
+      enBg: lang === "en" ? "var(--bs-accent)" : "transparent",
+      enFg: lang === "en" ? "var(--bs-on-accent)" : "var(--bs-fg-muted)",
+      arBg: lang === "ar" ? "var(--bs-accent)" : "transparent",
+      arFg: lang === "ar" ? "var(--bs-on-accent)" : "var(--bs-fg-muted)",
+      faBg: lang === "fa" ? "var(--bs-accent)" : "transparent",
+      faFg: lang === "fa" ? "var(--bs-on-accent)" : "var(--bs-fg-muted)",
+      clients: raw.map((c) => ({ ...c, cat: lang === "ar" ? c.catAr : c.cat, noLogo: !c.logo, real: true, soon: false }))
+        .concat([0, 1, 2, 3].map(() => ({ real: false, soon: true, logo: null, noLogo: false, name: "", cat: "", slug: "" }))),
+      posts: POSTS.map((p) => ({ cat: lang === "ar" ? p.catAr : p.cat, title: lang === "ar" ? p.titleAr : p.title, date: p.date, read: lang === "ar" ? p.readAr : p.read })),
+      postsTop: POSTS.slice(0, 3).map((p) => ({ cat: lang === "ar" ? p.catAr : p.cat, title: lang === "ar" ? p.titleAr : p.title, date: p.date, read: lang === "ar" ? p.readAr : p.read })),
+      arabicAccents: (lang === "ar"),
+      decor: this.props.decor ?? true,
+      mobileOpen: this.state.mobileOpen,
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      email: this.state.email,
+      toggleMobile: () => this.setState((s) => ({ mobileOpen: !s.mobileOpen })),
+      closeMobile: () => this.setState({ mobileOpen: false }),
+      onEmail: (e) => this.setState({ email: e.target.value }),
+      send: () => this.setState({ sent: true }),
+    };
+  }
+}
+</script>
+</body>
+</html>

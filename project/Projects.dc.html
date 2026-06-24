@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  :root{
+    --font-hero:"Saira Condensed",sans-serif; --font-display:"Space Grotesk",sans-serif;
+    --font-body:"Inter",sans-serif; --font-mono:"JetBrains Mono",monospace; --font-arabic:"Tajawal",sans-serif;
+    --radius:10px; --radius-lg:16px; --radius-pill:9999px; --ease:cubic-bezier(.2,.8,.2,1); --dur:200ms;
+    --shadow-lg:0 16px 48px rgba(0,0,0,.55);
+    --bs-bg:#000; --bs-panel:#0A0F18; --bs-panel-2:#101826; --bs-fg:#F4F7FB; --bs-fg-muted:#93A1B5; --bs-fg-subtle:#5E6B7E;
+    --bs-accent:#F58021; --bs-on-accent:#0A0F18; --bs-line:#1C2738; --bs-glow:0 0 0 1px #F58021,0 8px 24px rgba(245,128,33,.28);
+  }
+  @keyframes bsFadeUp{from{transform:translateY(18px);}to{transform:none;}}
+  [data-reveal]{animation:bsFadeUp .6s var(--ease) both;}
+  @media (max-width:880px){ [data-grid]{grid-template-columns:1fr 1fr!important;} [data-pad]{padding-left:22px!important;padding-right:22px!important;} [data-h1]{font-size:52px!important;} }
+  @media (max-width:560px){ [data-grid]{grid-template-columns:1fr!important;} }
+</style>
+<script src="image-slot.js"></script>
+</helmet>
+
+<div style="min-height:100vh;background:var(--bs-bg);color:var(--bs-fg);font-family:var(--font-body);overflow-x:hidden;">
+
+  <header data-pad style="position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;border-bottom:1px solid var(--bs-line);background:color-mix(in srgb, var(--bs-bg) 80%, transparent);backdrop-filter:blur(14px);">
+    <a href="Bright%20Starts%20Home.dc.html" style="display:inline-flex;align-items:center;gap:11px;">
+      <img src="assets/logo-mark-color.png" alt="" style="height:32px;width:auto;display:block;">
+      <span style="display:flex;flex-direction:column;line-height:1;">
+        <span style="font-family:var(--font-hero);font-weight:800;font-size:20px;letter-spacing:.02em;text-transform:uppercase;">Bright Starts</span>
+        <span style="font-family:var(--font-mono);font-size:7.5px;letter-spacing:.34em;color:var(--bs-accent);text-transform:uppercase;margin-top:4px;">Muscat · Oman</span>
+      </span>
+    </a>
+    <nav style="display:flex;gap:28px;align-items:center;">
+      <a href="Bright%20Starts%20Home.dc.html#services" style="font-family:var(--font-body);font-size:14.5px;font-weight:500;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">Services</a>
+      <a href="About.dc.html" style="font-family:var(--font-body);font-size:14.5px;font-weight:500;color:var(--bs-fg-muted);" style-hover="color:var(--bs-fg);">About</a>
+      <a href="Projects.dc.html" style="font-family:var(--font-body);font-size:14.5px;font-weight:600;color:var(--bs-accent);">Projects</a>
+      <a href="Bright%20Starts%20Home.dc.html#contact" style="display:inline-flex;align-items:center;height:40px;padding:0 18px;font-family:var(--font-display);font-weight:600;font-size:14px;border-radius:var(--radius);background:var(--bs-accent);color:var(--bs-on-accent);transition:all var(--dur) var(--ease);" style-hover="transform:translateY(-2px);box-shadow:var(--bs-glow);">Start a project</a>
+    </nav>
+  </header>
+
+  <section data-pad style="max-width:1200px;margin:0 auto;padding:84px 40px 50px;">
+    <div data-reveal style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--bs-accent);"><span style="opacity:.5;">&lt;</span> Our work <span style="opacity:.5;">&gt;</span></div>
+    <h1 data-reveal data-h1 style="font-family:var(--font-hero);font-weight:800;text-transform:uppercase;font-size:76px;line-height:.98;letter-spacing:.006em;margin:18px 0 0;">Projects &amp; clients</h1>
+    <p data-reveal style="font-family:var(--font-body);font-size:19px;line-height:1.6;color:var(--bs-fg-muted);max-width:600px;margin:20px 0 0;">Brands we've grown across Oman and the Gulf — from real estate to fragrance, fashion to fine dining. Open any to read the case study.</p>
+    <div data-reveal style="display:flex;gap:40px;margin-top:40px;flex-wrap:wrap;">
+      <div><div style="font-family:var(--font-display);font-weight:700;font-size:30px;">120+</div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--bs-fg-subtle);margin-top:5px;">Brands grown</div></div>
+      <div style="width:1px;height:38px;background:var(--bs-line);"></div>
+      <div><div style="font-family:var(--font-display);font-weight:700;font-size:30px;color:var(--bs-accent);">4.2x</div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--bs-fg-subtle);margin-top:5px;">Avg. ROAS</div></div>
+      <div style="width:1px;height:38px;background:var(--bs-line);"></div>
+      <div><div style="font-family:var(--font-display);font-weight:700;font-size:30px;">8 yrs</div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--bs-fg-subtle);margin-top:5px;">In the Gulf</div></div>
+    </div>
+  </section>
+
+  <section data-pad style="max-width:1200px;margin:0 auto;padding:0 40px 90px;">
+    <div data-grid style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+      <sc-for list="{{ clients }}" as="c" hint-placeholder-count="0">
+        <a href="client.dc.html#{{ c.slug }}" style="display:block;background:var(--bs-panel-2);border:1px solid var(--bs-line);border-radius:var(--radius-lg);overflow:hidden;transition:transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);" style-hover="transform:translateY(-4px);box-shadow:var(--shadow-lg);">
+          <div style="height:150px;background:{{ c.c }};display:flex;align-items:center;justify-content:center;position:relative;">
+            <span aria-hidden style="position:absolute;top:12px;left:12px;width:16px;height:16px;border-top:2px solid rgba(255,255,255,.6);border-left:2px solid rgba(255,255,255,.6);"></span>
+            <sc-if value="{{ c.logo }}" hint-placeholder-val="{{ false }}"><img data-logo="{{ c.logo }}" alt="{{ c.name }}" style="width:84px;height:84px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.85);box-shadow:0 6px 20px rgba(0,0,0,.35);"></sc-if>
+            <sc-if value="{{ c.noLogo }}" hint-placeholder-val="{{ true }}"><span style="font-family:var(--font-hero);font-weight:800;font-size:30px;text-transform:uppercase;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.4);">{{ c.name }}</span></sc-if>
+          </div>
+          <div style="padding:20px 22px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+            <div>
+              <div style="font-family:var(--font-hero);font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.01em;line-height:1.05;">{{ c.name }}</div>
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--bs-accent);margin-top:7px;">{{ c.cat }}</div>
+            </div>
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;flex:none;border-radius:50%;border:1px solid var(--bs-line);color:var(--bs-accent);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <footer data-pad style="border-top:1px solid var(--bs-line);padding:40px;">
+    <div style="max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--font-mono);font-size:12px;color:var(--bs-fg-subtle);">
+      <span>© 2026 Bright Starts · Muscat, Oman</span>
+      <a href="Bright%20Starts%20Home.dc.html" style="color:var(--bs-fg-subtle);" style-hover="color:var(--bs-fg);">&lt; Back to home &gt;</a>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  rootRef = React.createRef();
+  componentDidMount() { this._setLogos(); }
+  componentDidUpdate() { this._setLogos(); }
+  _setLogos() {
+    document.querySelectorAll("img[data-logo]").forEach((im) => {
+      const u = im.getAttribute("data-logo");
+      if (u && u.indexOf("{{") < 0 && im.getAttribute("src") !== u) im.setAttribute("src", u);
+    });
+  }
+  renderVals() {
+    const raw = [
+      { slug: "m2-real-estate", name: "M2 Real Estate", cat: "Real estate", c: "linear-gradient(135deg,#2E568A,#0A1F38)", h: "m2.realestates" },
+      { slug: "lubna-khalili-academy", name: "Lubna Khalili Academy", cat: "Education", c: "linear-gradient(135deg,#F9912F,#7A3A08)", h: "academylubnakhalili" },
+      { slug: "zaytoon-royal", name: "Zaytoon Royal", cat: "Hospitality", c: "linear-gradient(135deg,#13335A,#030B16)", h: "zaytoonroyal" },
+      { slug: "hudhud-fabric", name: "Hudhud Fabric", cat: "Textile", c: "linear-gradient(135deg,#F58021,#B0530B)", h: "hudhud.fabric" },
+      { slug: "seeb-waves", name: "Seeb Waves", cat: "Lifestyle", c: "linear-gradient(135deg,#5A7CA8,#13335A)", h: "seebwaves" },
+      { slug: "sima-vandad", name: "Sima Vandad", cat: "Beauty", c: "linear-gradient(135deg,#FCA856,#D86A12)", h: "sima_vandad" },
+      { slug: "nota-jewelry", name: "Nota Jewelry", cat: "Jewelry", c: "linear-gradient(135deg,#2E568A,#061427)", h: "notajelwery" },
+      { slug: "oman-vision", name: "Oman Vision", cat: "Media", c: "linear-gradient(135deg,#F9912F,#7A3A08)", h: null },
+      { slug: "adam-perfumes", name: "Adam Perfumes", cat: "Fragrance", c: "linear-gradient(135deg,#13335A,#0A1F38)", h: "adam.perfumes" },
+      { slug: "miss-cheff", name: "Miss Cheff", cat: "Food", c: "linear-gradient(135deg,#FCA856,#B0530B)", h: "miisscheff" },
+      { slug: "first-glass-oman", name: "First Glass Oman", cat: "Glass & aluminium", c: "linear-gradient(135deg,#5A7CA8,#0A1F38)", h: null },
+    ];
+    return {
+      clients: raw.map((c) => ({ slug: c.slug, name: c.name, cat: c.cat, c: c.c, logo: c.h ? ("logos/" + c.h + ".jpg") : null, noLogo: !c.h })),
+    };
+  }
+}
+</script>
+</body>
+</html>

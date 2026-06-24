@@ -1,0 +1,19 @@
+/* Bright Stars — Elevation, glow & motion tokens
+   Subtle dark shadows; CTAs get an orange glow. Snappy ease-out motion. */
+
+:root {
+  /* ---- Shadows (dark UI) ---- */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+  --shadow: 0 4px 16px rgba(0,0,0,.45);
+  --shadow-lg: 0 16px 48px rgba(0,0,0,.55);
+
+  /* ---- Orange glow (CTAs, focus) ---- */
+  --glow: 0 0 0 1px #F58021, 0 8px 24px rgba(245,128,33,.25);
+  --glow-soft: 0 0 0 3px rgba(245,128,33,.25);
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(.2,.8,.2,1); /* @kind other */
+  --dur-fast: 150ms; /* @kind other */
+  --dur: 180ms; /* @kind other */
+  --dur-slow: 220ms; /* @kind other */
+}

@@ -1,0 +1,379 @@
+# PREMIUM IMMERSIVE BRAND WEBSITE MASTER PROMPT
+
+Build a premium immersive website for [BRAND_NAME].
+
+The website must feel like a high-end [CATEGORY / INDUSTRY] platform and category-defining digital experience.
+
+I have attached:
+
+- visual reference website(s)
+- hero video(s)
+- design system
+- interaction guidelines
+- brand assets
+- motion references
+
+Use ALL attached materials as the primary source of truth.
+
+The final result should feel:
+
+- cinematic
+- minimal
+- immersive
+- editorial
+- futuristic
+- highly polished
+
+This is NOT a generic SaaS landing page.
+
+This is a premium digital brand experience.
+
+--------------------------------------------------
+CORE BRAND POSITIONING
+--------------------------------------------------
+
+[BRAND_NAME] helps [TARGET_AUDIENCE] achieve [PRIMARY_OUTCOME].
+
+Core capabilities:
+
+- [CAPABILITY_1]
+- [CAPABILITY_2]
+- [CAPABILITY_3]
+- [CAPABILITY_4]
+
+The emotional positioning should feel like:
+
+"[POSITIONING_STATEMENT]"
+
+Examples:
+
+- Creator Economy meets Cinematic AI Operating System
+- Luxury Wellness meets Intelligent Performance Platform
+- Finance meets Editorial Intelligence
+- Design meets Artificial Intelligence
+
+Brand attributes:
+
+- premium
+- intelligent
+- immersive
+- scalable
+- modern
+- system-driven
+- design-forward
+
+Avoid:
+
+- startup clichés
+- generic SaaS aesthetics
+- overused gradients
+- crypto visuals
+- template-style layouts
+- stock marketing visuals
+- cheap agency aesthetics
+
+--------------------------------------------------
+VISUAL DIRECTION
+--------------------------------------------------
+
+Use the attached design system as the primary visual language.
+
+Strongly follow:
+
+- typography hierarchy
+- spacing rhythm
+- composition rules
+- color palette
+- interaction patterns
+- motion principles
+
+Design characteristics:
+
+- expansive whitespace
+- editorial composition
+- restrained visual language
+- sophisticated motion
+- elegant hierarchy
+- premium visual pacing
+
+Color System:
+
+Background:
+[BACKGROUND_COLOR]
+
+Primary Typography:
+[TEXT_COLOR]
+
+Borders:
+[BORDER_COLOR]
+
+Accent System:
+[ACCENT_COLORS]
+
+The website should feel:
+
+- sculpted
+- calm
+- intentional
+- immersive
+- elevated
+
+Typography should feel:
+
+- oversized
+- elegant
+- cinematic
+- luxury editorial
+
+Use large headlines with generous spacing and breathing room.
+
+--------------------------------------------------
+HERO EXPERIENCE (MOST IMPORTANT)
+--------------------------------------------------
+
+The attached hero video must become the dominant immersive experience.
+
+Requirements:
+
+- occupies entire first viewport
+- cinematic presentation
+- integrated with design language
+- feels native to website
+- never resembles a video embed
+
+IMPORTANT:
+
+Hero video must be scroll-controlled.
+
+As users scroll:
+
+- video progresses smoothly
+- content synchronizes with timeline
+- sections reveal progressively
+- storytelling unfolds naturally
+- transitions feel intentional
+
+Do NOT rely on autoplay as the primary experience.
+
+Inspiration:
+
+- Apple cinematic storytelling
+- award-winning Awwwards experiences
+- immersive editorial websites
+- luxury product launches
+
+Overlay minimal messaging.
+
+Copy should be emotionally powerful and concise.
+
+Examples:
+
+- [HERO_LINE_1]
+- [HERO_LINE_2]
+- [HERO_LINE_3]
+- [HERO_LINE_4]
+
+Avoid excessive CTAs or UI clutter.
+
+--------------------------------------------------
+NAVIGATION
+--------------------------------------------------
+
+Minimal transparent navigation.
+
+Menu Items:
+
+- [MENU_ITEM_1]
+- [MENU_ITEM_2]
+- [MENU_ITEM_3]
+- [MENU_ITEM_4]
+- [MENU_ITEM_5]
+
+Top Left:
+
+[LOGO_TYPE]
+
+Top Right:
+
+minimal ghost navigation
+
+Navigation should feel:
+
+- subtle
+- refined
+- editorial
+
+--------------------------------------------------
+CONTENT STRUCTURE
+--------------------------------------------------
+
+Build immersive sections below the hero.
+
+SECTION 01
+[SECTION_TITLE_1]
+
+Purpose:
+[SECTION_DESCRIPTION_1]
+
+SECTION 02
+[SECTION_TITLE_2]
+
+Purpose:
+[SECTION_DESCRIPTION_2]
+
+SECTION 03
+[SECTION_TITLE_3]
+
+Purpose:
+[SECTION_DESCRIPTION_3]
+
+SECTION 04
+[SECTION_TITLE_4]
+
+Purpose:
+[SECTION_DESCRIPTION_4]
+
+SECTION 05
+[SECTION_TITLE_5]
+
+Purpose:
+[SECTION_DESCRIPTION_5]
+
+SECTION 06
+[SECTION_TITLE_6]
+
+Purpose:
+[SECTION_DESCRIPTION_6]
+
+FINAL SECTION
+
+Create a strong emotional closing statement that reinforces:
+
+- vision
+- aspiration
+- transformation
+- category leadership
+
+--------------------------------------------------
+3D & IMMERSIVE INTERACTIONS
+--------------------------------------------------
+
+Use subtle premium interactions:
+
+- layered depth
+- cinematic motion
+- parallax
+- spatial transitions
+- hover refinement
+- environmental movement
+
+Avoid:
+
+- excessive WebGL effects
+- gaming aesthetics
+- chaotic motion
+- unnecessary 3D objects
+
+Every interaction should feel elegant and intentional.
+
+--------------------------------------------------
+UI SYSTEM
+--------------------------------------------------
+
+Use:
+
+- thin strokes
+- dashed borders
+- ghost buttons
+- subtle motion
+- rounded corners
+- editorial grids
+- progressive reveals
+
+Avoid:
+
+- heavy shadows
+- colorful buttons
+- generic cards
+- bootstrap layouts
+- dashboard-heavy interfaces
+
+The UI should feel custom-designed.
+
+--------------------------------------------------
+TECHNICAL REQUIREMENTS
+--------------------------------------------------
+
+Framework:
+
+- Next.js
+- TailwindCSS
+- Framer Motion
+
+Implement:
+
+- smooth scrolling
+- responsive architecture
+- optimized media loading
+- accessibility considerations
+- reduced motion fallback
+- mobile-safe experience
+- performant scroll-driven storytelling
+
+Requirements:
+
+- no janky scroll behavior
+- maintain 60fps where possible
+- production-ready architecture
+- scalable component structure
+
+--------------------------------------------------
+EMOTIONAL OUTCOME
+--------------------------------------------------
+
+The website should feel like:
+
+"[EMOTIONAL_EXPERIENCE]"
+
+Examples:
+
+- An immersive operating system for creator growth
+- The future of luxury financial intelligence
+- A cinematic ecosystem for modern wellness
+- A premium AI companion for ambitious founders
+
+Users should leave feeling:
+
+- inspired
+- confident
+- curious
+- elevated
+- emotionally engaged
+
+--------------------------------------------------
+OUTPUT
+--------------------------------------------------
+
+Deliver:
+
+- complete landing page
+- immersive hero implementation
+- responsive design
+- polished interactions
+- scalable architecture
+- clean component hierarchy
+
+Also explain:
+
+1. implementation strategy
+2. component architecture
+3. dependency choices
+4. animation system
+5. performance optimizations
+6. responsive behavior
+7. accessibility considerations
+8. fallback handling decisions
+9. local development setup
+10. deployment recommendations
+
+The final result should feel expensive, artistic, intelligent, cinematic, and category-defining.

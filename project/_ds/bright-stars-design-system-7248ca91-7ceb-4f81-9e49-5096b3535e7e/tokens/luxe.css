@@ -1,0 +1,38 @@
+/* Bright Starts — Luxe (Gulf-inspired) tokens.
+   An additive luxury layer over the Bright Stars core: champagne gold, deep
+   emerald, and warm pearl/sand for premium light surfaces. Includes an Arabic
+   display family for bilingual Gulf use. Core Bright Stars tokens still apply;
+   these never override them. */
+
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+
+:root {
+  /* ---- Gold / champagne ---- */
+  --gold-100: #F7ECCB;
+  --gold-300: #E8C45C; /* bright accent */
+  --gold-500: #C9A227; /* BASE luxe accent */
+  --gold-700: #9A7B16;
+  --champagne: #E8C45C;
+
+  /* ---- Deep emerald (Gulf royal) ---- */
+  --emerald-500: #1F6B4F;
+  --emerald-700: #0E3B2E;
+  --emerald-900: #07140F;
+  --emerald-bright: #2FB873;
+
+  /* ---- Pearl & sand (light luxury surfaces) ---- */
+  --pearl: #FBF6EC;
+  --cream: #F4ECDD;
+  --sand: #E7D8BE;
+  --ink: #1A1812;        /* warm near-black text on light */
+  --ink-muted: #6B6353;
+
+  /* ---- Warm dark canvas ---- */
+  --noir: #08070A;       /* warm-tinted near-black */
+  --noir-panel: #12100C;
+
+  /* ---- Luxe aliases ---- */
+  --font-arabic: "Tajawal", "Inter", sans-serif;
+  --hairline-gold: rgba(232,196,92,.16);
+  --glow-gold: 0 0 0 1px var(--gold-500), 0 10px 30px rgba(201,162,39,.22);
+}
