@@ -498,7 +498,7 @@ function bright_stars_maybe_upgrade() {
 	}
 	update_option( 'bright_stars_data_version', BRIGHT_STARS_VERSION );
 }
-add_action( 'admin_init', 'bright_stars_maybe_upgrade' );
+add_action( 'wp_loaded', 'bright_stars_maybe_upgrade' );
 
 /* ------------------------------------------------------------------ *
  * Setup admin page.
