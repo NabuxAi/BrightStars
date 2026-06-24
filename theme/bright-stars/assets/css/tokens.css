@@ -1,0 +1,118 @@
+/* Bright Stars — design tokens, colour themes, fonts and keyframes.
+   The four colour themes are driven by [data-dir] on the .bs-site wrapper. */
+
+:root {
+  --font-hero: "Saira Condensed", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-arabic: "Tajawal", "Inter", sans-serif;
+  --font-persian: "Vazirmatn", "Tajawal", sans-serif;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --dur: 200ms;
+  --dur-slow: 320ms;
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, .55);
+
+  --maxw: 1200px;
+
+  /* Orange — Bright Stars core (default, paints immediately). */
+  --bs-bg: #000000;
+  --bs-panel: #0A0F18;
+  --bs-panel-2: #101826;
+  --bs-fg: #F4F7FB;
+  --bs-fg-muted: #93A1B5;
+  --bs-fg-subtle: #5E6B7E;
+  --bs-accent: #F58021;
+  --bs-accent-strong: #F9912F;
+  --bs-on-accent: #0A0F18;
+  --bs-energy: #F58021;
+  --bs-line: #1C2738;
+  --bs-line-soft: rgba(244, 247, 251, .06);
+  --bs-glow: 0 0 0 1px #F58021, 0 8px 24px rgba(245, 128, 33, .28);
+}
+
+[data-dir="gold"] {
+  --bs-bg: #08070A;
+  --bs-panel: #110F0A;
+  --bs-panel-2: #1A160E;
+  --bs-fg: #F6F1E7;
+  --bs-fg-muted: #A89F8C;
+  --bs-fg-subtle: #6F6655;
+  --bs-accent: #E8C45C;
+  --bs-accent-strong: #C9A227;
+  --bs-on-accent: #14110A;
+  --bs-energy: #F58021;
+  --bs-line: rgba(232, 196, 92, .16);
+  --bs-line-soft: rgba(246, 241, 231, .08);
+  --bs-glow: 0 0 0 1px rgba(232, 196, 92, .5), 0 14px 38px rgba(201, 162, 39, .22);
+}
+
+[data-dir="pearl"] {
+  --bs-bg: #F4ECDD;
+  --bs-panel: #FBF6EC;
+  --bs-panel-2: #FFFFFF;
+  --bs-fg: #1A1812;
+  --bs-fg-muted: #6B6353;
+  --bs-fg-subtle: #9A917D;
+  --bs-accent: #B0841C;
+  --bs-accent-strong: #8A6710;
+  --bs-on-accent: #FFFFFF;
+  --bs-energy: #D86A12;
+  --bs-line: rgba(26, 24, 18, .12);
+  --bs-line-soft: rgba(26, 24, 18, .07);
+  --bs-glow: 0 0 0 1px rgba(176, 132, 28, .4), 0 14px 38px rgba(138, 103, 16, .18);
+  --shadow-lg: 0 16px 48px rgba(90, 70, 20, .16);
+}
+
+[data-dir="emerald"] {
+  --bs-bg: #06231A;
+  --bs-panel: #0A2C21;
+  --bs-panel-2: #0F3528;
+  --bs-fg: #F1F0E6;
+  --bs-fg-muted: #A7C2B4;
+  --bs-fg-subtle: #6E8C7D;
+  --bs-accent: #E8C45C;
+  --bs-accent-strong: #C9A227;
+  --bs-on-accent: #07140F;
+  --bs-energy: #2FB873;
+  --bs-line: rgba(232, 196, 92, .16);
+  --bs-line-soft: rgba(241, 240, 230, .08);
+  --bs-glow: 0 0 0 1px rgba(232, 196, 92, .5), 0 14px 38px rgba(201, 162, 39, .22);
+}
+
+/* Script-specific typography. */
+body.bs-lang-ar,
+body.bs-lang-ar :where(h1, h2, h3, h4, h5, h6, p, a, span, button, input, textarea, select, li, div) {
+  font-family: var(--font-arabic);
+  letter-spacing: 0;
+}
+body.bs-lang-fa,
+body.bs-lang-fa :where(h1, h2, h3, h4, h5, h6, p, a, span, button, input, textarea, select, li, div) {
+  font-family: var(--font-persian);
+  letter-spacing: 0;
+}
+
+/* Animations ported from the prototype. */
+@keyframes bsPulse { 0%, 100% { opacity: .32; transform: scale(1); } 50% { opacity: .6; transform: scale(1.09); } }
+@keyframes bsFloat { 0%, 100% { transform: rotate(45deg) translateY(0); } 50% { transform: rotate(45deg) translateY(-15px); } }
+@keyframes bsFloat2 { 0%, 100% { transform: rotate(45deg) translateY(0); } 50% { transform: rotate(45deg) translateY(13px); } }
+@keyframes bsSpinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes bsSheen { 0% { transform: translateX(-130%) skewX(-18deg); } 55%, 100% { transform: translateX(360%) skewX(-18deg); } }
+@keyframes bsScrollDot { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(10px); opacity: .15; } 100% { transform: translateY(0); opacity: 1; } }
+@keyframes bsFloatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+@keyframes bsFloatY2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(13px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

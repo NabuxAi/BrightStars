@@ -1,0 +1,19 @@
+/* Lightweight block-editor styling so content roughly matches the front end. */
+.editor-styles-wrapper {
+  --bs-accent: #F58021;
+  font-family: "Inter", sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+}
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3 {
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: -.01em;
+}
+.editor-styles-wrapper a { color: var(--bs-accent); }
+.editor-styles-wrapper blockquote {
+  border-left: 3px solid var(--bs-accent);
+  padding-left: 18px;
+  font-family: "Space Grotesk", sans-serif;
+}
