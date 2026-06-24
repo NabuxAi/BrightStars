@@ -54,9 +54,11 @@ function bright_stars_assets() {
 	// Keep the theme header stylesheet in the queue (no-JS fallback rules).
 	wp_enqueue_style( 'bright-stars-base', get_stylesheet_uri(), array( 'bright-stars' ), $ver );
 
+	// SweetAlert2 is optional polish for the contact form; loaded independently so
+	// a slow/blocked CDN can never delay the theme's own scripts or reveals.
 	wp_enqueue_script( 'sweetalert2', 'https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js', array(), '11.14.5', true );
 
-	wp_enqueue_script( 'bright-stars', bs_asset( 'js/theme.js' ), array( 'sweetalert2' ), $ver, true );
+	wp_enqueue_script( 'bright-stars', bs_asset( 'js/theme.js' ), array(), $ver, true );
 	wp_script_add_data( 'bright-stars', 'strategy', 'defer' );
 
 	wp_localize_script(

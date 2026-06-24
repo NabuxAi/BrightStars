@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * ------------------------------------------------------------------ */
 
 function bright_stars_seo_meta_box() {
-	$types = array( 'page', 'post', 'bs_client' );
+	$types = array( 'page', 'post', 'bs_client', 'bs_service' );
 	foreach ( $types as $t ) {
 		add_meta_box( 'bs_seo', __( 'SEO — Bright Stars', 'bright-stars' ), 'bright_stars_seo_meta_box_render', $t, 'normal', 'default' );
 	}
@@ -105,6 +105,19 @@ function bright_stars_meta_description() {
 				$desc = get_the_excerpt( $post );
 			} elseif ( $post ) {
 				$desc = wp_strip_all_tags( strip_shortcodes( $post->post_content ) );
+			}
+		}
+		// CPTs often have no body content — fall back to their own meta.
+		if ( is_singular( 'bs_service' ) && '' === trim( (string) $desc ) ) {
+			$desc = bs_meta( get_the_ID(), 'desc' );
+			if ( '' === trim( (string) $desc ) ) {
+				$desc = bs_meta( get_the_ID(), 'intro' );
+			}
+		}
+		if ( is_singular( 'bs_client' ) && '' === trim( (string) $desc ) ) {
+			$desc = bs_meta( get_the_ID(), 'tagline' );
+			if ( '' === trim( (string) $desc ) ) {
+				$desc = bs_meta( get_the_ID(), 'brief' );
 			}
 		}
 	}
@@ -294,6 +307,22 @@ function bright_stars_json_ld( $canonical, $desc, $image ) {
 			),
 			'areaServed'  => array( 'Oman', 'GCC', 'Gulf' ),
 			'description' => $desc,
+		);
+	}
+
+	if ( is_singular( 'bs_service' ) ) {
+		$sid     = get_the_ID();
+		$svcname = bs_meta( $sid, 'title', get_the_title() );
+		$graph[] = array(
+			'@type'       => 'Service',
+			'@id'         => $canonical . '#service',
+			'name'        => $svcname,
+			'serviceType' => $svcname,
+			'url'         => $canonical,
+			'description' => $desc,
+			'provider'    => array( '@id' => $home . '#organization' ),
+			'areaServed'  => array( 'Oman', 'GCC', 'Gulf' ),
+			'inLanguage'  => bs_lang(),
 		);
 	}
 

@@ -46,14 +46,19 @@ function bright_stars_register_cpts() {
 		)
 	);
 
+	// Services — public so each has its own SEO-indexable detail page.
 	register_post_type(
 		'bs_service',
 		array_merge(
 			$base,
 			array(
-				'labels'    => bright_stars_cpt_labels( 'Service', 'Services' ),
-				'menu_icon' => 'dashicons-screenoptions',
-				'supports'  => array( 'title', 'page-attributes' ),
+				'labels'             => bright_stars_cpt_labels( 'Service', 'Services' ),
+				'public'             => true,
+				'publicly_queryable' => true,
+				'has_archive'        => false,
+				'rewrite'            => array( 'slug' => 'service', 'with_front' => false ),
+				'menu_icon'          => 'dashicons-screenoptions',
+				'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes' ),
 			)
 		)
 	);
@@ -134,7 +139,13 @@ function bright_stars_cpt_fields() {
 		'bs_service' => array(
 			array( 'key' => 'icon', 'label' => 'Icon', 'type' => 'select', 'options' => $icons ),
 			array( 'key' => 'title', 'label' => 'Title', 'type' => 'i18n_text' ),
-			array( 'key' => 'desc', 'label' => 'Description', 'type' => 'i18n_textarea' ),
+			array( 'key' => 'desc', 'label' => 'Short description (card + page intro)', 'type' => 'i18n_textarea' ),
+			array( 'key' => 'hero_image', 'label' => 'Detail-page hero image (optional)', 'type' => 'media', 'desc' => 'Large image on the service page. Falls back to the featured image.' ),
+			array( 'key' => 'intro', 'label' => 'Overview (detail page)', 'type' => 'i18n_textarea' ),
+			array( 'key' => 'stats', 'label' => 'Impact stats — one per line: "value | label"', 'type' => 'i18n_lines' ),
+			array( 'key' => 'features', 'label' => "What's included — one per line: \"title | description\"", 'type' => 'i18n_lines' ),
+			array( 'key' => 'process', 'label' => 'How we deliver — one per line: "step title | description"', 'type' => 'i18n_lines' ),
+			array( 'key' => 'faq', 'label' => 'FAQ — one per line: "question | answer"', 'type' => 'i18n_lines' ),
 		),
 		'bs_pricing' => array(
 			array( 'key' => 'name', 'label' => 'Plan name', 'type' => 'i18n_text' ),
@@ -164,7 +175,7 @@ function bright_stars_cpt_fields() {
 			array( 'key' => 'tagline', 'label' => 'Tagline', 'type' => 'i18n_text' ),
 			array( 'key' => 'brief', 'label' => 'Brief / the challenge', 'type' => 'i18n_textarea' ),
 			array( 'key' => 'services', 'label' => 'What we did (one per line)', 'type' => 'i18n_lines' ),
-			array( 'key' => 'results', 'label' => 'Results (one per line: value | label)', 'type' => 'i18n_lines' ),
+			array( 'key' => 'results', 'label' => 'Results — one per line: "value | label", or "before → after | label" for a before/after', 'type' => 'i18n_lines' ),
 			array( 'key' => 'instagram', 'label' => 'Instagram URL', 'type' => 'url' ),
 			array( 'key' => 'handle', 'label' => 'Instagram handle (without @)', 'type' => 'text' ),
 			array( 'key' => 'website', 'label' => 'Website URL', 'type' => 'url' ),

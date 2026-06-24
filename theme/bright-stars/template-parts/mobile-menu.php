@@ -23,8 +23,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php endforeach; ?>
 	</nav>
 
-	<?php bright_stars_lang_switcher( 'mobile' ); ?>
-
 	<a class="bs-btn bs-btn--primary bs-btn--lg" style="margin-top:auto" href="<?php echo esc_url( bs_route_url( 'contact' ) ); ?>" data-keep>
 		<?php echo esc_html( bs_t( 'nav.start' ) ); ?>
 	</a>

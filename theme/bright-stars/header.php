@@ -51,9 +51,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<a class="bs-btn bs-btn--primary bs-btn--sm" href="<?php echo esc_url( bs_route_url( 'contact' ) ); ?>"><?php echo esc_html( bs_t( 'nav.start' ) ); ?></a>
 		</div>
 
-		<button class="bs-burger" data-mobile-open aria-label="<?php echo esc_attr( bs_t( 'ui.menu' ) ); ?>" aria-expanded="false" aria-controls="bs-mobile">
-			<?php echo bs_icon( 'menu' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-		</button>
+		<div class="bs-burger-group">
+			<?php bright_stars_lang_switcher(); ?>
+			<button class="bs-burger" data-mobile-open aria-label="<?php echo esc_attr( bs_t( 'ui.menu' ) ); ?>" aria-expanded="false" aria-controls="bs-mobile">
+				<?php echo bs_icon( 'menu' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			</button>
+		</div>
 	</header>
 
 	<?php get_template_part( 'template-parts/mobile-menu' ); ?>
