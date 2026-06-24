@@ -20,8 +20,8 @@ button { font-family: inherit; }
 .bs-site { min-height: 100vh; background: var(--bs-bg); color: var(--bs-fg); position: relative; overflow-x: clip; width: 100%; max-width: 100%; }
 .bs-container { max-width: var(--maxw); margin: 0 auto; }
 .bs-pad { padding-left: 40px; padding-right: 40px; }
-.bs-skip-link { position: absolute; left: -9999px; top: 0; z-index: 100; background: var(--bs-accent); color: var(--bs-on-accent); padding: 10px 16px; border-radius: var(--radius); }
-.bs-skip-link:focus { left: 16px; top: 16px; }
+.bs-skip-link { position: absolute; inset-inline-start: 16px; top: -80px; z-index: 100; background: var(--bs-accent); color: var(--bs-on-accent); padding: 10px 16px; border-radius: var(--radius); transition: top var(--dur) var(--ease); }
+.bs-skip-link:focus { top: 16px; }
 
 .bs-icon { display: inline-block; vertical-align: middle; }
 
