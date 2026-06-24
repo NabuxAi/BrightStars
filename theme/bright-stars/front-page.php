@@ -14,6 +14,7 @@ get_header();
 bright_stars_section( 'hero' );
 bright_stars_section( 'process-path' );
 bright_stars_section( 'services' );
+bright_stars_section( 'our-work' );
 bright_stars_section( 'blog-teaser' );
 bright_stars_cta_band();
 

@@ -84,6 +84,10 @@ function bs_i18n_dict() {
 			'cl.work_e' => 'Selected work', 'cl.work_h' => 'The feed we built', 'cl.work_sub' => 'Scroll through the real profiles — content, art direction and grids by Bright Starts.',
 			'cs.ig' => 'Visit on Instagram', 'cs.did_e' => 'What we did', 'cs.did_h' => 'The engagement', 'cs.res_e' => 'The results', 'cs.res_h' => 'What changed', 'cs.scroll' => '↕ Scroll inside the window', 'cs.next' => 'Next client', 'cs.start_big' => 'Start your project',
 			'ui.ok' => 'OK', 'f.missing' => 'Missing details', 'f.oops' => 'Something went wrong',
+			// Service detail page.
+			'svc.badge' => 'Service', 'svc.intro_e' => 'Overview', 'svc.intro_h' => 'What this service delivers', 'svc.stats_e' => 'The impact', 'svc.stats_h' => 'Numbers that matter', 'svc.inc_e' => "What's included", 'svc.inc_h' => 'Everything in this service', 'svc.proc_e' => 'How we deliver', 'svc.proc_h' => 'Our process', 'svc.faq_e' => 'FAQ', 'svc.faq_h' => 'Common questions', 'svc.cta_h' => 'Ready to grow?', 'svc.cta_sub' => "Tell us your goal and we'll come back within one business day with how we'd approach it.", 'svc.talk' => 'Discuss your project', 'svc.all' => 'All services', 'svc.other_e' => 'Keep exploring', 'svc.other_h' => 'Other services', 'svc.step' => 'Step',
+			// Homepage "our work" scroll section.
+			'ow.eyebrow' => 'Clients & case studies', 'ow.h' => 'Brands we took from zero to viral', 'ow.sub' => "A look at the work — the feeds, funnels and campaigns we've built for ambitious brands across Oman and the Gulf.", 'ow.view' => 'View case study', 'ow.all' => 'See all clients',
 		),
 		'ar' => array(
 			'nav.home' => 'الرئيسية', 'nav.services' => 'خدماتنا', 'nav.process' => 'آلية العمل', 'nav.clients' => 'عملاؤنا', 'nav.about' => 'من نحن', 'nav.pricing' => 'الباقات', 'nav.blog' => 'المدوّنة', 'nav.contact' => 'تواصل معنا', 'nav.start' => 'ابدأ مشروعك',
@@ -127,6 +131,8 @@ function bs_i18n_dict() {
 			'cl.work_e' => 'أعمال مختارة', 'cl.work_h' => 'الحساب الذي بنيناه', 'cl.work_sub' => 'تصفّح الحسابات الحقيقية — المحتوى والإخراج الفني والشبكة من برايت ستارتس.',
 			'cs.ig' => 'زيارة إنستغرام', 'cs.did_e' => 'ماذا فعلنا', 'cs.did_h' => 'نطاق العمل', 'cs.res_e' => 'النتائج', 'cs.res_h' => 'ما الذي تغيّر', 'cs.scroll' => '↕ مرّر داخل النافذة', 'cs.next' => 'العميل التالي', 'cs.start_big' => 'ابدأ مشروعك',
 			'ui.ok' => 'حسناً', 'f.missing' => 'معلومات ناقصة', 'f.oops' => 'حدث خطأ',
+			'svc.badge' => 'خدمة', 'svc.intro_e' => 'نظرة عامة', 'svc.intro_h' => 'ماذا تقدّم هذه الخدمة', 'svc.stats_e' => 'الأثر', 'svc.stats_h' => 'أرقام مهمة', 'svc.inc_e' => 'ما الذي تشمله', 'svc.inc_h' => 'كل ما في هذه الخدمة', 'svc.proc_e' => 'كيف ننفّذ', 'svc.proc_h' => 'آلية عملنا', 'svc.faq_e' => 'الأسئلة الشائعة', 'svc.faq_h' => 'أسئلة متكرّرة', 'svc.cta_h' => 'جاهز للنمو؟', 'svc.cta_sub' => 'أخبرنا بهدفك ونعود إليك خلال يوم عمل واحد بطريقة تنفيذنا له.', 'svc.talk' => 'ناقش مشروعك', 'svc.all' => 'كل الخدمات', 'svc.other_e' => 'واصل الاستكشاف', 'svc.other_h' => 'خدمات أخرى', 'svc.step' => 'خطوة',
+			'ow.eyebrow' => 'عملاء ودراسات حالة', 'ow.h' => 'علامات أخذناها من الصفر إلى الانتشار', 'ow.sub' => 'لمحة عن العمل — الحسابات والقمعات والحملات التي بنيناها لعلامات طموحة في عُمان والخليج.', 'ow.view' => 'اطّلع على دراسة الحالة', 'ow.all' => 'كل العملاء',
 		),
 		'fa' => array(
 			'nav.home' => 'خانه', 'nav.services' => 'خدمات', 'nav.process' => 'فرایند', 'nav.clients' => 'مشتریان', 'nav.about' => 'درباره ما', 'nav.pricing' => 'تعرفه‌ها', 'nav.blog' => 'وبلاگ', 'nav.contact' => 'تماس با ما', 'nav.start' => 'شروع پروژه',
@@ -170,6 +176,8 @@ function bs_i18n_dict() {
 			'cl.work_e' => 'کارهای منتخب', 'cl.work_h' => 'حسابی که ساختیم', 'cl.work_sub' => 'در حساب‌های واقعی پیمایش کنید — محتوا، مدیریت هنری و شبکه از برایت استارتس.',
 			'cs.ig' => 'دیدن در اینستاگرام', 'cs.did_e' => 'چه کردیم', 'cs.did_h' => 'محدودهٔ کار', 'cs.res_e' => 'نتایج', 'cs.res_h' => 'چه تغییر کرد', 'cs.scroll' => '↕ داخل پنجره پیمایش کنید', 'cs.next' => 'مشتری بعدی', 'cs.start_big' => 'پروژه‌ات را شروع کن',
 			'ui.ok' => 'باشه', 'f.missing' => 'اطلاعات ناقص', 'f.oops' => 'خطایی رخ داد',
+			'svc.badge' => 'خدمت', 'svc.intro_e' => 'مرور کلی', 'svc.intro_h' => 'این خدمت چه ارائه می‌دهد', 'svc.stats_e' => 'تأثیر', 'svc.stats_h' => 'اعدادی که مهم‌اند', 'svc.inc_e' => 'چه چیزهایی شامل می‌شود', 'svc.inc_h' => 'هر آنچه در این خدمت هست', 'svc.proc_e' => 'چگونه اجرا می‌کنیم', 'svc.proc_h' => 'فرایند ما', 'svc.faq_e' => 'سؤالات متداول', 'svc.faq_h' => 'پرسش‌های پرتکرار', 'svc.cta_h' => 'آمادهٔ رشد هستید؟', 'svc.cta_sub' => 'هدف‌تان را بگویید؛ ظرف یک روز کاری با نحوهٔ اجرای ما برمی‌گردیم.', 'svc.talk' => 'دربارهٔ پروژه صحبت کنیم', 'svc.all' => 'همهٔ خدمات', 'svc.other_e' => 'ادامهٔ کاوش', 'svc.other_h' => 'خدمات دیگر', 'svc.step' => 'گام',
+			'ow.eyebrow' => 'مشتریان و مطالعات موردی', 'ow.h' => 'برندهایی که از صفر تا وایرال بردیم', 'ow.sub' => 'نگاهی به کارها — فیدها، قیف‌ها و کمپین‌هایی که برای برندهای جاه‌طلب در عمان و خلیج ساختیم.', 'ow.view' => 'دیدن مطالعهٔ موردی', 'ow.all' => 'همهٔ مشتریان',
 		),
 	);
 

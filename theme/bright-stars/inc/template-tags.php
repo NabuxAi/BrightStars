@@ -127,6 +127,29 @@ function bright_stars_section( $name ) {
 }
 
 /**
+ * Split a textarea value into trimmed, non-empty lines.
+ *
+ * @param string $text Raw multiline string.
+ * @return string[]
+ */
+function bs_lines( $text ) {
+	$lines = preg_split( '/\r\n|\r|\n/', (string) $text );
+	return array_values( array_filter( array_map( 'trim', $lines ), 'strlen' ) );
+}
+
+/**
+ * Split a single "left | right" line into its two parts.
+ *
+ * @param string $line Raw line.
+ * @param string $sep  Separator character.
+ * @return array{0:string,1:string} [left, right] (right is '' when absent).
+ */
+function bs_pair( $line, $sep = '|' ) {
+	$parts = array_map( 'trim', explode( $sep, (string) $line, 2 ) );
+	return array( $parts[0], isset( $parts[1] ) ? $parts[1] : '' );
+}
+
+/**
  * Placeholder posts (trilingual) used when no real posts exist yet.
  *
  * @param int $limit Number to return.

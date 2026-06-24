@@ -188,6 +188,187 @@ function bright_stars_default_data() {
 	return compact( 'services', 'pricing', 'team', 'testimonials', 'clients' );
 }
 
+/**
+ * Rich, trilingual detail content for each of the six default services,
+ * keyed by their 1-based order. Each field is a newline-joined string of
+ * "left | right" rows (value|label for stats, title|description otherwise).
+ * Drives the per-service detail pages and is fully editable from the panel.
+ *
+ * @return array<int,array<string,array<string,string>>>
+ */
+function bright_stars_service_details() {
+	return array(
+		// 1 — SEO & organic growth.
+		1 => array(
+			'intro' => array(
+				'en' => 'Search is where high-intent demand lives — the moment someone is actively looking for what you offer. We build the technical foundation, the content engine and the authority signals that move you up the rankings across Oman and the Gulf, and keep you there. Every gain compounds, so the traffic you earn this quarter keeps paying off the next.',
+				'ar' => 'البحث هو حيث يعيش الطلب عالي النية — اللحظة التي يبحث فيها أحدهم فعلاً عمّا تقدّمه. نبني الأساس التقني ومحرّك المحتوى وإشارات المرجعية التي ترفع ترتيبك في عُمان والخليج وتُبقيك في الصدارة. كل مكسب يتراكم، فالزيارات التي تكسبها هذا الربع تواصل العطاء في التالي.',
+				'fa' => 'جستجو جایی است که تقاضای پرنیّت زندگی می‌کند — همان لحظه‌ای که کسی فعالانه دنبال چیزی است که شما ارائه می‌دهید. ما زیرساخت فنی، موتور محتوا و سیگنال‌های اعتبار را می‌سازیم که جایگاه شما را در عمان و خلیج بالا می‌برد و همان‌جا نگه می‌دارد. هر دستاورد انباشته می‌شود؛ پس ترافیکی که این فصل به‌دست می‌آورید، فصل بعد هم سود می‌دهد.',
+			),
+			'stats' => array(
+				'en' => "+212% | Avg. organic traffic\nTop 3 | Target positions\n6 mo | To compounding growth",
+				'ar' => "+212% | متوسط الزيارات العضوية\nTop 3 | المراكز المستهدفة\n6 أشهر | حتى النمو المتراكم",
+				'fa' => "+212% | میانگین ترافیک ارگانیک\nTop 3 | جایگاه‌های هدف\n6 ماه | تا رشد انباشته",
+			),
+			'features' => array(
+				'en' => "Technical SEO | We fix crawlability, speed and Core Web Vitals so search engines can read and rank every page.\nKeyword & intent mapping | We map the searches your buyers make in Arabic and English — and the pages that win them.\nContent engine | A steady stream of optimised articles and landing pages that build topical authority month over month.\nAuthority & links | Digital PR and clean link-building that earn the trust signals search engines reward.",
+				'ar' => "سيو تقني | نُصلح الزحف والسرعة ومؤشرات الويب الأساسية ليقرأ محرك البحث كل صفحة ويرتّبها.\nخريطة الكلمات والنية | نرسم عمليات البحث التي يجريها عملاؤك بالعربية والإنجليزية والصفحات التي تكسبها.\nمحرّك المحتوى | تدفّق ثابت من المقالات وصفحات الهبوط المحسّنة يبني المرجعية شهراً بعد شهر.\nالمرجعية والروابط | علاقات عامة رقمية وبناء روابط نظيف يكسب إشارات الثقة التي تكافئها محركات البحث.",
+				'fa' => "سئوی فنی | خزش، سرعت و Core Web Vitals را اصلاح می‌کنیم تا موتور جستجو هر صفحه را بخواند و رتبه دهد.\nنقشهٔ کلمات و نیّت | جستجوهایی که مشتریان‌تان به عربی و انگلیسی انجام می‌دهند و صفحاتی که آن‌ها را می‌برند، نقشه می‌کنیم.\nموتور محتوا | جریان پیوسته‌ای از مقالات و صفحات فرود بهینه که ماه‌به‌ماه اعتبار موضوعی می‌سازد.\nاعتبار و لینک | روابط‌عمومی دیجیتال و لینک‌سازی تمیز که سیگنال‌های اعتمادِ موردپسند موتور جستجو را به‌دست می‌آورد.",
+			),
+			'process' => array(
+				'en' => "Audit | We benchmark your rankings, technical health and competitors to find the fastest wins.\nRoadmap | A prioritised plan tied to revenue, not vanity keywords.\nExecute | Fixes, content and links shipped every week by a senior team.\nCompound | We double down on what ranks and expand into new search territory.",
+				'ar' => "تدقيق | نقيس ترتيبك وصحتك التقنية ومنافسيك لإيجاد أسرع المكاسب.\nخارطة طريق | خطة مرتّبة حسب الأولوية مرتبطة بالإيرادات لا بالكلمات الشكلية.\nتنفيذ | إصلاحات ومحتوى وروابط تُنجز كل أسبوع بفريق محترف.\nتراكم | نضاعف ما يتصدّر ونتوسّع إلى مجالات بحث جديدة.",
+				'fa' => "بررسی | جایگاه، سلامت فنی و رقبای شما را می‌سنجیم تا سریع‌ترین بردها را بیابیم.\nنقشهٔ راه | برنامه‌ای اولویت‌بندی‌شده و گره‌خورده به درآمد، نه کلمات نمایشی.\nاجرا | اصلاح، محتوا و لینک، هر هفته توسط تیمی ارشد.\nانباشت | روی آنچه رتبه می‌گیرد تمرکز می‌کنیم و به قلمروهای جستجوی تازه گسترش می‌یابیم.",
+			),
+			'faq' => array(
+				'en' => "How long until I see results? | Early technical wins show within weeks; compounding organic growth usually lands between months three and six.\nDo you work in Arabic and English? | Yes — we research and write natively in both, which is essential for ranking across the Gulf.\nHow do you measure success? | Qualified organic traffic, keyword positions and the leads or sales they drive — reported transparently every month.",
+				'ar' => "متى أرى النتائج؟ | تظهر المكاسب التقنية المبكرة خلال أسابيع؛ والنمو العضوي المتراكم عادة بين الشهر الثالث والسادس.\nهل تعملون بالعربية والإنجليزية؟ | نعم — نبحث ونكتب بكلتيهما بشكل أصيل، وهو أساسي للتصدّر في الخليج.\nكيف تقيسون النجاح؟ | زيارات عضوية مؤهّلة ومراكز الكلمات وما تحقّقه من عملاء ومبيعات — بتقارير شفافة شهرياً.",
+				'fa' => "چه زمانی نتیجه می‌بینم؟ | بردهای فنی اولیه ظرف چند هفته دیده می‌شود؛ رشد ارگانیک انباشته معمولاً بین ماه سوم تا ششم.\nبه عربی و انگلیسی کار می‌کنید؟ | بله — در هر دو به‌صورت بومی تحقیق و می‌نویسیم که برای رتبه‌گرفتن در خلیج ضروری است.\nموفقیت را چطور می‌سنجید؟ | ترافیک ارگانیک واجد شرایط، جایگاه کلمات و سرنخ/فروشی که می‌سازد — با گزارش شفاف ماهانه.",
+			),
+		),
+		// 2 — Paid media & PPC.
+		2 => array(
+			'intro' => array(
+				'en' => 'When you need demand now, paid media delivers it — profitably. We engineer campaigns across Google, Meta and TikTok around the one number that matters: return on ad spend. Sharp targeting, scroll-stopping creative and relentless optimisation turn budget into measurable revenue, not vanity impressions.',
+				'ar' => 'حين تحتاج الطلب الآن، تحقّقه الإعلانات المدفوعة — بربحية. نهندس حملات عبر جوجل وميتا وتيك توك حول الرقم الوحيد المهم: العائد على الإنفاق الإعلاني. استهداف دقيق وإبداع يوقف التمرير وتحسين متواصل يحوّل الميزانية إلى إيرادات قابلة للقياس لا ظهوراً شكلياً.',
+				'fa' => 'وقتی تقاضا را همین حالا می‌خواهید، تبلیغات پولی آن را — به‌صورت سودده — می‌رساند. کمپین‌ها را در گوگل، متا و تیک‌تاک حول تنها عددی که مهم است مهندسی می‌کنیم: بازگشت هزینهٔ تبلیغات. هدف‌گیری دقیق، خلاقیتِ اسکرول‌متوقف‌کن و بهینه‌سازی بی‌وقفه، بودجه را به درآمدِ قابل‌اندازه‌گیری بدل می‌کند، نه نمایشِ تشریفاتی.',
+			),
+			'stats' => array(
+				'en' => "4.8x | Average ROAS\n-38% | Cost per acquisition\n72h | To first live campaign",
+				'ar' => "4.8x | متوسط العائد\n-38% | تكلفة الاكتساب\n72 ساعة | حتى أول حملة",
+				'fa' => "4.8x | میانگین بازده تبلیغات\n-38% | هزینهٔ جذب\n72 ساعت | تا اولین کمپین",
+			),
+			'features' => array(
+				'en' => "Full-funnel strategy | Prospecting, retargeting and retention mapped to every stage of the buyer journey.\nCreative that converts | Thumb-stopping ads produced in-house and tested at scale — not boosted posts.\nPrecision targeting | Audiences built from your data and ours, refined continuously for efficiency.\nTracking & attribution | Clean pixels, conversion APIs and dashboards so every dinar is accounted for.",
+				'ar' => "استراتيجية متكاملة | استقطاب وإعادة استهداف واحتفاظ مرتبطة بكل مرحلة من رحلة المشتري.\nإبداع يحوّل | إعلانات توقف التمرير ننتجها داخلياً ونختبرها على نطاق واسع — لا منشورات مموّلة.\nاستهداف دقيق | جماهير مبنية من بياناتك وبياناتنا، تُصقل باستمرار لرفع الكفاءة.\nتتبّع وإسناد | بكسلات نظيفة وواجهات تحويل ولوحات تحكم ليُحتسب كل ريال.",
+				'fa' => "استراتژی کامل قیف | جذب، ریتارگتینگ و نگه‌داشت، نگاشته‌شده به هر مرحلهٔ سفر مشتری.\nخلاقیتی که تبدیل می‌کند | تبلیغ‌های اسکرول‌متوقف‌کن، تولید داخلی و تست‌شده در مقیاس — نه پست بوست‌شده.\nهدف‌گیری دقیق | مخاطبانی ساخته‌شده از دادهٔ شما و ما، که پیوسته برای کارایی پالایش می‌شوند.\nردیابی و انتساب | پیکسل تمیز، Conversion API و داشبورد تا هر ریال حساب شود.",
+			),
+			'process' => array(
+				'en' => "Plan | Goals, budget and the offer architecture that makes the numbers work.\nBuild | Campaign structure, audiences, tracking and the first creative batch.\nLaunch | We go live, then watch the data hour by hour in the early days.\nScale | Cut the losers, pour into the winners and expand profitably.",
+				'ar' => "تخطيط | الأهداف والميزانية وبنية العرض التي تجعل الأرقام تنجح.\nبناء | هيكل الحملة والجماهير والتتبّع وأول دفعة إبداع.\nإطلاق | ننطلق ثم نراقب البيانات ساعة بساعة في الأيام الأولى.\nتوسيع | نوقف الخاسر ونضخّ في الرابح ونتوسّع بربحية.",
+				'fa' => "برنامه | اهداف، بودجه و معماری پیشنهاد که اعداد را جواب می‌دهد.\nساخت | ساختار کمپین، مخاطبان، ردیابی و اولین دستهٔ خلاقیت.\nاجرا | منتشر می‌کنیم و در روزهای نخست داده را ساعت‌به‌ساعت می‌پاییم.\nمقیاس | بازنده را قطع، در برنده سرمایه‌گذاری و سودده گسترش می‌دهیم.",
+			),
+			'faq' => array(
+				'en' => "What budget do I need to start? | We work with focused budgets and scale as ROAS proves out; we'll recommend a realistic starting point on the first call.\nWho makes the ad creative? | Our in-house team — copy, design and video — so testing never waits on an outside agency.\nHow soon can campaigns go live? | Typically within 72 hours of approvals and account access.",
+				'ar' => "ما الميزانية التي أبدأ بها؟ | نعمل بميزانيات مركّزة ونوسّع مع إثبات العائد؛ نقترح نقطة بداية واقعية في أول مكالمة.\nمن يصنع الإعلانات؟ | فريقنا الداخلي — نصوص وتصميم وفيديو — فلا ينتظر الاختبار وكالة خارجية.\nمتى تنطلق الحملات؟ | عادة خلال 72 ساعة من الموافقات والوصول للحسابات.",
+				'fa' => "با چه بودجه‌ای شروع کنم؟ | با بودجه‌های متمرکز کار می‌کنیم و با اثبات بازده مقیاس می‌دهیم؛ در اولین تماس نقطهٔ شروع واقع‌بینانه پیشنهاد می‌کنیم.\nخلاقیت تبلیغ را چه کسی می‌سازد؟ | تیم داخلی ما — متن، طراحی و ویدیو — تا تست هرگز معطل آژانس بیرونی نماند.\nکمپین‌ها کی منتشر می‌شوند؟ | معمولاً ظرف ۷۲ ساعت پس از تأییدها و دسترسی به حساب‌ها.",
+			),
+		),
+		// 3 — Social media.
+		3 => array(
+			'intro' => array(
+				'en' => 'Social is where your brand earns attention and trust every single day. We run always-on content, community management and creator partnerships tuned for the Gulf audience — so your feed stops the scroll, grows the right followers and turns them into customers, not just numbers.',
+				'ar' => 'وسائل التواصل هي حيث تكسب علامتك الانتباه والثقة كل يوم. نُدير محتوى مستمراً وإدارة مجتمع وشراكات صنّاع محتوى مضبوطة لجمهور الخليج — ليوقف حسابك التمرير وينمّي المتابعين الصحيحين ويحوّلهم إلى عملاء لا مجرد أرقام.',
+				'fa' => 'شبکه‌های اجتماعی جایی است که برند شما هر روز توجه و اعتماد کسب می‌کند. محتوای همیشه‌فعال، مدیریت جامعه و همکاری با سازندگان را متناسب با مخاطب خلیج اجرا می‌کنیم — تا فید شما اسکرول را متوقف کند، فالوورِ درست را رشد دهد و آن‌ها را به مشتری بدل کند، نه صرفاً عدد.',
+			),
+			'stats' => array(
+				'en' => "+410% | Peak engagement\n5.1x | Reel reach\nDaily | Always-on presence",
+				'ar' => "+410% | ذروة التفاعل\n5.1x | وصول الريلز\nيومياً | حضور مستمر",
+				'fa' => "+410% | اوج تعامل\n5.1x | دسترسی ریل\nروزانه | حضور همیشه‌فعال",
+			),
+			'features' => array(
+				'en' => "Content systems | A monthly calendar of reels, posts and stories with a consistent, premium look.\nCommunity management | Fast, on-brand replies and DMs that turn followers into buyers.\nCreator partnerships | The right local voices, briefed and managed end to end.\nTrend & culture radar | We catch the moments worth joining — in Arabic and English.",
+				'ar' => "أنظمة المحتوى | تقويم شهري من الريلز والمنشورات والقصص بمظهر فاخر متّسق.\nإدارة المجتمع | ردود ورسائل سريعة على هوية العلامة تحوّل المتابع إلى مشترٍ.\nشراكات صنّاع المحتوى | الأصوات المحلية المناسبة، نُحضّرها ونديرها بالكامل.\nرادار الترند والثقافة | نلتقط اللحظات الجديرة بالمشاركة — بالعربية والإنجليزية.",
+				'fa' => "سیستم محتوا | تقویم ماهانه از ریل، پست و استوری با ظاهری لوکس و یکدست.\nمدیریت جامعه | پاسخ و دایرکتِ سریع و هم‌خوان با برند که فالوور را به خریدار بدل می‌کند.\nهمکاری با سازندگان | صداهای محلی درست، بریف‌شده و مدیریت‌شده سرتاسری.\nرادار ترند و فرهنگ | لحظه‌های ارزشمندِ پیوستن را شکار می‌کنیم — به عربی و انگلیسی.",
+			),
+			'process' => array(
+				'en' => "Immerse | We learn your brand voice, audience and goals.\nPlan | A content-pillar strategy and a calendar you can see weeks ahead.\nProduce | We shoot, edit and design a steady stream of scroll-stopping content.\nGrow | We engage, analyse and double down on what the audience rewards.",
+				'ar' => "انغماس | نتعرّف على صوت علامتك وجمهورك وأهدافك.\nتخطيط | استراتيجية محاور محتوى وتقويم تراه قبل أسابيع.\nإنتاج | نصوّر ونمنتج ونصمّم تدفّقاً ثابتاً من المحتوى الموقف للتمرير.\nنمو | نتفاعل ونحلّل ونضاعف ما يكافئه الجمهور.",
+				'fa' => "غرق‌شدن | لحن برند، مخاطب و اهداف شما را می‌شناسیم.\nبرنامه | استراتژی ستون‌های محتوا و تقویمی که هفته‌ها جلوتر می‌بینید.\nتولید | جریان پیوسته‌ای از محتوای اسکرول‌متوقف‌کن را فیلم، تدوین و طراحی می‌کنیم.\nرشد | تعامل و تحلیل می‌کنیم و روی آنچه مخاطب پاداش می‌دهد تمرکز می‌کنیم.",
+			),
+			'faq' => array(
+				'en' => "Which platforms do you cover? | Instagram, TikTok and wherever your audience actually is — we'll advise on the right mix.\nDo you produce the content too? | Yes — filming, editing and design are all handled by our team.\nHow do you grow followers authentically? | Great content plus targeted distribution and partnerships — never bought, low-quality followers.",
+				'ar' => "ما المنصّات التي تغطّونها؟ | إنستغرام وتيك توك وحيثما يوجد جمهورك فعلاً — ننصحك بالمزيج الصحيح.\nهل تنتجون المحتوى أيضاً؟ | نعم — التصوير والمونتاج والتصميم كلها على فريقنا.\nكيف تنمّون المتابعين بأصالة؟ | محتوى رائع مع توزيع مستهدف وشراكات — لا متابعين مشترين رديئين.",
+				'fa' => "چه پلتفرم‌هایی را پوشش می‌دهید؟ | اینستاگرام، تیک‌تاک و هرجا مخاطب شما واقعاً هست — ترکیب درست را پیشنهاد می‌دهیم.\nمحتوا را هم تولید می‌کنید؟ | بله — فیلم‌برداری، تدوین و طراحی همه بر عهدهٔ تیم ماست.\nفالوور را چطور اصیل رشد می‌دهید؟ | محتوای عالی به‌علاوهٔ توزیع هدفمند و همکاری‌ها — نه فالوورِ خریداری‌شده و بی‌کیفیت.",
+			),
+		),
+		// 4 — Content & branding.
+		4 => array(
+			'intro' => array(
+				'en' => 'A premium brand looks and sounds the part everywhere it shows up. We build the identity systems, art direction and bilingual content that make ambitious brands feel established — from the logo, palette and type to the reels, photography and words that carry your story across every channel.',
+				'ar' => 'العلامة الفاخرة تبدو وتُسمع بمستواها أينما ظهرت. نبني أنظمة الهوية والإخراج الفني والمحتوى ثنائي اللغة الذي يمنح العلامات الطموحة حضوراً راسخاً — من الشعار واللون والخط إلى الريلز والتصوير والكلمات التي تحمل قصتك عبر كل قناة.',
+				'fa' => 'برندِ لوکس هرجا ظاهر شود، در ظاهر و لحن در حدِ خود است. سیستم‌های هویت، مدیریت هنری و محتوای دوزبانه را می‌سازیم که به برندهای جاه‌طلب حسِ جاافتادگی می‌دهد — از لوگو، پالت و تایپ تا ریل، عکاسی و کلماتی که داستان شما را در هر کانال حمل می‌کند.',
+			),
+			'stats' => array(
+				'en' => "2 | Languages, natively\n1 | System everywhere\n100% | On-brand, always",
+				'ar' => "2 | لغتان بأصالة\n1 | نظام واحد في كل مكان\n100% | على هوية العلامة دائماً",
+				'fa' => "2 | زبان، بومی\n1 | یک سیستم همه‌جا\n100% | همیشه هم‌خوان با برند",
+			),
+			'features' => array(
+				'en' => "Brand identity | Logo, palette, type and the visual rules that keep you consistent.\nArt direction | A signature look for your photography, video and graphics.\nBilingual content | Copy and captions that feel native in Arabic and English alike.\nBrand guidelines | A living playbook your whole team can build from.",
+				'ar' => "هوية العلامة | الشعار واللون والخط والقواعد البصرية التي تُبقيك متّسقاً.\nالإخراج الفني | مظهر مميّز لتصويرك وفيديوهاتك وتصاميمك.\nمحتوى ثنائي اللغة | نصوص وتعليقات أصيلة بالعربية والإنجليزية معاً.\nدليل العلامة | كتيّب حيّ يبني منه فريقك بالكامل.",
+				'fa' => "هویت برند | لوگو، پالت، تایپ و قواعد بصری که شما را یکدست نگه می‌دارد.\nمدیریت هنری | ظاهری امضاوار برای عکاسی، ویدیو و گرافیک شما.\nمحتوای دوزبانه | متن و کپشن که به عربی و انگلیسی هر دو بومی حس می‌شود.\nراهنمای برند | پلی‌بوکی زنده که کل تیم شما از آن می‌سازد.",
+			),
+			'process' => array(
+				'en' => "Discover | Workshops to define positioning, personality and audience.\nDesign | Identity, art direction and the core templates.\nProduce | Photography, video and content that bring the system to life.\nDocument | Guidelines that keep every future asset on-brand.",
+				'ar' => "اكتشاف | ورش لتحديد التموضع والشخصية والجمهور.\nتصميم | الهوية والإخراج الفني والقوالب الأساسية.\nإنتاج | تصوير وفيديو ومحتوى يُحيي النظام.\nتوثيق | دليل يُبقي كل أصل مستقبلي على هوية العلامة.",
+				'fa' => "کشف | کارگاه‌هایی برای تعریف جایگاه، شخصیت و مخاطب.\nطراحی | هویت، مدیریت هنری و قالب‌های اصلی.\nتولید | عکاسی، ویدیو و محتوایی که سیستم را جان می‌بخشد.\nمستندسازی | راهنمایی که هر دارایی آینده را هم‌خوان با برند نگه می‌دارد.",
+			),
+			'faq' => array(
+				'en' => "Can you refresh an existing brand? | Absolutely — we evolve what works and replace what doesn't, without losing your equity.\nDo you write in Arabic and English? | Yes, natively in both — tone and nuance intact, never just translated.\nWhat do I receive at the end? | A complete identity system, templates and guidelines, plus the editable source files.",
+				'ar' => "هل تجدّدون علامة قائمة؟ | بالتأكيد — نطوّر ما ينجح ونستبدل ما لا ينجح دون فقدان رصيدك.\nهل تكتبون بالعربية والإنجليزية؟ | نعم، بأصالة في كلتيهما — النبرة والدلالة محفوظة لا مجرد ترجمة.\nماذا أستلم في النهاية؟ | نظام هوية كامل وقوالب ودليل، مع ملفات المصدر القابلة للتعديل.",
+				'fa' => "برند موجود را بازآفرینی می‌کنید؟ | حتماً — آنچه جواب می‌دهد را تکامل می‌دهیم و آنچه نه را جایگزین می‌کنیم، بی‌آنکه ارزش برندتان از دست برود.\nبه عربی و انگلیسی می‌نویسید؟ | بله، در هر دو بومی — لحن و ظرافت حفظ‌شده، نه صرفاً ترجمه.\nدر پایان چه دریافت می‌کنم؟ | یک سیستم هویت کامل، قالب‌ها و راهنما، به‌علاوهٔ فایل‌های منبعِ قابل‌ویرایش.",
+			),
+		),
+		// 5 — Web & app design.
+		5 => array(
+			'intro' => array(
+				'en' => 'Your website is your hardest-working salesperson — open every hour of every day. We design and build conversion-first websites and product experiences end to end: fast, beautiful, bilingual and engineered to turn visitors into customers. From the first wireframe to launch and beyond, one senior team owns the outcome.',
+				'ar' => 'موقعك هو أكثر بائعيك اجتهاداً — مفتوح كل ساعة من كل يوم. نصمّم ونبني مواقع وتجارب منتج تركّز على التحويل من الألف إلى الياء: سريعة وجميلة وثنائية اللغة ومهندَسة لتحويل الزائر إلى عميل. من أول مخطط حتى الإطلاق وما بعده، يملك فريق محترف واحد النتيجة.',
+				'fa' => 'وب‌سایت شما پرکارترین فروشندهٔ شماست — هر ساعت از هر روز باز. وب‌سایت و تجربهٔ محصولِ تبدیل‌محور را سرتاسری طراحی و می‌سازیم: سریع، زیبا، دوزبانه و مهندسی‌شده برای تبدیل بازدیدکننده به مشتری. از اولین وایرفریم تا انتشار و پس از آن، یک تیم ارشد مالکِ نتیجه است.',
+			),
+			'stats' => array(
+				'en' => "2.4x | Conversion lift\n<2s | Target load time\nRTL | Arabic-ready by default",
+				'ar' => "2.4x | نمو التحويل\n<2s | زمن التحميل المستهدف\nRTL | جاهز للعربية افتراضياً",
+				'fa' => "2.4x | رشد تبدیل\n<2s | زمان بارگذاری هدف\nRTL | آمادهٔ راست‌به‌چپ پیش‌فرض",
+			),
+			'features' => array(
+				'en' => "UX & wireframing | Journeys designed around the actions that grow your business.\nConversion-first design | Beautiful interfaces built to guide visitors to act.\nDevelopment | Fast, secure, responsive builds — WordPress or fully custom.\nBilingual & RTL | Arabic and English handled properly, right-to-left included.",
+				'ar' => "تجربة المستخدم والمخططات | رحلات مصمّمة حول الإجراءات التي تنمّي عملك.\nتصميم يركّز على التحويل | واجهات جميلة تُرشد الزائر إلى الفعل.\nتطوير | بناء سريع وآمن ومتجاوب — ووردبريس أو مخصّص بالكامل.\nثنائي اللغة وRTL | العربية والإنجليزية بإتقان، مع الاتجاه من اليمين لليسار.",
+				'fa' => "UX و وایرفریم | سفرهایی طراحی‌شده حول کنش‌هایی که کسب‌وکارتان را رشد می‌دهد.\nطراحی تبدیل‌محور | رابط‌های زیبا که بازدیدکننده را به کنش هدایت می‌کند.\nتوسعه | ساختِ سریع، امن و واکنش‌گرا — وردپرس یا کاملاً سفارشی.\nدوزبانه و RTL | عربی و انگلیسی به‌درستی، همراه با راست‌به‌چپ.",
+			),
+			'process' => array(
+				'en' => "Define | Goals, content and the journeys that matter most.\nDesign | Wireframes, UI and a clickable prototype to sign off.\nBuild | Clean, fast, responsive development with SEO baked in.\nLaunch | Testing, handover and support after you go live.",
+				'ar' => "تحديد | الأهداف والمحتوى والرحلات الأهم.\nتصميم | مخططات وواجهة ونموذج تفاعلي للاعتماد.\nبناء | تطوير نظيف وسريع ومتجاوب مع سيو مدمج.\nإطلاق | اختبار وتسليم ودعم بعد انطلاقك.",
+				'fa' => "تعریف | اهداف، محتوا و سفرهایی که بیشترین اهمیت را دارند.\nطراحی | وایرفریم، رابط کاربری و یک پروتوتایپِ کلیک‌پذیر برای تأیید.\nساخت | توسعهٔ تمیز، سریع و واکنش‌گرا با سئوی توکار.\nانتشار | تست، تحویل و پشتیبانی پس از اینکه منتشر شدید.",
+			),
+			'faq' => array(
+				'en' => "WordPress or custom? | Whichever serves your goals best — we recommend the right platform, not the easiest one for us.\nIs the site bilingual and RTL-ready? | Yes — Arabic, English and right-to-left are designed in from the very start.\nDo you help after launch? | Yes — we offer ongoing support, optimisation and growth plans.",
+				'ar' => "ووردبريس أم مخصّص؟ | ما يخدم أهدافك أكثر — نوصي بالمنصّة الصحيحة لا الأسهل لنا.\nهل الموقع ثنائي اللغة وجاهز لـRTL؟ | نعم — العربية والإنجليزية والاتجاه من اليمين لليسار مصمّمة من البداية.\nهل تساعدون بعد الإطلاق؟ | نعم — نوفّر دعماً وتحسيناً وخطط نمو مستمرة.",
+				'fa' => "وردپرس یا سفارشی؟ | هرکدام که هدف‌تان را بهتر برآورده کند — پلتفرم درست را پیشنهاد می‌دهیم نه ساده‌ترین را برای خودمان.\nسایت دوزبانه و آمادهٔ RTL است؟ | بله — عربی، انگلیسی و راست‌به‌چپ از همان ابتدا طراحی می‌شوند.\nپس از انتشار کمک می‌کنید؟ | بله — پشتیبانی، بهینه‌سازی و برنامه‌های رشدِ مستمر ارائه می‌دهیم.",
+			),
+		),
+		// 6 — Strategy & consulting.
+		6 => array(
+			'intro' => array(
+				'en' => 'Sometimes the highest-leverage work is the thinking. Our senior team embeds with you to sharpen positioning, plan market entry and build the growth roadmap that ties every channel together — so your marketing pulls in one direction and your budget compounds instead of leaking.',
+				'ar' => 'أحياناً يكون التفكير هو العمل الأعلى أثراً. يندمج فريقنا المحترف معك لشحذ التموضع وتخطيط دخول السوق وبناء خارطة النمو التي تربط كل القنوات — ليشدّ تسويقك في اتجاه واحد وتتراكم ميزانيتك بدل أن تتسرّب.',
+				'fa' => 'گاهی پراثرترین کار، فکر کردن است. تیم ارشد ما با شما درگیر می‌شود تا جایگاه‌یابی را تیز کند، ورود به بازار را برنامه‌ریزی کند و نقشهٔ رشدی بسازد که همهٔ کانال‌ها را به هم گره می‌زند — تا بازاریابی شما در یک جهت بکشد و بودجه‌تان به‌جای نشت‌کردن، انباشته شود.',
+			),
+			'stats' => array(
+				'en' => "Senior | Embedded team\n1 | Roadmap, joined-up\nGCC | Market expertise",
+				'ar' => "محترف | فريق مندمج\n1 | خارطة واحدة منسجمة\nالخليج | خبرة بالسوق",
+				'fa' => "ارشد | تیم درگیر\n1 | یک نقشهٔ یکپارچه\nخلیج | تخصص بازار",
+			),
+			'features' => array(
+				'en' => "Market & audience research | A clear read on demand, competitors and the customer you want.\nPositioning | The sharp, defensible story that sets you apart.\nGrowth roadmap | A prioritised plan across channels, budget and KPIs.\nGo-to-market | The launch plan for a new product, service or market.",
+				'ar' => "بحث السوق والجمهور | قراءة واضحة للطلب والمنافسين والعميل الذي تريده.\nالتموضع | القصة الحادّة القابلة للدفاع التي تميّزك.\nخارطة النمو | خطة مرتّبة عبر القنوات والميزانية والمؤشرات.\nخطة الإطلاق | خطة طرح منتج أو خدمة أو سوق جديد.",
+				'fa' => "تحقیق بازار و مخاطب | درکی روشن از تقاضا، رقبا و مشتری‌ای که می‌خواهید.\nجایگاه‌یابی | روایتِ تیز و قابل‌دفاع که شما را متمایز می‌کند.\nنقشهٔ رشد | برنامه‌ای اولویت‌بندی‌شده در کانال‌ها، بودجه و شاخص‌ها.\nورود به بازار | برنامهٔ عرضهٔ محصول، خدمت یا بازار جدید.",
+			),
+			'process' => array(
+				'en' => "Audit | We assess your market, brand and current performance.\nStrategise | Positioning, priorities and the roadmap that ties it together.\nAlign | Workshops to get your team behind the plan.\nEnable | We stay on to execute, or hand over a plan you can run.",
+				'ar' => "تدقيق | نقيّم سوقك وعلامتك وأداءك الحالي.\nاستراتيجية | التموضع والأولويات والخارطة التي تجمعها.\nمواءمة | ورش لجعل فريقك خلف الخطة.\nتمكين | نبقى للتنفيذ أو نسلّمك خطة تديرها بنفسك.",
+				'fa' => "بررسی | بازار، برند و عملکرد فعلی شما را ارزیابی می‌کنیم.\nاستراتژی | جایگاه‌یابی، اولویت‌ها و نقشه‌ای که همه را گره می‌زند.\nهم‌سو‌سازی | کارگاه‌هایی برای همراه‌کردن تیم شما با برنامه.\nتوانمندسازی | برای اجرا می‌مانیم یا برنامه‌ای تحویل می‌دهیم که خودتان اجرا کنید.",
+			),
+			'faq' => array(
+				'en' => "Is this a one-off or ongoing? | Either — a focused strategy sprint or an ongoing advisory relationship.\nDo you help us execute? | Yes — we can run the plan with you, or equip your team to run it.\nDo you know the Gulf market? | Deeply — we're Muscat-based and work across Oman and the GCC.",
+				'ar' => "هل هذا لمرة واحدة أم مستمر؟ | كلاهما — سبرنت استراتيجية مركّز أو علاقة استشارية مستمرة.\nهل تساعدوننا على التنفيذ؟ | نعم — نُدير الخطة معك أو نجهّز فريقك لإدارتها.\nهل تعرفون سوق الخليج؟ | بعمق — مقرّنا مسقط ونعمل في عُمان والخليج.",
+				'fa' => "این یک‌باره است یا مستمر؟ | هر دو — یک اسپرینتِ استراتژیِ متمرکز یا رابطهٔ مشاورهٔ مستمر.\nدر اجرا کمک می‌کنید؟ | بله — می‌توانیم برنامه را با شما اجرا کنیم یا تیم‌تان را برای اجرا مجهز کنیم.\nبازار خلیج را می‌شناسید؟ | عمیقاً — مستقر در مسقط و فعال در عمان و خلیج.",
+			),
+		),
+	);
+}
+
 /* ------------------------------------------------------------------ *
  * Page + structure builder.
  * ------------------------------------------------------------------ */
@@ -281,13 +462,20 @@ function bright_stars_seed_content( $force = false ) {
 
 	// Services.
 	if ( $force || ! bright_stars_get_items( 'bs_service', 1 ) ) {
-		$order = 0;
+		$details = bright_stars_service_details();
+		$order   = 0;
 		foreach ( $data['services'] as $s ) {
 			$id = wp_insert_post( array( 'post_type' => 'bs_service', 'post_status' => 'publish', 'post_title' => $s['title']['en'], 'menu_order' => $order ) );
 			if ( $id && ! is_wp_error( $id ) ) {
 				update_post_meta( $id, '_bs_icon', $s['icon'] );
 				$set_tri( $id, 'title', $s['title'] );
 				$set_tri( $id, 'desc', $s['desc'] );
+				$idx = $order + 1;
+				if ( isset( $details[ $idx ] ) ) {
+					foreach ( array( 'intro', 'stats', 'features', 'process', 'faq' ) as $b ) {
+						$set_tri( $id, $b, $details[ $idx ][ $b ] );
+					}
+				}
 			}
 			$order++;
 		}
@@ -499,6 +687,59 @@ function bright_stars_upgrade_clients() {
 }
 
 /**
+ * Backfill the rich detail meta on existing service posts from the defaults
+ * (matched by English title, so order/edits never break the mapping). Only
+ * fills empty fields, so admin edits are preserved. This makes the new
+ * per-service detail pages populate after a theme update or reactivation.
+ */
+function bright_stars_upgrade_services() {
+	$data     = bright_stars_default_data();
+	$details  = bright_stars_service_details();
+	$by_title = array();
+	foreach ( $data['services'] as $i => $s ) {
+		$by_title[ trim( $s['title']['en'] ) ] = $i;
+	}
+
+	$services = get_posts( array( 'post_type' => 'bs_service', 'post_status' => 'any', 'numberposts' => -1 ) );
+	foreach ( $services as $p ) {
+		$en    = get_post_meta( $p->ID, '_bs_title_en', true );
+		$key   = '' !== trim( (string) $en ) ? trim( (string) $en ) : trim( $p->post_title );
+		if ( ! isset( $by_title[ $key ] ) ) {
+			continue;
+		}
+		$i   = $by_title[ $key ];
+		$idx = $i + 1;
+		$s   = $data['services'][ $i ];
+
+		$fill = function ( $meta_key, $value ) use ( $p ) {
+			$cur = get_post_meta( $p->ID, $meta_key, true );
+			if ( '' === trim( (string) $cur ) && '' !== trim( (string) $value ) ) {
+				update_post_meta( $p->ID, $meta_key, $value );
+			}
+		};
+
+		$fill( '_bs_icon', $s['icon'] );
+		foreach ( array( 'en', 'ar', 'fa' ) as $lg ) {
+			if ( isset( $s['title'][ $lg ] ) ) {
+				$fill( '_bs_title_' . $lg, $s['title'][ $lg ] );
+			}
+			if ( isset( $s['desc'][ $lg ] ) ) {
+				$fill( '_bs_desc_' . $lg, $s['desc'][ $lg ] );
+			}
+		}
+		if ( isset( $details[ $idx ] ) ) {
+			foreach ( array( 'intro', 'stats', 'features', 'process', 'faq' ) as $b ) {
+				foreach ( array( 'en', 'ar', 'fa' ) as $lg ) {
+					if ( ! empty( $details[ $idx ][ $b ][ $lg ] ) ) {
+						$fill( '_bs_' . $b . '_' . $lg, $details[ $idx ][ $b ][ $lg ] );
+					}
+				}
+			}
+		}
+	}
+}
+
+/**
  * Build a Primary menu from the route pages and assign it to the location.
  */
 function bright_stars_create_menu() {
@@ -559,9 +800,10 @@ function bright_stars_run_setup( $force_seed = false ) {
 function bright_stars_after_switch_theme() {
 	$o = get_option( 'bright_stars_options', array() );
 	if ( is_array( $o ) && ! empty( $o['seeded'] ) ) {
-		// Re-activation: ensure pages exist and backfill any new client fields.
+		// Re-activation: ensure pages exist and backfill any new fields.
 		bright_stars_create_pages();
 		bright_stars_upgrade_clients();
+		bright_stars_upgrade_services();
 		flush_rewrite_rules();
 		update_option( 'bright_stars_data_version', BRIGHT_STARS_VERSION );
 		return;
@@ -584,6 +826,7 @@ function bright_stars_maybe_upgrade() {
 	if ( is_array( $o ) && ! empty( $o['seeded'] ) ) {
 		bright_stars_create_pages();
 		bright_stars_upgrade_clients();
+		bright_stars_upgrade_services();
 		flush_rewrite_rules();
 	}
 	update_option( 'bright_stars_data_version', BRIGHT_STARS_VERSION );
