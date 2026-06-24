@@ -80,6 +80,10 @@ function bs_i18n_dict() {
 			'ft.tag' => '< Lighting the path for your brand >', 'ft.services' => 'Services', 'ft.agency' => 'Agency', 'ft.contact' => 'Contact', 'ft.work' => 'Clients', 'ft.copy' => '© 2026 Bright Starts · Muscat, Oman', 'ft.legal' => 'Terms · Privacy',
 			// Generic UI.
 			'ui.menu' => 'Menu', 'ui.close' => 'Close', 'ui.readmore' => 'Read more', 'ui.back' => 'Back', 'ui.allposts' => 'All articles', 'ui.search' => 'Search', 'ui.lang' => 'Language',
+			// Client case study.
+			'cl.work_e' => 'Selected work', 'cl.work_h' => 'The feed we built', 'cl.work_sub' => 'Scroll through the real profiles — content, art direction and grids by Bright Starts.',
+			'cs.ig' => 'Visit on Instagram', 'cs.did_e' => 'What we did', 'cs.did_h' => 'The engagement', 'cs.res_e' => 'The results', 'cs.res_h' => 'What changed', 'cs.scroll' => '↕ Scroll inside the window', 'cs.next' => 'Next client', 'cs.start_big' => 'Start your project',
+			'ui.ok' => 'OK', 'f.missing' => 'Missing details', 'f.oops' => 'Something went wrong',
 		),
 		'ar' => array(
 			'nav.home' => 'الرئيسية', 'nav.services' => 'خدماتنا', 'nav.process' => 'آلية العمل', 'nav.clients' => 'عملاؤنا', 'nav.about' => 'من نحن', 'nav.pricing' => 'الباقات', 'nav.blog' => 'المدوّنة', 'nav.contact' => 'تواصل معنا', 'nav.start' => 'ابدأ مشروعك',
@@ -120,6 +124,9 @@ function bs_i18n_dict() {
 			'f.name' => 'الاسم الكامل', 'f.brand' => 'العلامة / الشركة', 'f.email' => 'البريد الإلكتروني', 'f.phone' => 'الهاتف / واتساب', 'f.service' => 'ما الذي تحتاجه؟', 'f.budget' => 'الميزانية الشهرية', 'f.msg' => 'حدّثنا عن مشروعك', 'f.send' => 'إرسال الطلب', 'f.opt' => 'اختر…', 'f.svc1' => 'سيو ونمو عضوي', 'f.svc2' => 'إعلانات مدفوعة', 'f.svc3' => 'وسائل تواصل', 'f.svc4' => 'محتوى وهوية', 'f.svc5' => 'موقع وتطبيق', 'f.svc6' => 'استراتيجية', 'f.b1' => 'أقل من ٥٠٠ ر.ع', 'f.b2' => '٥٠٠–١٥٠٠ ر.ع', 'f.b3' => '١٥٠٠–٣٠٠٠ ر.ع', 'f.b4' => '٣٠٠٠+ ر.ع', 'f.thanksH' => 'تم استلام طلبك', 'f.thanksSub' => 'شكراً لك — سيتواصل فريقنا معك خلال يوم عمل واحد.', 'f.error' => 'حدث خطأ ما. حاول مجدداً أو راسلنا مباشرة.', 'f.required' => 'يرجى إدخال اسمك ووسيلة للتواصل معك.',
 			'ft.tag' => '< نُنير الطريق لعلامتك التجارية >', 'ft.services' => 'خدماتنا', 'ft.agency' => 'الوكالة', 'ft.contact' => 'تواصل', 'ft.work' => 'عملاؤنا', 'ft.copy' => '© 2026 برايت ستارتس · مسقط، عُمان', 'ft.legal' => 'الشروط · الخصوصية',
 			'ui.menu' => 'القائمة', 'ui.close' => 'إغلاق', 'ui.readmore' => 'اقرأ المزيد', 'ui.back' => 'رجوع', 'ui.allposts' => 'كل المقالات', 'ui.search' => 'بحث', 'ui.lang' => 'اللغة',
+			'cl.work_e' => 'أعمال مختارة', 'cl.work_h' => 'الحساب الذي بنيناه', 'cl.work_sub' => 'تصفّح الحسابات الحقيقية — المحتوى والإخراج الفني والشبكة من برايت ستارتس.',
+			'cs.ig' => 'زيارة إنستغرام', 'cs.did_e' => 'ماذا فعلنا', 'cs.did_h' => 'نطاق العمل', 'cs.res_e' => 'النتائج', 'cs.res_h' => 'ما الذي تغيّر', 'cs.scroll' => '↕ مرّر داخل النافذة', 'cs.next' => 'العميل التالي', 'cs.start_big' => 'ابدأ مشروعك',
+			'ui.ok' => 'حسناً', 'f.missing' => 'معلومات ناقصة', 'f.oops' => 'حدث خطأ',
 		),
 		'fa' => array(
 			'nav.home' => 'خانه', 'nav.services' => 'خدمات', 'nav.process' => 'فرایند', 'nav.clients' => 'مشتریان', 'nav.about' => 'درباره ما', 'nav.pricing' => 'تعرفه‌ها', 'nav.blog' => 'وبلاگ', 'nav.contact' => 'تماس با ما', 'nav.start' => 'شروع پروژه',
@@ -160,6 +167,9 @@ function bs_i18n_dict() {
 			'f.name' => 'نام کامل', 'f.brand' => 'برند / شرکت', 'f.email' => 'ایمیل', 'f.phone' => 'تلفن / واتساپ', 'f.service' => 'به چه چیزی نیاز دارید؟', 'f.budget' => 'بودجهٔ ماهانه', 'f.msg' => 'دربارهٔ پروژه‌تان بگویید', 'f.send' => 'ارسال درخواست', 'f.opt' => 'انتخاب…', 'f.svc1' => 'سئو و ارگانیک', 'f.svc2' => 'تبلیغات پولی', 'f.svc3' => 'شبکه‌های اجتماعی', 'f.svc4' => 'محتوا و برندینگ', 'f.svc5' => 'وب و اپ', 'f.svc6' => 'استراتژی', 'f.b1' => 'زیر ۵۰۰ ر.ع', 'f.b2' => '۵۰۰ تا ۱۵۰۰ ر.ع', 'f.b3' => '۱۵۰۰ تا ۳۰۰۰ ر.ع', 'f.b4' => '۳۰۰۰+ ر.ع', 'f.thanksH' => 'درخواست دریافت شد', 'f.thanksSub' => 'ممنون — تیم ما ظرف یک روز کاری با شما تماس می‌گیرد.', 'f.error' => 'مشکلی پیش آمد. دوباره تلاش کنید یا مستقیم ایمیل بزنید.', 'f.required' => 'لطفاً نام و یک راه ارتباطی وارد کنید.',
 			'ft.tag' => '< روشن‌کردن مسیر برای برند شما >', 'ft.services' => 'خدمات', 'ft.agency' => 'آژانس', 'ft.contact' => 'تماس', 'ft.work' => 'مشتریان', 'ft.copy' => '© ۲۰۲۶ برایت استارتس · مسقط، عمان', 'ft.legal' => 'قوانین · حریم خصوصی',
 			'ui.menu' => 'منو', 'ui.close' => 'بستن', 'ui.readmore' => 'بیشتر بخوانید', 'ui.back' => 'بازگشت', 'ui.allposts' => 'همهٔ مقالات', 'ui.search' => 'جستجو', 'ui.lang' => 'زبان',
+			'cl.work_e' => 'کارهای منتخب', 'cl.work_h' => 'حسابی که ساختیم', 'cl.work_sub' => 'در حساب‌های واقعی پیمایش کنید — محتوا، مدیریت هنری و شبکه از برایت استارتس.',
+			'cs.ig' => 'دیدن در اینستاگرام', 'cs.did_e' => 'چه کردیم', 'cs.did_h' => 'محدودهٔ کار', 'cs.res_e' => 'نتایج', 'cs.res_h' => 'چه تغییر کرد', 'cs.scroll' => '↕ داخل پنجره پیمایش کنید', 'cs.next' => 'مشتری بعدی', 'cs.start_big' => 'پروژه‌ات را شروع کن',
+			'ui.ok' => 'باشه', 'f.missing' => 'اطلاعات ناقص', 'f.oops' => 'خطایی رخ داد',
 		),
 	);
 

@@ -54,7 +54,9 @@ function bright_stars_assets() {
 	// Keep the theme header stylesheet in the queue (no-JS fallback rules).
 	wp_enqueue_style( 'bright-stars-base', get_stylesheet_uri(), array( 'bright-stars' ), $ver );
 
-	wp_enqueue_script( 'bright-stars', bs_asset( 'js/theme.js' ), array(), $ver, true );
+	wp_enqueue_script( 'sweetalert2', 'https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js', array(), '11.14.5', true );
+
+	wp_enqueue_script( 'bright-stars', bs_asset( 'js/theme.js' ), array( 'sweetalert2' ), $ver, true );
 	wp_script_add_data( 'bright-stars', 'strategy', 'defer' );
 
 	wp_localize_script(
@@ -67,9 +69,14 @@ function bright_stars_assets() {
 			'rtl'         => bs_is_rtl_lang() ? 1 : 0,
 			'isFrontPage' => is_front_page() ? 1 : 0,
 			'i18n'        => array(
-				'sending'  => bs_t( 'cta.send' ),
-				'error'    => bs_t( 'f.error' ),
-				'required' => bs_t( 'f.required' ),
+				'sending'       => bs_t( 'cta.send' ),
+				'error'         => bs_t( 'f.error' ),
+				'errorTitle'    => bs_t( 'f.oops' ),
+				'required'      => bs_t( 'f.required' ),
+				'requiredTitle' => bs_t( 'f.missing' ),
+				'thanksH'       => bs_t( 'f.thanksH' ),
+				'thanksSub'     => bs_t( 'f.thanksSub' ),
+				'ok'            => bs_t( 'ui.ok' ),
 			),
 		)
 	);

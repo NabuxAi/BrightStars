@@ -272,6 +272,25 @@ function bs_logo_url( $variant = 'color' ) {
 }
 
 /**
+ * Resolve an image meta value that may be either an attachment ID (from the
+ * media picker) or a raw URL (from seeding / legacy data).
+ *
+ * @param mixed  $val  Attachment ID or URL.
+ * @param string $size Image size.
+ * @return string URL or ''.
+ */
+function bs_image_src( $val, $size = 'large' ) {
+	if ( empty( $val ) ) {
+		return '';
+	}
+	if ( is_numeric( $val ) ) {
+		$url = wp_get_attachment_image_url( (int) $val, $size );
+		return $url ? $url : '';
+	}
+	return (string) $val;
+}
+
+/**
  * The brand name shown in the header/footer.
  */
 function bs_brand_name() {

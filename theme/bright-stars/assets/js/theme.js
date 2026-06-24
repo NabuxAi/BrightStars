@@ -133,6 +133,29 @@
     onScroll();
   }
 
+  /* ---------- alerts (SweetAlert2 when present, else inline) ---------- */
+  var T = (cfg.i18n) || {};
+  function alertBox(opts, fallbackEl, fallbackMsg) {
+    if (window.Swal) {
+      return window.Swal.fire(Object.assign({
+        background: '#101826',
+        color: '#F4F7FB',
+        confirmButtonColor: '#F58021',
+        confirmButtonText: T.ok || 'OK',
+        buttonsStyling: true
+      }, opts));
+    }
+    if (fallbackEl) { fallbackEl.hidden = false; fallbackEl.textContent = fallbackMsg || (opts && opts.text) || ''; }
+    return Promise.resolve();
+  }
+
+  function markInvalid(el, on) {
+    if (!el) return;
+    el.style.borderColor = on ? '#F0524B' : '';
+  }
+
+  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
   /* ---------- contact form (AJAX) ---------- */
   function initForm() {
     var form = document.querySelector('[data-lead-form]');
@@ -141,36 +164,58 @@
     var errBox = form.querySelector('[data-lead-err]');
     var btn = form.querySelector('button[type="submit"]');
 
+    var fName = form.querySelector('[name="bs_name"]');
+    var fEmail = form.querySelector('[name="bs_email"]');
+    var fPhone = form.querySelector('[name="bs_phone"]');
+    var fMsg = form.querySelector('[name="bs_message"]');
+
+    [fName, fEmail, fPhone, fMsg].forEach(function (el) {
+      if (el) el.addEventListener('input', function () { markInvalid(el, false); if (errBox) errBox.textContent = ''; });
+    });
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       if (errBox) errBox.textContent = '';
-      var name = (form.querySelector('[name="bs_name"]') || {}).value || '';
-      var email = (form.querySelector('[name="bs_email"]') || {}).value || '';
-      var phone = (form.querySelector('[name="bs_phone"]') || {}).value || '';
-      if (!name.trim() || (!email.trim() && !phone.trim())) {
-        if (errBox) errBox.textContent = (cfg.i18n && cfg.i18n.required) || 'Please complete the form.';
+
+      var name = (fName && fName.value || '').trim();
+      var email = (fEmail && fEmail.value || '').trim();
+      var phone = (fPhone && fPhone.value || '').trim();
+      var msg = (fMsg && fMsg.value || '').trim();
+
+      // Strict validation: name, a valid email, a phone, and a message are all required.
+      var firstBad = null;
+      markInvalid(fName, false); markInvalid(fEmail, false); markInvalid(fPhone, false); markInvalid(fMsg, false);
+      if (!name) { markInvalid(fName, true); firstBad = firstBad || fName; }
+      if (!email || !isEmail(email)) { markInvalid(fEmail, true); firstBad = firstBad || fEmail; }
+      if (!phone) { markInvalid(fPhone, true); firstBad = firstBad || fPhone; }
+      if (!msg) { markInvalid(fMsg, true); firstBad = firstBad || fMsg; }
+
+      if (firstBad) {
+        if (firstBad.focus) firstBad.focus();
+        alertBox({ icon: 'warning', title: T.requiredTitle || 'Missing details', text: T.required || 'Please complete all fields.' }, errBox, T.required);
         return;
       }
+
       var data = new FormData(form);
       data.append('action', 'bright_stars_lead');
       data.append('nonce', cfg.nonce || '');
-      if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; }
+      if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.style.opacity = '.7'; }
 
       fetch(cfg.ajaxUrl, { method: 'POST', body: data, credentials: 'same-origin' })
         .then(function (r) { return r.json(); })
         .then(function (res) {
           if (res && res.success) {
-            if (okBox) { okBox.hidden = false; }
-            form.hidden = true;
-            if (okBox) okBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            form.reset();
+            alertBox({ icon: 'success', title: T.thanksH || 'Request received', text: (res && res.data) || T.thanksSub || '' });
+            if (okBox) { okBox.hidden = false; form.hidden = true; okBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
           } else {
-            if (errBox) errBox.textContent = (res && res.data) || (cfg.i18n && cfg.i18n.error) || 'Error';
-            if (btn) { btn.disabled = false; if (btn.dataset.label) btn.textContent = btn.dataset.label; }
+            alertBox({ icon: 'error', title: T.errorTitle || 'Something went wrong', text: (res && res.data) || T.error || 'Please try again.' }, errBox, (res && res.data) || T.error);
           }
+          if (btn) { btn.disabled = false; btn.style.opacity = ''; if (btn.dataset.label) btn.textContent = btn.dataset.label; }
         })
         .catch(function () {
-          if (errBox) errBox.textContent = (cfg.i18n && cfg.i18n.error) || 'Error';
-          if (btn) { btn.disabled = false; if (btn.dataset.label) btn.textContent = btn.dataset.label; }
+          alertBox({ icon: 'error', title: T.errorTitle || 'Something went wrong', text: T.error || 'Please try again.' }, errBox, T.error);
+          if (btn) { btn.disabled = false; btn.style.opacity = ''; if (btn.dataset.label) btn.textContent = btn.dataset.label; }
         });
     });
   }

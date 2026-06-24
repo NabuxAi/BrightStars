@@ -158,10 +158,18 @@ function bright_stars_cpt_fields() {
 			array( 'key' => 'initials', 'label' => 'Initials (avatar)', 'type' => 'text' ),
 		),
 		'bs_client' => array(
+			array( 'key' => 'logo', 'label' => 'Logo / profile image', 'type' => 'media', 'desc' => 'The round logo shown in the grid and case-study hero. (You can also use the Featured image.)' ),
+			array( 'key' => 'feed', 'label' => 'Instagram feed screenshot (the grid we built)', 'type' => 'media', 'desc' => 'Upload the Instagram grid screenshot — shown in the scrollable “feed we built” window.' ),
 			array( 'key' => 'category', 'label' => 'Category', 'type' => 'i18n_text' ),
+			array( 'key' => 'tagline', 'label' => 'Tagline', 'type' => 'i18n_text' ),
+			array( 'key' => 'brief', 'label' => 'Brief / the challenge', 'type' => 'i18n_textarea' ),
+			array( 'key' => 'services', 'label' => 'What we did (one per line)', 'type' => 'i18n_lines' ),
+			array( 'key' => 'results', 'label' => 'Results (one per line: value | label)', 'type' => 'i18n_lines' ),
+			array( 'key' => 'instagram', 'label' => 'Instagram URL', 'type' => 'url' ),
+			array( 'key' => 'handle', 'label' => 'Instagram handle (without @)', 'type' => 'text' ),
 			array( 'key' => 'website', 'label' => 'Website URL', 'type' => 'url' ),
+			array( 'key' => 'color', 'label' => 'Hero card gradient (CSS, optional)', 'type' => 'text' ),
 			array( 'key' => 'soon', 'label' => 'Show as “coming soon” placeholder', 'type' => 'checkbox' ),
-			array( 'key' => 'metric', 'label' => 'Headline result (e.g. +312% reach)', 'type' => 'i18n_text' ),
 		),
 	);
 }
@@ -233,10 +241,24 @@ function bright_stars_render_meta_box( $post, $box ) {
 				printf( '<option value="%s" %s>%s</option>', esc_attr( $ov ), selected( $val, $ov, false ), esc_html( $ol ) );
 			}
 			echo '</select>';
+		} elseif ( 'media' === $type ) {
+			$name  = '_bs_' . $key;
+			$val   = get_post_meta( $post->ID, $name, true );
+			$is_id = is_numeric( $val ) && (int) $val > 0;
+			$url   = $is_id ? wp_get_attachment_image_url( (int) $val, 'medium' ) : ( $val ? $val : '' );
+			echo '<div class="bs-mb-media">';
+			printf( '<input type="hidden" class="bs-mb-media-id" name="%s" value="%s" />', esc_attr( $name ), esc_attr( $val ) );
+			printf( '<img src="%s" class="bs-mb-media-prev" alt="" style="display:%s;max-width:170px;max-height:130px;border:1px solid #dcdcde;border-radius:8px;margin:6px 0" />', esc_url( $url ), $url ? 'block' : 'none' );
+			echo '<div><button type="button" class="button bs-mb-media-pick">' . esc_html__( 'Select / upload image', 'bright-stars' ) . '</button> ';
+			echo '<button type="button" class="button bs-mb-media-clear" style="' . ( $val ? '' : 'display:none' ) . '">' . esc_html__( 'Remove', 'bright-stars' ) . '</button></div>';
+			echo '</div>';
 		} else {
 			$name = '_bs_' . $key;
 			$val  = get_post_meta( $post->ID, $name, true );
 			printf( '<input type="%s" name="%s" value="%s" />', 'url' === $type ? 'url' : 'text', esc_attr( $name ), esc_attr( $val ) );
+		}
+		if ( ! empty( $f['desc'] ) ) {
+			echo '<p class="description">' . esc_html( $f['desc'] ) . '</p>';
 		}
 		echo '</div>';
 	}
@@ -286,6 +308,12 @@ function bright_stars_save_meta( $post_id ) {
 		} elseif ( 'checkbox' === $type ) {
 			$name = '_bs_' . $key;
 			update_post_meta( $post_id, $name, isset( $_POST[ $name ] ) ? '1' : '' );
+		} elseif ( 'media' === $type ) {
+			$name = '_bs_' . $key;
+			if ( isset( $_POST[ $name ] ) ) {
+				$raw = wp_unslash( $_POST[ $name ] );
+				update_post_meta( $post_id, $name, is_numeric( $raw ) ? (int) $raw : esc_url_raw( $raw ) );
+			}
 		} elseif ( 'url' === $type ) {
 			$name = '_bs_' . $key;
 			update_post_meta( $post_id, $name, isset( $_POST[ $name ] ) ? esc_url_raw( wp_unslash( $_POST[ $name ] ) ) : '' );
@@ -296,6 +324,57 @@ function bright_stars_save_meta( $post_id ) {
 	}
 }
 add_action( 'save_post', 'bright_stars_save_meta' );
+
+/**
+ * Load the media library on our CPT edit screens (for image meta fields).
+ */
+function bright_stars_cpt_media_enqueue( $hook ) {
+	if ( ! in_array( $hook, array( 'post.php', 'post-new.php' ), true ) ) {
+		return;
+	}
+	$screen = get_current_screen();
+	if ( $screen && array_key_exists( $screen->post_type, bright_stars_cpt_fields() ) ) {
+		wp_enqueue_media();
+	}
+}
+add_action( 'admin_enqueue_scripts', 'bright_stars_cpt_media_enqueue' );
+
+/**
+ * Wire up the image pickers in the CPT meta box.
+ */
+function bright_stars_cpt_media_footer() {
+	$screen = get_current_screen();
+	if ( ! $screen || ! array_key_exists( $screen->post_type, bright_stars_cpt_fields() ) ) {
+		return;
+	}
+	?>
+	<script>
+	(function(){
+		document.querySelectorAll('.bs-mb-media').forEach(function(box){
+			var idField = box.querySelector('.bs-mb-media-id');
+			var prev = box.querySelector('.bs-mb-media-prev');
+			var clear = box.querySelector('.bs-mb-media-clear');
+			box.querySelector('.bs-mb-media-pick').addEventListener('click', function(e){
+				e.preventDefault();
+				var frame = wp.media({ title: 'Select or upload image', multiple: false, library: { type: 'image' } });
+				frame.on('select', function(){
+					var a = frame.state().get('selection').first().toJSON();
+					idField.value = a.id;
+					var src = (a.sizes && a.sizes.medium) ? a.sizes.medium.url : a.url;
+					prev.src = src; prev.style.display = 'block'; clear.style.display = '';
+				});
+				frame.open();
+			});
+			clear.addEventListener('click', function(e){
+				e.preventDefault(); idField.value = ''; prev.src = ''; prev.style.display = 'none'; clear.style.display = 'none';
+			});
+		});
+	})();
+	</script>
+	<?php
+}
+add_action( 'admin_footer-post.php', 'bright_stars_cpt_media_footer' );
+add_action( 'admin_footer-post-new.php', 'bright_stars_cpt_media_footer' );
 
 /**
  * Helper: fetch ordered items of a CPT.
