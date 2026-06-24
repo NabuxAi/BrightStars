@@ -295,7 +295,7 @@ function bs_image_src( $val, $size = 'large' ) {
  */
 function bs_brand_name() {
 	$name = bs_opt( 'brand_name' );
-	return $name ? $name : 'Bright Starts';
+	return $name ? $name : 'Bright Stars';
 }
 
 /**

@@ -31,7 +31,7 @@ function bright_stars_settings_schema() {
 		'general' => array(
 			'label'  => __( 'General', 'bright-stars' ),
 			'fields' => array(
-				array( 'key' => 'brand_name', 'label' => 'Brand name', 'type' => 'text', 'default' => 'Bright Starts' ),
+				array( 'key' => 'brand_name', 'label' => 'Brand name', 'type' => 'text', 'default' => 'Bright Stars' ),
 				array( 'key' => 'brand_location', 'label' => 'Location strapline', 'type' => 'text', 'default' => 'Muscat · Oman' ),
 				array( 'key' => 'logo_color', 'label' => 'Logo (on dark)', 'type' => 'media', 'desc' => 'Shown in the header & footer. Defaults to the bundled mark.' ),
 				array( 'key' => 'logo_white', 'label' => 'Logo (white / alt)', 'type' => 'media' ),
