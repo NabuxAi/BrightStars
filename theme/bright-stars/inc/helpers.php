@@ -44,7 +44,9 @@ function bs_lang() {
 	}
 	$allowed = bs_langs();
 	$candidate = '';
-	if ( isset( $_GET['lang'] ) ) {
+	if ( ! empty( $GLOBALS['bs_url_lang'] ) ) {
+		$candidate = $GLOBALS['bs_url_lang'];
+	} elseif ( isset( $_GET['lang'] ) ) {
 		$candidate = sanitize_key( wp_unslash( $_GET['lang'] ) );
 	} elseif ( isset( $_COOKIE['bs_lang'] ) ) {
 		$candidate = sanitize_key( wp_unslash( $_COOKIE['bs_lang'] ) );
@@ -164,7 +166,9 @@ function bs_meta( $post_id, $base, $default = '', $lang = null ) {
  * Build a URL that switches the site to a given language (no-JS fallback).
  */
 function bs_lang_url( $lang ) {
-	return esc_url( add_query_arg( 'lang', $lang ) );
+	$req   = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '/';
+	$clean = remove_query_arg( 'lang', $req ); // The /ar|/fa prefix is already stripped on init.
+	return esc_url( bs_add_lang_prefix( home_url( $clean ), $lang ) );
 }
 
 /**
@@ -305,21 +309,20 @@ function bs_brand_name() {
  */
 function bs_route_url( $route ) {
 	$map = bs_opt( 'route_pages', array() );
+	$url = '';
 	if ( is_array( $map ) && ! empty( $map[ $route ] ) ) {
 		$url = get_permalink( (int) $map[ $route ] );
-		if ( $url ) {
-			return $url;
-		}
 	}
-	if ( 'home' === $route ) {
-		return home_url( '/' );
-	}
-	if ( 'blog' === $route ) {
+	if ( ! $url && 'blog' === $route ) {
 		$posts_page = (int) get_option( 'page_for_posts' );
 		if ( $posts_page ) {
-			return get_permalink( $posts_page );
+			$url = get_permalink( $posts_page );
 		}
 	}
-	// Last resort: a guessed pretty permalink.
-	return home_url( '/' . $route . '/' );
+	if ( ! $url ) {
+		$url = ( 'home' === $route ) ? home_url( '/' ) : home_url( '/' . $route . '/' );
+	}
+	// get_permalink() is already localised by the permalink filters; home_url()
+	// is not — bs_localize_url() is idempotent, so this is safe for both.
+	return function_exists( 'bs_localize_url' ) ? bs_localize_url( $url ) : $url;
 }

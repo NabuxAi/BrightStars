@@ -175,6 +175,9 @@ add_filter( 'document_title_parts', 'bright_stars_document_title_parts' );
 
 function bright_stars_seo_head() {
 	$canonical = bright_stars_canonical_url();
+	if ( function_exists( 'bs_strip_lang_prefix' ) ) {
+		$canonical = bs_strip_lang_prefix( $canonical ); // Always the clean / default-language base.
+	}
 	$desc      = bright_stars_meta_description();
 	$image     = bright_stars_share_image();
 	$title     = bright_stars_seo_title();
@@ -191,11 +194,12 @@ function bright_stars_seo_head() {
 	if ( $desc ) {
 		echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
 	}
-	echo '<link rel="canonical" href="' . esc_url( $canonical ) . '">' . "\n";
+	$self = function_exists( 'bs_add_lang_prefix' ) ? bs_add_lang_prefix( $canonical, $cur ) : $canonical;
+	echo '<link rel="canonical" href="' . esc_url( $self ) . '">' . "\n";
 
-	// hreflang alternates.
+	// hreflang alternates (path-based: en clean, ar -> /ar/, fa -> /fa/).
 	foreach ( bs_langs() as $lg ) {
-		$alt = ( $lg === bs_default_lang() ) ? $canonical : add_query_arg( 'lang', $lg, $canonical );
+		$alt = function_exists( 'bs_add_lang_prefix' ) ? bs_add_lang_prefix( $canonical, $lg ) : $canonical;
 		echo '<link rel="alternate" hreflang="' . esc_attr( $lg ) . '" href="' . esc_url( $alt ) . '">' . "\n";
 	}
 	echo '<link rel="alternate" hreflang="x-default" href="' . esc_url( $canonical ) . '">' . "\n";
@@ -207,7 +211,7 @@ function bright_stars_seo_head() {
 	if ( $desc ) {
 		echo '<meta property="og:description" content="' . esc_attr( $desc ) . '">' . "\n";
 	}
-	echo '<meta property="og:url" content="' . esc_url( $canonical ) . '">' . "\n";
+	echo '<meta property="og:url" content="' . esc_url( $self ) . '">' . "\n";
 	if ( $image ) {
 		echo '<meta property="og:image" content="' . esc_url( $image ) . '">' . "\n";
 	}
@@ -228,7 +232,7 @@ function bright_stars_seo_head() {
 		echo '<meta name="twitter:image" content="' . esc_url( $image ) . '">' . "\n";
 	}
 
-	bright_stars_json_ld( $canonical, $desc, $image );
+	bright_stars_json_ld( $self, $desc, $image );
 	echo "<!-- /Bright Stars SEO -->\n";
 }
 add_action( 'wp_head', 'bright_stars_seo_head', 1 );

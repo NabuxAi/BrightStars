@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'BRIGHT_STARS_VERSION', '1.4.4' );
+define( 'BRIGHT_STARS_VERSION', '1.5.0' );
 define( 'BRIGHT_STARS_DIR', get_template_directory() );
 define( 'BRIGHT_STARS_URI', get_template_directory_uri() );
 
@@ -20,6 +20,7 @@ define( 'BRIGHT_STARS_URI', get_template_directory_uri() );
 $bright_stars_modules = array(
 	'/inc/i18n.php',          // Trilingual string dictionary (en/ar/fa).
 	'/inc/helpers.php',       // bs_lang(), bs_opt(), bs_t(), bs_field(), bs_icon()…
+	'/inc/i18n-urls.php',     // Path-based /ar/ + /fa/ language routing + SEO URLs.
 	'/inc/setup.php',         // Theme supports, menus, image sizes.
 	'/inc/enqueue.php',       // Styles, scripts, Google fonts.
 	'/inc/cpt.php',           // Custom post types (clients, services, pricing…).
