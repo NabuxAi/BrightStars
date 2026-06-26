@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<header class="bs-header bs-pad">
-		<a class="bs-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+		<a class="bs-brand" href="<?php echo esc_url( bs_route_url( 'home' ) ); ?>">
 			<img src="<?php echo esc_url( bs_logo_url( 'color' ) ); ?>" alt="<?php echo esc_attr( bs_brand_name() ); ?>" width="34" height="34">
 			<span class="bs-brand__txt">
 				<span class="bs-brand__name"><?php echo esc_html( bs_brand_name() ); ?></span>

@@ -824,6 +824,11 @@ function bright_stars_maybe_upgrade() {
 	}
 	$o = get_option( 'bright_stars_options', array() );
 	if ( is_array( $o ) && ! empty( $o['seeded'] ) ) {
+		// One-time: correct the legacy brand-name typo ("Bright Starts" -> "Bright Stars").
+		if ( isset( $o['brand_name'] ) && 'Bright Starts' === trim( (string) $o['brand_name'] ) ) {
+			$o['brand_name'] = 'Bright Stars';
+			update_option( 'bright_stars_options', $o );
+		}
 		bright_stars_create_pages();
 		bright_stars_upgrade_clients();
 		bright_stars_upgrade_services();
